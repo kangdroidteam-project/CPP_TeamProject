@@ -1,3 +1,6 @@
+// Bug3(VS-Specific): _kbhit / kbhit
+#pragma warning(disable:4996)
+
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
