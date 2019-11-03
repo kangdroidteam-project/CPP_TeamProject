@@ -114,6 +114,7 @@ int main(int argc, char* argv[]) {
     while (1) {
 
         input_data();
+        is_gameover = 0; // Bug3: Must set is_gameover to 0 otherwise we can't play game after 1st-over.
         show_total_block();
         block_shape = make_new_block();
         next_block_shape = make_new_block();
