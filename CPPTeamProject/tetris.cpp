@@ -2,6 +2,11 @@
 #include <conio.h>
 #include <string.h>
 
+// Bug 1. Windows.h is NOT Included
+// Bug 2. time.h is NOT Included.
+#include <Windows.h>
+#include <time.h>
+
 //*********************************
 //상수 선언
 //*********************************
