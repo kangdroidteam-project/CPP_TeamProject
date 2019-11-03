@@ -175,7 +175,7 @@ int main(int argc, char* argv[]) {
                 show_cur_block(block_shape, block_angle, block_x, block_y);
             }
 
-            if (stage_data[level].clear_line == lines)	//클리어 스테이지
+            if (stage_data[level].clear_line <= lines)	//클리어 스테이지
             {
                 level++;
                 lines = 0;
