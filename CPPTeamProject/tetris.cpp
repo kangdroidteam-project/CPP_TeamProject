@@ -631,7 +631,7 @@ int show_logo() {
     gotoxy(28, 20);
     printf("Please Press Any Key~!");
 
-    for (i = 0; i >= 0; i++) { // that i >= 1 could changed to 1(true) BUG
+    for (i = 0; 1; i++) { // that i >= 1 could changed to 1(true) BUG
         if (i % 40 == 0) { // So this is the change-rate(Refresh rate) of Logo
 
 
