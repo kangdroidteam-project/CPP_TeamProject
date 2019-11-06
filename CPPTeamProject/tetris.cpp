@@ -636,7 +636,7 @@ int show_logo() {
 
 
             for (j = 0; j < 5; j++) { // This is manually erasing blocks on Logo. Bug 11 Related.(Patch required)
-                gotoxy(18, 14 + j); // The x Value should be from 6;(BUG)
+                gotoxy(6, 14 + j); // The x Value should be from 6;(BUG)
                 printf("                                                          "); // erase it
 
 
