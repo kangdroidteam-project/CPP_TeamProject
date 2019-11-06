@@ -384,11 +384,10 @@ int make_new_block() {
     int shape;
     int i;
     i = rand() % 100;
-    if (i <= 50/*stage_data[level].stick_rate*/)		//막대기 나올확률 계산
+    if (i <= stage_data[level].stick_rate)		//막대기 나올확률 계산
         return 0;							//막대기 모양으로 리턴
 
-    //shape = (rand() % 2) + 1;		//shape에는 1~6의 값이 들어감
-    shape = 1;
+    shape = (rand() % 6) + 1;		//shape에는 1~6의 값이 들어감
     return shape;
 }
 
