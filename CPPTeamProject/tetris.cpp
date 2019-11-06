@@ -59,6 +59,10 @@ int score;
 int lines;
 char total_block[21][14];		//화면에 표시되는 블럭들
 struct STAGE stage_data[10];
+
+/**
+ * 7-shape, 4 rotation(by 90 deg), 4 * 4 matrix of data.
+ */
 char block[7][4][4][4] = {
     //막대모양
     1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,	1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,	1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,	1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -97,7 +101,7 @@ int strike_check(int shape, int angle, int x, int y);	//블럭이 화면 맨 아래에 부
 int merge_block(int shape, int angle, int x, int y);	//블럭이 바닥에 닿았을때 진행중인 블럭과 쌓아진 블럭을 합침
 int block_start(int shape, int* angle, int* x, int* y);	//블럭이 처음 나올때 위치와 모양을 알려줌
 int move_block(int* shape, int* angle, int* x, int* y, int* next_shape);	//게임오버는 1을리턴 바닥에 블럭이 닿으면 2를 리턴
-int rotate_block(int shape, int* angle, int* x, int* y);
+int rotate_block(int shape, int* angle, int* x, int* y); //?
 int show_gameover();
 int show_gamestat();
 int show_logo();
@@ -106,10 +110,10 @@ int check_full_line();
 
 
 int main(int argc, char* argv[]) {
-    int i;
-    int is_gameover = 0;
+    int i; // Iterator variable?
+    int is_gameover = 0; // The Boolean type check variable.
     char keytemp;
-    init();
+    init(); // Initiate.
     show_logo();
     while (1) {
 
@@ -117,9 +121,9 @@ int main(int argc, char* argv[]) {
         is_gameover = 0; // Bug3: Must set is_gameover to 0 otherwise we can't play game after 1st-over.
         show_total_block();
         block_shape = make_new_block();
-        next_block_shape = make_new_block();
-        show_next_block(next_block_shape);
-        block_start(block_shape, &block_angle, &block_x, &block_y);
+        next_block_shape = make_new_block(); // Something different from previous one.
+        show_next_block(next_block_shape); // Show next block
+        block_start(block_shape, &block_angle, &block_x, &block_y); // Start from first block. - block_shape = first block. Inits coord/angle.
         show_gamestat();
         for (i = 1; 1; i++) {
             if (kbhit()) {
@@ -128,7 +132,6 @@ int main(int argc, char* argv[]) {
                     keytemp = getche();
                     switch (keytemp) {
                     case KEY_UP:		//회전하기
-
                         if (strike_check(block_shape, (block_angle + 1) % 4, block_x, block_y) == 0) {
                             erase_cur_block(block_shape, block_angle, block_x, block_y);
                             block_angle = (block_angle + 1) % 4;
@@ -212,12 +215,19 @@ void SetColor(int color)
 
 }
 
+/**
+ * The Questions.
+ * 1. Why init should return 0? Seems like nothing is taking return value of init.
+ */
 int init() {
-    int i, j;
+    int i, j; // The Iterator variable. it really doesnt have to be in this line.
 
-    srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL)); // Randomize Seed. BUT, Also we DO NOT Need to initiate rand twice. BUG
 
-
+    /**
+     * So, This iteration does:
+     * 1. Every i, for j = 0, j = 13, set its var to 1.
+     */
     for (i = 0; i < 20; i++) {
         for (j = 0; j < 14; j++) {
             if ((j == 0) || (j == 13)) {
@@ -230,13 +240,16 @@ int init() {
 
     for (j = 0; j < 14; j++)			//화면의 제일 밑의 줄은 1로 채운다.
         total_block[20][j] = 1;
+    // Afterall, those Iteration could minimize(or combine)
+    // And those two for-operation does make some kind of beaker-shape array.
 
     //전역변수 초기화
     level = 0;
     lines = 0;
-    ab_x = 5;
+    ab_x = 5; /*So, is it starting from 1, 5? */
     ab_y = 1;
 
+    // Initiate stage level data.
     stage_data[0].speed = 40;
     stage_data[0].stick_rate = 20;
     stage_data[0].clear_line = 20;
@@ -270,9 +283,17 @@ int init() {
     return 0;
 }
 
-int show_cur_block(int shape, int angle, int x, int y) {
-    int i, j;
 
+/**
+ * Shows shape-angle from point.
+ * shape: Could be random, but anyway, its shape of block.
+ * angle: Could be random, but also, its rotation of block.
+ * x/y: Could be random, absolute starting point.
+ */
+int show_cur_block(int shape, int angle, int x, int y) {
+    int i, j; // The iteration variable. - Could be localized.
+
+    // Set Color based on block shape.
     switch (shape) {
     case 0:
         SetColor(RED);
@@ -299,9 +320,10 @@ int show_cur_block(int shape, int angle, int x, int y) {
 
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
-            if ((j + y) < 0)
+            if ((j + y) < 0) // Absolute starting point of y + j < 0
                 continue;
 
+            // Somewhat print damn thing
             if (block[shape][angle][j][i] == 1) {
                 gotoxy((i + x) * 2 + ab_x, j + y + ab_y);
                 printf("■");
@@ -343,6 +365,8 @@ int show_total_block() {
             } else {
                 SetColor(DARK_GRAY);
             }
+
+            // Not checked from now.
             gotoxy((j * 2) + ab_x, i + ab_y);
             if (total_block[i][j] == 1) {
                 printf("■");
@@ -405,6 +429,8 @@ int merge_block(int shape, int angle, int x, int y) {
     return 0;
 }
 
+// Set initial state for first-block start.
+// shape could be abundance. BUG
 int block_start(int shape, int* angle, int* x, int* y) {
 
     *x = 5;
@@ -440,8 +466,7 @@ int move_block(int* shape, int* angle, int* x, int* y, int* next_shape) {
     (*y)++;	//블럭을 한칸 아래로 내림
     if (strike_check(*shape, *angle, *x, *y) == 1) {
         if (*y <= 0)	//게임오버
-        {
-
+        { 
             return 1;
         }
         (*y)--;
@@ -496,6 +521,12 @@ int check_full_line() {
     return 0;
 }
 
+
+/**
+ * Show next block on Top-Right.
+ * It basically make box and IN THAT BOX, they show next block.
+ * Shape is previously created by make_new_block();
+ */
 int show_next_block(int shape) {
     int i, j;
     SetColor((level + 1) % 6 + 1);
@@ -510,6 +541,7 @@ int show_next_block(int shape) {
 
         }
     }
+    // So it would show block created by make_new_block();
     show_cur_block(shape, 0, 15, 1);
     return 0;
 }
@@ -539,7 +571,7 @@ int show_gamestat() {
 }
 
 int input_data() {
-    int i = 0;
+    int i = 0; // checking variable for input(level)
     SetColor(GRAY);
     gotoxy(10, 7);
     printf("┏━━━━<GAME KEY>━━━━━┓");
@@ -562,7 +594,7 @@ int input_data() {
     gotoxy(10, 13);
     printf("┗━━━━━━━━━━━━━━┛");
 
-
+    // i is checking variable for input(level)
     while (i < 1 || i>8) {
         gotoxy(10, 3);
         printf("Select Start level[1-8]:       \b\b\b\b\b\b\b");
@@ -570,7 +602,7 @@ int input_data() {
     }
 
 
-    level = i - 1;
+    level = i - 1; // For index.
     system("cls");
     return 0;
 }
@@ -601,13 +633,13 @@ int show_logo() {
     gotoxy(28, 20);
     printf("Please Press Any Key~!");
 
-    for (i = 0; i >= 0; i++) {
-        if (i % 40 == 0) {
+    for (i = 0; i >= 0; i++) { // that i >= 1 could changed to 1(true) BUG
+        if (i % 40 == 0) { // So this is the change-rate(Refresh rate) of Logo
 
 
-            for (j = 0; j < 5; j++) {
-                gotoxy(18, 14 + j);
-                printf("                                                          ");
+            for (j = 0; j < 5; j++) { // This is manually erasing blocks on Logo. Bug 11 Related.(Patch required)
+                gotoxy(18, 14 + j); // The x Value should be from 6;(BUG)
+                printf("                                                          "); // erase it
 
 
             }
@@ -616,11 +648,17 @@ int show_logo() {
             show_cur_block(rand() % 7, rand() % 4, 19, 14);
             show_cur_block(rand() % 7, rand() % 4, 24, 14);
         }
-        if (kbhit())
+        if (kbhit()) // maybe able to change kbhit to getche?
             break;
-        Sleep(30);
+        
+        /**
+         * The fresh-rate
+         * 30ms + (The time in Counter which exceeds 40 * something)
+         */
+        Sleep(30); // in ms
     }
 
+    // We Entered something. Clear it in buffer.
     getche();
     system("cls");
 
