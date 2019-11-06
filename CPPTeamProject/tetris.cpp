@@ -113,6 +113,7 @@ int main(int argc, char* argv[]) {
     int i; // Iterator variable?
     int is_gameover = 0; // The Boolean type check variable.
     char keytemp;
+    srand((unsigned)time(NULL)); // Randomize Seed. BUT, Also we DO NOT Need to initiate rand twice. BUG
     init(); // Initiate.
     show_logo();
     while (1) {
@@ -221,8 +222,6 @@ void SetColor(int color)
  */
 int init() {
     int i, j; // The Iterator variable. it really doesnt have to be in this line.
-
-    srand((unsigned)time(NULL)); // Randomize Seed. BUT, Also we DO NOT Need to initiate rand twice. BUG
 
     /**
      * So, This iteration does:
