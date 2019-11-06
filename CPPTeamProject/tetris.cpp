@@ -113,13 +113,13 @@ int main(int argc, char* argv[]) {
     int i; // Iterator variable?
     int is_gameover = 0; // The Boolean type check variable.
     char keytemp;
-    srand((unsigned)time(NULL)); // Randomize Seed. BUT, Also we DO NOT Need to initiate rand twice. BUG
+    srand((unsigned)time(NULL));
     init(); // Initiate.
     show_logo();
     while (1) {
 
         input_data();
-        is_gameover = 0; // Bug3: Must set is_gameover to 0 otherwise we can't play game after 1st-over.
+        is_gameover = 0; 
         show_total_block();
         block_shape = make_new_block();
         next_block_shape = make_new_block(); // Something different from previous one.
@@ -179,11 +179,11 @@ int main(int argc, char* argv[]) {
                 show_cur_block(block_shape, block_angle, block_x, block_y);
             }
 
-            if (stage_data[level].clear_line <= lines)	//클리어 스테이지
+            /*if (stage_data[level].clear_line <= lines)	//클리어 스테이지
             {
                 level++;
                 lines = 0;
-            }
+            }*/
             if (is_gameover == 1) {
                 show_gameover();
                 SetColor(GRAY);
@@ -335,6 +335,7 @@ int show_cur_block(int shape, int angle, int x, int y) {
     return 0;
 }
 
+//Erase current block information(More likely, override with spaces)
 int erase_cur_block(int shape, int angle, int x, int y) {
     int i, j;
     for (i = 0; i < 4; i++) {
@@ -391,7 +392,8 @@ int make_new_block() {
     return shape;
 }
 
-
+//Check wheter block is touching elswhere.
+//Returns 1 if they are touching anything, 0 when not.
 int strike_check(int shape, int angle, int x, int y) {
     int i, j;
     int block_dat;
@@ -400,11 +402,11 @@ int strike_check(int shape, int angle, int x, int y) {
         for (j = 0; j < 4; j++) {
             if (((x + j) == 0) || ((x + j) == 13))
                 block_dat = 1;
-            else
+            else {
+                if ((y + i) < 0) continue;
                 block_dat = total_block[y + i][x + j];
-
-
-            if ((block_dat == 1) && (block[shape][angle][i][j] == 1))																							//좌측벽의 좌표를 빼기위함
+            }
+            if ((block_dat == 1) && (block[shape][angle][i][j] == 1))                                                                     //좌측벽의 좌표를 빼기위함
             {
                 return 1;
             }
@@ -412,7 +414,6 @@ int strike_check(int shape, int angle, int x, int y) {
     }
     return 0;
 }
-
 int merge_block(int shape, int angle, int x, int y) {
     int i, j;
     for (i = 0; i < 4; i++) {
@@ -427,7 +428,6 @@ int merge_block(int shape, int angle, int x, int y) {
 }
 
 // Set initial state for first-block start.
-// shape could be abundance. BUG
 int block_start(int* angle, int* x, int* y) {
     *x = 5;
     *y = -3;
@@ -461,11 +461,11 @@ int move_block(int* shape, int* angle, int* x, int* y, int* next_shape) {
 
     (*y)++;	//블럭을 한칸 아래로 내림
     if (strike_check(*shape, *angle, *x, *y) == 1) {
+        (*y)--;
         if (*y <= 0)	//게임오버
         { 
             return 1;
         }
-        (*y)--;
         merge_block(*shape, *angle, *x, *y);
         *shape = *next_shape;
         *next_shape = make_new_block();
@@ -511,6 +511,11 @@ int check_full_line() {
             for (j = 1; j < 13; j++)
                 total_block[0][j] = 0;
             score += 100 + (level * 10) + (rand() % 10);
+            if (stage_data[level].clear_line <= lines)	//클리어 스테이지
+            {
+                level++;
+                lines = 0;
+            }
             show_gamestat();
         }
     }
@@ -629,12 +634,12 @@ int show_logo() {
     gotoxy(28, 20);
     printf("Please Press Any Key~!");
 
-    for (i = 0; 1; i++) { // that i >= 1 could changed to 1(true) BUG
+    for (i = 0; 1; i++) {
         if (i % 40 == 0) { // So this is the change-rate(Refresh rate) of Logo
 
 
-            for (j = 0; j < 5; j++) { // This is manually erasing blocks on Logo. Bug 11 Related.(Patch required)
-                gotoxy(6, 14 + j); // The x Value should be from 6;(BUG)
+            for (j = 0; j < 5; j++) {
+                gotoxy(6, 14 + j);
                 printf("                                                          "); // erase it
 
 
