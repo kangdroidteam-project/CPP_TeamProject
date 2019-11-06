@@ -390,7 +390,6 @@ int make_new_block() {
 
     //shape = (rand() % 2) + 1;		//shape에는 1~6의 값이 들어감
     shape = 1;
-    show_next_block(shape);
     return shape;
 }
 
