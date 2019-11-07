@@ -165,12 +165,15 @@ int main(int argc, char* argv[]) {
                         show_cur_block(block_shape, block_angle, block_x, block_y);
                         break;
                     }
-                }
-                if (keytemp == 32)	//스페이스바를 눌렀을때
+                } else if (keytemp == 32)	//스페이스바를 눌렀을때
                 {
                     while (is_gameover == 0) {
                         is_gameover = move_block(&block_shape, &block_angle, &block_x, &block_y, &next_block_shape);
                     }
+                    show_cur_block(block_shape, block_angle, block_x, block_y);
+                } else {
+                    // Clear out 
+                    erase_cur_block(block_shape, block_angle, block_x, block_y);
                     show_cur_block(block_shape, block_angle, block_x, block_y);
                 }
             }
