@@ -1,4 +1,5 @@
 // Bug3(VS-Specific): _kbhit / kbhit
+// CMD: cl /wd4996 /wd4819 tetris.cpp || nvcc -Xcompiler /wd4996 /wd4819 tetris.cpp
 #pragma warning(disable:4996)
 
 #include <stdio.h>
@@ -102,7 +103,6 @@ int strike_check(int shape, int angle, int* x, int y, int isRot);	//블럭이 화면 
 int merge_block(int shape, int angle, int x, int y);	//블럭이 바닥에 닿았을때 진행중인 블럭과 쌓아진 블럭을 합침
 int block_start(int* angle, int* x, int* y);	//블럭이 처음 나올때 위치와 모양을 알려줌
 int move_block(int* shape, int* angle, int* x, int* y, int* next_shape);	//게임오버는 1을리턴 바닥에 블럭이 닿으면 2를 리턴
-int rotate_block(int shape, int* angle, int* x, int* y); //?
 int show_gameover();
 int show_gamestat();
 int show_logo();
@@ -167,8 +167,7 @@ int main(int argc, char* argv[]) {
                         show_cur_block(block_shape, block_angle, block_x, block_y);
                         break;
                     }
-                } else if (keytemp == 32)	//스페이스바를 눌렀을때
-                {
+                } else if (keytemp == 32) { //스페이스바를 눌렀을때
                     while (is_gameover == 0) {
                         is_gameover = move_block(&block_shape, &block_angle, &block_x, &block_y, &next_block_shape);
                     }
@@ -185,11 +184,6 @@ int main(int argc, char* argv[]) {
                 show_cur_block(block_shape, block_angle, block_x, block_y);
             }
 
-            /*if (stage_data[level].clear_line <= lines)	//클리어 스테이지
-            {
-                level++;
-                lines = 0;
-            }*/
             if (is_gameover == 1) {
                 show_gameover();
                 SetColor(GRAY);
@@ -357,8 +351,6 @@ int erase_cur_block(int shape, int angle, int x, int y) {
     return 0;
 }
 
-
-
 int show_total_block() {
     int i, j;
     SetColor(DARK_GRAY);
@@ -490,10 +482,6 @@ int move_block(int* shape, int* angle, int* x, int* y, int* next_shape) {
     return 0;
 }
 
-int rotate_block(int shape, int* angle, int* x, int* y) {
-    return 0;
-}
-
 int check_full_line() {
     int i, j, k;
     for (i = 0; i < 20; i++) {
@@ -501,8 +489,7 @@ int check_full_line() {
             if (total_block[i][j] == 0)
                 break;
         }
-        if (j == 13)	//한줄이 다 채워졌음
-        {
+        if (j == 13) { //한줄이 다 채워졌음
             lines++;
             show_total_block();
             SetColor(BLUE);
@@ -524,8 +511,7 @@ int check_full_line() {
             for (j = 1; j < 13; j++)
                 total_block[0][j] = 0;
             score += 100 + (level * 10) + (rand() % 10);
-            if (stage_data[level].clear_line <= lines)	//클리어 스테이지
-            {
+            if (stage_data[level].clear_line <= lines) { //클리어 스테이지
                 level++;
                 lines = 0;
             }
@@ -572,8 +558,6 @@ int show_gamestat() {
 
         gotoxy(35, 12);
         printf("LINES");
-
-
     }
     gotoxy(41, 7);
     printf("%d", level + 1);
@@ -615,7 +599,6 @@ int input_data() {
         scanf("%d", &i);
     }
 
-
     level = i - 1; // For index.
     system("cls");
     return 0;
@@ -650,13 +633,11 @@ int show_logo() {
     for (i = 0; 1; i++) {
         if (i % 40 == 0) { // So this is the change-rate(Refresh rate) of Logo
 
-
             for (j = 0; j < 5; j++) {
                 gotoxy(6, 14 + j);
                 printf("                                                          "); // erase it
-
-
             }
+
             show_cur_block(rand() % 7, rand() % 4, 6, 14);
             show_cur_block(rand() % 7, rand() % 4, 12, 14);
             show_cur_block(rand() % 7, rand() % 4, 19, 14);
