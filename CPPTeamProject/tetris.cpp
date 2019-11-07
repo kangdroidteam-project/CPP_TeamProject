@@ -27,10 +27,36 @@ using namespace std;
 //*********************************
 //구조체 선언
 //*********************************
-struct STAGE {		//각 스테이지마다의 난이도 설정
+
+class StageInformation {
+private:
     int	speed;	//숫자가 낮을수록 속도가 빠르다
     int stick_rate;		//막대가 나오는 확률 0~99 , 99면 막대기만 나옴
     int clear_line;
+public:
+    void init(int speed, int stick_rate, int clear_line) {
+        this->speed = speed;
+        this->stick_rate = stick_rate;
+        this->clear_line = clear_line;
+    }
+    int getSpeed() {
+        return this->speed;
+    }
+    int getStickRate() {
+        return this->stick_rate;
+    }
+    int getClearLine() {
+        return this->clear_line;
+    }
+    void setSpeed(int speed) {
+        this->speed = speed;
+    }
+    void setStickRate(int stick_rate) {
+        this->stick_rate = stick_rate;
+    }
+    void setClearLine(int clear_line) {
+        this->clear_line = clear_line;
+    }
 };
 
 enum {
@@ -63,7 +89,7 @@ int score;
 int lines;
 int ctr;
 char total_block[21][14];		//화면에 표시되는 블럭들
-struct STAGE stage_data[10];
+StageInformation stage_data[10];
 
 /**
  * 7-shape, 4 rotation(by 90 deg), 4 * 4 matrix of data.
@@ -181,7 +207,7 @@ int main(int argc, char* argv[]) {
                     show_cur_block(block_shape, block_angle, block_x, block_y);
                 }
             }
-            if (i % stage_data[level].speed == 0) {
+            if (i % stage_data[level].getSpeed() == 0) {
                 is_gameover = move_block(&block_shape, &block_angle, &block_x, &block_y, &next_block_shape);
 
                 show_cur_block(block_shape, block_angle, block_x, block_y);
@@ -252,36 +278,16 @@ int init() {
     ab_y = 1;
 
     // Initiate stage level data.
-    stage_data[0].speed = 40;
-    stage_data[0].stick_rate = 20;
-    stage_data[0].clear_line = 20;
-    stage_data[1].speed = 38;
-    stage_data[1].stick_rate = 18;
-    stage_data[1].clear_line = 20;
-    stage_data[2].speed = 35;
-    stage_data[2].stick_rate = 18;
-    stage_data[2].clear_line = 20;
-    stage_data[3].speed = 30;
-    stage_data[3].stick_rate = 17;
-    stage_data[3].clear_line = 20;
-    stage_data[4].speed = 25;
-    stage_data[4].stick_rate = 16;
-    stage_data[4].clear_line = 20;
-    stage_data[5].speed = 20;
-    stage_data[5].stick_rate = 14;
-    stage_data[5].clear_line = 20;
-    stage_data[6].speed = 15;
-    stage_data[6].stick_rate = 14;
-    stage_data[6].clear_line = 20;
-    stage_data[7].speed = 10;
-    stage_data[7].stick_rate = 13;
-    stage_data[7].clear_line = 20;
-    stage_data[8].speed = 6;
-    stage_data[8].stick_rate = 12;
-    stage_data[8].clear_line = 20;
-    stage_data[9].speed = 4;
-    stage_data[9].stick_rate = 11;
-    stage_data[9].clear_line = 99999;
+    stage_data[0].init(40, 20, 20);
+    stage_data[1].init(38, 18, 20);
+    stage_data[2].init(35, 18, 20);
+    stage_data[3].init(30, 17, 20);
+    stage_data[4].init(25, 16, 20);
+    stage_data[5].init(20, 14, 20);
+    stage_data[6].init(15, 14, 20);
+    stage_data[7].init(10, 13, 20);
+    stage_data[8].init(6, 12, 20);
+    stage_data[9].init(4, 11, 99999);
     return 0;
 }
 
@@ -386,7 +392,7 @@ int make_new_block() {
     int shape;
     int i;
     i = rand() % 100;
-    if (i <= stage_data[level].stick_rate)		//막대기 나올확률 계산
+    if (i <= stage_data[level].getStickRate())		//막대기 나올확률 계산
         return 0;							//막대기 모양으로 리턴
 
     shape = (rand() % 6) + 1;		//shape에는 1~6의 값이 들어감
@@ -514,7 +520,7 @@ int check_full_line() {
             for (j = 1; j < 13; j++)
                 total_block[0][j] = 0;
             score += 100 + (level * 10) + (rand() % 10);
-            if (stage_data[level].clear_line <= lines) { //클리어 스테이지
+            if (stage_data[level].getClearLine() <= lines) { //클리어 스테이지
                 level++;
                 lines = 0;
             }
@@ -567,7 +573,7 @@ int show_gamestat() {
     gotoxy(35, 10);
     cout << score;
     gotoxy(35, 13);
-    cout << stage_data[level].clear_line - lines;
+    cout << stage_data[level].getClearLine() - lines;
     return 0;
 }
 
