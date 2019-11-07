@@ -57,6 +57,7 @@ int block_shape, block_angle, block_x, block_y;
 int next_block_shape;
 int score;
 int lines;
+int count;
 char total_block[21][14];		//화면에 표시되는 블럭들
 struct STAGE stage_data[10];
 
@@ -97,7 +98,7 @@ int erase_cur_block(int shape, int angle, int x, int y);	//블럭 진행의 잔상을 지
 int show_total_block();	//쌓여져있는 블럭을 화면에 표시한다.
 int show_next_block(int shape);
 int make_new_block();	//return값으로 block의 모양번호를 알려줌
-int strike_check(int shape, int angle, int x, int y);	//블럭이 화면 맨 아래에 부닥쳤는지 검사 부닥치면 1을리턴 아니면 0리턴
+int strike_check(int shape, int angle, int* x, int y, int isRot);	//블럭이 화면 맨 아래에 부닥쳤는지 검사 부닥치면 1을리턴 아니면 0리턴
 int merge_block(int shape, int angle, int x, int y);	//블럭이 바닥에 닿았을때 진행중인 블럭과 쌓아진 블럭을 합침
 int block_start(int* angle, int* x, int* y);	//블럭이 처음 나올때 위치와 모양을 알려줌
 int move_block(int* shape, int* angle, int* x, int* y, int* next_shape);	//게임오버는 1을리턴 바닥에 블럭이 닿으면 2를 리턴
@@ -134,8 +135,9 @@ int main(int argc, char* argv[]) {
                     keytemp = getche();
                     switch (keytemp) {
                     case KEY_UP:		//회전하기
-                        if (strike_check(block_shape, (block_angle + 1) % 4, block_x, block_y) == 0) {
-                            erase_cur_block(block_shape, block_angle, block_x, block_y);
+                        count = 0;
+                        if (strike_check(block_shape, (block_angle + 1) % 4, &block_x, block_y, 1) == 0) {
+                            erase_cur_block(block_shape, block_angle, block_x + count, block_y);
                             block_angle = (block_angle + 1) % 4;
                             show_cur_block(block_shape, block_angle, block_x, block_y);
                         }
@@ -144,19 +146,19 @@ int main(int argc, char* argv[]) {
                         if (block_x > 1) {
                             erase_cur_block(block_shape, block_angle, block_x, block_y);
                             block_x--;
-                            if (strike_check(block_shape, block_angle, block_x, block_y) == 1)
+                            if (strike_check(block_shape, block_angle, &block_x, block_y, 0) == 1)
                                 block_x++;
 
                             show_cur_block(block_shape, block_angle, block_x, block_y);
                         }
                         break;
                     case KEY_RIGHT:		//오른쪽으로 이동
-
                         if (block_x < 14) {
                             erase_cur_block(block_shape, block_angle, block_x, block_y);
                             block_x++;
-                            if (strike_check(block_shape, block_angle, block_x, block_y) == 1)
+                            if (strike_check(block_shape, block_angle, &block_x, block_y, 0) == 1) {
                                 block_x--;
+                            }
                             show_cur_block(block_shape, block_angle, block_x, block_y);
                         }
                         break;
@@ -398,26 +400,33 @@ int make_new_block() {
 
 //Check wheter block is touching elswhere.
 //Returns 1 if they are touching anything, 0 when not.
-int strike_check(int shape, int angle, int x, int y) {
+int strike_check(int shape, int angle, int* x, int y, int isRot) {
     int i, j;
     int block_dat;
 
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
-            if (((x + j) == 0) || ((x + j) == 13))
+            if (((*x + j) == 0) || ((*x + j) == 13))
                 block_dat = 1;
             else {
                 if ((y + i) < 0) continue;
-                block_dat = total_block[y + i][x + j];
+                block_dat = total_block[y + i][*x + j];
             }
-            if ((block_dat == 1) && (block[shape][angle][i][j] == 1))                                                                     //좌측벽의 좌표를 빼기위함
-            {
+            if ((block_dat == 1) && (block[shape][angle][i][j] == 1)) {
+                if (isRot) {
+                    if ((*x + j) == 13) {
+                        (*x)--;
+                        count++;
+                        continue;
+                    }
+                }
                 return 1;
             }
         }
     }
     return 0;
 }
+
 int merge_block(int shape, int angle, int x, int y) {
     int i, j;
     for (i = 0; i < 4; i++) {
@@ -464,7 +473,7 @@ int move_block(int* shape, int* angle, int* x, int* y, int* next_shape) {
     erase_cur_block(*shape, *angle, *x, *y);
 
     (*y)++;	//블럭을 한칸 아래로 내림
-    if (strike_check(*shape, *angle, *x, *y) == 1) {
+    if (strike_check(*shape, *angle, x, *y, 0) == 1) {
         (*y)--;
         if (*y <= 0)	//게임오버
         { 
