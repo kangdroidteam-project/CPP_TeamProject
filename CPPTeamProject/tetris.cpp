@@ -2,14 +2,17 @@
 // CMD: cl /wd4996 /wd4819 tetris.cpp || nvcc -Xcompiler /wd4996 /wd4819 tetris.cpp
 #pragma warning(disable:4996)
 
-#include <stdio.h>
+#include <cstdio>
+#include <iostream>
 #include <conio.h>
-#include <string.h>
+#include <string>
 
 // Bug 1. Windows.h is NOT Included
 // Bug 2. time.h is NOT Included.
 #include <Windows.h>
 #include <time.h>
+
+using namespace std;
 
 //*********************************
 //상수 선언
@@ -58,7 +61,7 @@ int block_shape, block_angle, block_x, block_y;
 int next_block_shape;
 int score;
 int lines;
-int count;
+int ctr;
 char total_block[21][14];		//화면에 표시되는 블럭들
 struct STAGE stage_data[10];
 
@@ -121,7 +124,7 @@ int main(int argc, char* argv[]) {
 
         input_data();
         score = 0;
-        is_gameover = 0; 
+        is_gameover = 0;
         show_total_block();
         block_shape = make_new_block();
         next_block_shape = make_new_block(); // Something different from previous one.
@@ -135,9 +138,9 @@ int main(int argc, char* argv[]) {
                     keytemp = getche();
                     switch (keytemp) {
                     case KEY_UP:		//회전하기
-                        count = 0;
+                        ctr = 0;
                         if (strike_check(block_shape, (block_angle + 1) % 4, &block_x, block_y, 1) == 0) {
-                            erase_cur_block(block_shape, block_angle, block_x + count, block_y);
+                            erase_cur_block(block_shape, block_angle, block_x + ctr, block_y);
                             block_angle = (block_angle + 1) % 4;
                             show_cur_block(block_shape, block_angle, block_x, block_y);
                         }
@@ -325,7 +328,7 @@ int show_cur_block(int shape, int angle, int x, int y) {
             // Somewhat print damn thing
             if (block[shape][angle][j][i] == 1) {
                 gotoxy((i + x) * 2 + ab_x, j + y + ab_y);
-                printf("■");
+                cout << "■";
 
             }
         }
@@ -342,7 +345,7 @@ int erase_cur_block(int shape, int angle, int x, int y) {
         for (j = 0; j < 4; j++) {
             if (block[shape][angle][j][i] == 1) {
                 gotoxy((i + x) * 2 + ab_x, j + y + ab_y);
-                printf("  ");
+                cout << "  ";
                 //break;
 
             }
@@ -367,9 +370,9 @@ int show_total_block() {
             // Not checked from now.
             gotoxy((j * 2) + ab_x, i + ab_y);
             if (total_block[i][j] == 1) {
-                printf("■");
+                cout << "■";
             } else {
-                printf("  ");
+                cout << "  ";
             }
 
         }
@@ -408,7 +411,7 @@ int strike_check(int shape, int angle, int* x, int y, int isRot) {
                 if (isRot) {
                     if ((*x + j) == 13) {
                         (*x)--;
-                        count++;
+                        ctr++;
                         continue;
                     }
                 }
@@ -443,15 +446,15 @@ int block_start(int* angle, int* x, int* y) {
 int show_gameover() {
     SetColor(RED);
     gotoxy(15, 8);
-    printf("┏━━━━━━━━━━━━━┓");
+    cout << "┏━━━━━━━━━━━━━┓";
     gotoxy(15, 9);
-    printf("┃**************************┃");
+    cout << "┃**************************┃";
     gotoxy(15, 10);
-    printf("┃*        GAME OVER       *┃");
+    cout << "┃*        GAME OVER       *┃";
     gotoxy(15, 11);
-    printf("┃**************************┃");
+    cout << "┃**************************┃";
     gotoxy(15, 12);
-    printf("┗━━━━━━━━━━━━━┛");
+    cout << "┗━━━━━━━━━━━━━┛";
     fflush(stdin);
     Sleep(1000);
 
@@ -468,7 +471,7 @@ int move_block(int* shape, int* angle, int* x, int* y, int* next_shape) {
     if (strike_check(*shape, *angle, x, *y, 0) == 1) {
         (*y)--;
         if (*y <= 0)	//게임오버
-        { 
+        {
             return 1;
         }
         merge_block(*shape, *angle, *x, *y);
@@ -495,12 +498,12 @@ int check_full_line() {
             SetColor(BLUE);
             gotoxy(1 * 2 + ab_x, i + ab_y);
             for (j = 1; j < 13; j++) {
-                printf("□");
+                cout << "□";
                 Sleep(10);
             }
             gotoxy(1 * 2 + ab_x, i + ab_y);
             for (j = 1; j < 13; j++) {
-                printf("  ");
+                cout << "  ";
                 Sleep(10);
             }
 
@@ -534,9 +537,9 @@ int show_next_block(int shape) {
         gotoxy(33, i);
         for (j = 0; j < 6; j++) {
             if (i == 1 || i == 6 || j == 0 || j == 5) {
-                printf("■");
+                cout << "■";
             } else {
-                printf("  ");
+                cout << "  ";
             }
 
         }
@@ -551,20 +554,20 @@ int show_gamestat() {
     SetColor(GRAY);
     if (printed_text == 0) {
         gotoxy(35, 7);
-        printf("STAGE");
+        cout << "STAGE";
 
         gotoxy(35, 9);
-        printf("SCORE");
+        cout << "SCORE";
 
         gotoxy(35, 12);
-        printf("LINES");
+        cout << "LINES";
     }
     gotoxy(41, 7);
-    printf("%d", level + 1);
+    cout << level + 1;
     gotoxy(35, 10);
-    printf("%10d", score);
+    cout << score;
     gotoxy(35, 13);
-    printf("%10d", stage_data[level].clear_line - lines);
+    cout << stage_data[level].clear_line - lines;
     return 0;
 }
 
@@ -572,30 +575,30 @@ int input_data() {
     int i = 0; // checking variable for input(level)
     SetColor(GRAY);
     gotoxy(10, 7);
-    printf("┏━━━━<GAME KEY>━━━━━┓");
+    cout << "┏━━━━<GAME KEY>━━━━━┓";
     Sleep(10);
     gotoxy(10, 8);
-    printf("┃ UP   : Rotate Block        ┃");
+    cout << "┃ UP   : Rotate Block        ┃";
     Sleep(10);
     gotoxy(10, 9);
-    printf("┃ DOWN : Move One-Step Down  ┃");
+    cout << "┃ DOWN : Move One-Step Down  ┃";
     Sleep(10);
     gotoxy(10, 10);
-    printf("┃ SPACE: Move Bottom Down    ┃");
+    cout << "┃ SPACE: Move Bottom Down    ┃";
     Sleep(10);
     gotoxy(10, 11);
-    printf("┃ LEFT : Move Left           ┃");
+    cout << "┃ LEFT : Move Left           ┃";
     Sleep(10);
     gotoxy(10, 12);
-    printf("┃ RIGHT: Move Right          ┃");
+    cout << "┃ RIGHT: Move Right          ┃";
     Sleep(10);
     gotoxy(10, 13);
-    printf("┗━━━━━━━━━━━━━━┛");
+    cout << "┗━━━━━━━━━━━━━━┛";
 
     // i is checking variable for input(level)
     while (i < 1 || i>8) {
         gotoxy(10, 3);
-        printf("Select Start level[1-8]:       \b\b\b\b\b\b\b");
+        cout << "Select Start level[1-8]:       \b\b\b\b\b\b\b";
         scanf("%d", &i);
     }
 
@@ -607,35 +610,35 @@ int input_data() {
 int show_logo() {
     int i, j;
     gotoxy(13, 3);
-    printf("┏━━━━━━━━━━━━━━━━━━━━━━━┓");
+    cout << "┏━━━━━━━━━━━━━━━━━━━━━━━┓";
     Sleep(100);
     gotoxy(13, 4);
-    printf("┃◆◆◆  ◆◆◆  ◆◆◆   ◆◆     ◆   ◆  ◆ ┃");
+    cout << "┃◆◆◆  ◆◆◆  ◆◆◆   ◆◆     ◆   ◆  ◆ ┃";
     Sleep(100);
     gotoxy(13, 5);
-    printf("┃  ◆    ◆        ◆     ◆ ◆    ◆    ◆◆  ┃");
+    cout << "┃  ◆    ◆        ◆     ◆ ◆    ◆    ◆◆  ┃";
     Sleep(100);
     gotoxy(13, 6);
-    printf("┃  ◆    ◆◆◆    ◆     ◆◆     ◆     ◆   ┃");
+    cout << "┃  ◆    ◆◆◆    ◆     ◆◆     ◆     ◆   ┃";
     Sleep(100);
     gotoxy(13, 7);
-    printf("┃  ◆    ◆        ◆     ◆ ◆    ◆    ◆◆  ┃");
+    cout << "┃  ◆    ◆        ◆     ◆ ◆    ◆    ◆◆  ┃";
     Sleep(100);
     gotoxy(13, 8);
-    printf("┃  ◆    ◆◆◆    ◆     ◆  ◆   ◆   ◆  ◆ ┃");
+    cout << "┃  ◆    ◆◆◆    ◆     ◆  ◆   ◆   ◆  ◆ ┃";
     Sleep(100);
     gotoxy(13, 9);
-    printf("┗━━━━━━━━━━━━━━━━━━━━━━━┛");
+    cout << "┗━━━━━━━━━━━━━━━━━━━━━━━┛";
 
     gotoxy(28, 20);
-    printf("Please Press Any Key~!");
+    cout << "Please Press Any Key~!";
 
     for (i = 0; 1; i++) {
         if (i % 40 == 0) { // So this is the change-rate(Refresh rate) of Logo
 
             for (j = 0; j < 5; j++) {
                 gotoxy(6, 14 + j);
-                printf("                                                          "); // erase it
+                cout << "                                                          ";
             }
 
             show_cur_block(rand() % 7, rand() % 4, 6, 14);
@@ -645,7 +648,7 @@ int show_logo() {
         }
         if (kbhit()) // maybe able to change kbhit to getche?
             break;
-        
+
         /**
          * The fresh-rate
          * 30ms + (The time in Counter which exceeds 40 * something)
