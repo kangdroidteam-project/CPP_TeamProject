@@ -119,6 +119,7 @@ int main(int argc, char* argv[]) {
     while (1) {
 
         input_data();
+        score = 0;
         is_gameover = 0; 
         show_total_block();
         block_shape = make_new_block();
