@@ -597,6 +597,7 @@ int input_data() {
         gotoxy(10, 3);
         printf("Select Start level[1-8]:       \b\b\b\b\b\b\b");
         scanf("%d", &i);
+        while (getchar() != '\n');
     }
 
     level = i - 1; // For index.
