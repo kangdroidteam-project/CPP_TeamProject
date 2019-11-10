@@ -23,6 +23,7 @@ void GameManager::play() {
                     keytemp = getche();
                     switch (keytemp) {
                     case KEY_UP:		//회전하기
+                        gv.setCtr(0);
                         if (tc.strike_check(gv.getBlockShape(), (gv.getBlockAngle() + 1) % 4, gv.getPtrBlockX(), gv.getBlockY(), 1) == 0) {
                             gui.erase_cur_block(gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX() + gv.getCtr(), gv.getBlockY());
                             gv.setBlockAngle((gv.getBlockAngle() + 1) % 4);
