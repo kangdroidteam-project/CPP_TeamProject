@@ -10,6 +10,7 @@ TetrisCore::TetrisCore(GameUIManager& gameUI, GlobalVariant& glovalVar) : gui(ga
 int TetrisCore::init() {
 
     gv.init(0, 0, 5, 1);
+    gv.setGameOver(0);
 
     // Initiate stage level data.
     gv.stage_data[0].init(40, 20, 20);

@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BlockManager.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameUIManager.cpp" />
     <ClCompile Include="GlobalVariant.cpp" />
     <ClCompile Include="StageInformation.cpp" />
@@ -133,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockManager.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameUIManager.h" />
     <ClInclude Include="GlobalVariant.h" />
     <ClInclude Include="StageInformation.h" />

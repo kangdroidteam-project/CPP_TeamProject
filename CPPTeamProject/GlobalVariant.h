@@ -16,6 +16,7 @@ private:
     int score;
     int lines;
     int ctr;
+    int is_gameover; // The Boolean type check variable.
     void initTotalBlock();
 
 public:
@@ -34,6 +35,7 @@ public:
     int getBlockShape();
     int getLine();
     int getScore();
+    int getGameOver();
 
     // Ptr return - type.
     int* getPtrBlockAngle();
@@ -51,6 +53,7 @@ public:
     void setLine(int ln);
     void setScore(int sc);
     void setLevel(int lvl);
+    void setGameOver(int val);
 };
 
 enum {

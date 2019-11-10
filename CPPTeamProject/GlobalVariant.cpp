@@ -68,6 +68,10 @@ int GlobalVariant::getScore() {
     return this->score;
 }
 
+int GlobalVariant::getGameOver() {
+    return this->is_gameover;
+}
+
 int* GlobalVariant::getPtrBlockAngle() {
     return &(this->block_angle);
 }
@@ -118,6 +122,10 @@ void GlobalVariant::setScore(int sc) {
 
 void GlobalVariant::setLevel(int lvl) {
     this->level = lvl;
+}
+
+void GlobalVariant::setGameOver(int val) {
+    this->is_gameover = val;
 }
 
 void GlobalVariant::init(int level, int lines, int ab_x, int ab_y) {
