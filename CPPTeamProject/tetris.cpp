@@ -59,6 +59,22 @@ public:
     }
 };
 
+class SystemUIManager {
+public:
+    static int gotoxy(int x, int y) {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        COORD pos;
+        pos.Y = y;
+        pos.X = x;
+        SetConsoleCursorPosition(hConsole, pos);
+        return 0;
+    }
+    static void SetColor(int color) {
+        static HANDLE std_output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(std_output_handle, color);
+    }
+};
+
 enum {
     BLACK,      /*  0 : 까망 */
     DARK_BLUE,    /*  1 : 어두운 파랑 */
@@ -120,8 +136,6 @@ char block[7][4][4][4] = {
 //*********************************
 //함수 선언
 //*********************************
-int gotoxy(int x, int y);	//커서옮기기
-void SetColor(int color);	//색표현
 int init();					//각종변수 초기화
 int show_cur_block(int shape, int angle, int x, int y);	//진행중인 블럭을 화면에 표시한다
 int erase_cur_block(int shape, int angle, int x, int y);	//블럭 진행의 잔상을 지우기 위한 함수
@@ -215,34 +229,17 @@ int main(int argc, char* argv[]) {
 
             if (is_gameover == 1) {
                 show_gameover();
-                SetColor(GRAY);
+                SystemUIManager::SetColor(GRAY);
                 break;
             }
 
-            gotoxy(77, 23);
+            SystemUIManager::gotoxy(77, 23);
             Sleep(15);
-            gotoxy(77, 23);
+            SystemUIManager::gotoxy(77, 23);
         }
         init();
     }
     return 0;
-}
-
-int gotoxy(int x, int y) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD pos;
-    pos.Y = y;
-    pos.X = x;
-    SetConsoleCursorPosition(hConsole, pos);
-    return 0;
-}
-
-void SetColor(int color)
-
-{
-    static HANDLE std_output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(std_output_handle, color);
-
 }
 
 /**
@@ -304,25 +301,25 @@ int show_cur_block(int shape, int angle, int x, int y) {
     // Set Color based on block shape.
     switch (shape) {
     case 0:
-        SetColor(RED);
+        SystemUIManager::SetColor(RED);
         break;
     case 1:
-        SetColor(BLUE);
+        SystemUIManager::SetColor(BLUE);
         break;
     case 2:
-        SetColor(SKY_BLUE);
+        SystemUIManager::SetColor(SKY_BLUE);
         break;
     case 3:
-        SetColor(WHITE);
+        SystemUIManager::SetColor(WHITE);
         break;
     case 4:
-        SetColor(YELLOW);
+        SystemUIManager::SetColor(YELLOW);
         break;
     case 5:
-        SetColor(VOILET);
+        SystemUIManager::SetColor(VOILET);
         break;
     case 6:
-        SetColor(GREEN);
+        SystemUIManager::SetColor(GREEN);
         break;
     }
 
@@ -333,14 +330,14 @@ int show_cur_block(int shape, int angle, int x, int y) {
 
             // Somewhat print damn thing
             if (block[shape][angle][j][i] == 1) {
-                gotoxy((i + x) * 2 + ab_x, j + y + ab_y);
+                SystemUIManager::gotoxy((i + x) * 2 + ab_x, j + y + ab_y);
                 cout << "■";
 
             }
         }
     }
-    SetColor(BLACK);
-    gotoxy(77, 23);
+    SystemUIManager::SetColor(BLACK);
+    SystemUIManager::gotoxy(77, 23);
     return 0;
 }
 
@@ -350,7 +347,7 @@ int erase_cur_block(int shape, int angle, int x, int y) {
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
             if (block[shape][angle][j][i] == 1) {
-                gotoxy((i + x) * 2 + ab_x, j + y + ab_y);
+                SystemUIManager::gotoxy((i + x) * 2 + ab_x, j + y + ab_y);
                 cout << "  ";
                 //break;
 
@@ -362,19 +359,19 @@ int erase_cur_block(int shape, int angle, int x, int y) {
 
 int show_total_block() {
     int i, j;
-    SetColor(DARK_GRAY);
+    SystemUIManager::SetColor(DARK_GRAY);
     for (i = 0; i < 21; i++) {
         for (j = 0; j < 14; j++) {
             if (j == 0 || j == 13 || i == 20)		//레벨에 따라 외벽 색이 변함
             {
-                SetColor((level % 6) + 1);
+                SystemUIManager::SetColor((level % 6) + 1);
 
             } else {
-                SetColor(DARK_GRAY);
+                SystemUIManager::SetColor(DARK_GRAY);
             }
 
             // Not checked from now.
-            gotoxy((j * 2) + ab_x, i + ab_y);
+            SystemUIManager::gotoxy((j * 2) + ab_x, i + ab_y);
             if (total_block[i][j] == 1) {
                 cout << "■";
             } else {
@@ -383,8 +380,8 @@ int show_total_block() {
 
         }
     }
-    SetColor(BLACK);
-    gotoxy(77, 23);
+    SystemUIManager::SetColor(BLACK);
+    SystemUIManager::gotoxy(77, 23);
     return 0;
 }
 
@@ -450,16 +447,16 @@ int block_start(int* angle, int* x, int* y) {
 }
 
 int show_gameover() {
-    SetColor(RED);
-    gotoxy(15, 8);
+    SystemUIManager::SetColor(RED);
+    SystemUIManager::gotoxy(15, 8);
     cout << "┏━━━━━━━━━━━━━┓";
-    gotoxy(15, 9);
+    SystemUIManager::gotoxy(15, 9);
     cout << "┃**************************┃";
-    gotoxy(15, 10);
+    SystemUIManager::gotoxy(15, 10);
     cout << "┃*        GAME OVER       *┃";
-    gotoxy(15, 11);
+    SystemUIManager::gotoxy(15, 11);
     cout << "┃**************************┃";
-    gotoxy(15, 12);
+    SystemUIManager::gotoxy(15, 12);
     cout << "┗━━━━━━━━━━━━━┛";
     fflush(stdin);
     Sleep(1000);
@@ -501,13 +498,13 @@ int check_full_line() {
         if (j == 13) { //한줄이 다 채워졌음
             lines++;
             show_total_block();
-            SetColor(BLUE);
-            gotoxy(1 * 2 + ab_x, i + ab_y);
+            SystemUIManager::SetColor(BLUE);
+            SystemUIManager::gotoxy(1 * 2 + ab_x, i + ab_y);
             for (j = 1; j < 13; j++) {
                 cout << "□";
                 Sleep(10);
             }
-            gotoxy(1 * 2 + ab_x, i + ab_y);
+            SystemUIManager::gotoxy(1 * 2 + ab_x, i + ab_y);
             for (j = 1; j < 13; j++) {
                 cout << "  ";
                 Sleep(10);
@@ -538,9 +535,9 @@ int check_full_line() {
  */
 int show_next_block(int shape) {
     int i, j;
-    SetColor((level + 1) % 6 + 1);
+    SystemUIManager::SetColor((level + 1) % 6 + 1);
     for (i = 1; i < 7; i++) {
-        gotoxy(33, i);
+        SystemUIManager::gotoxy(33, i);
         for (j = 0; j < 6; j++) {
             if (i == 1 || i == 6 || j == 0 || j == 5) {
                 cout << "■";
@@ -557,53 +554,53 @@ int show_next_block(int shape) {
 
 int show_gamestat() {
     static int printed_text = 0;
-    SetColor(GRAY);
+    SystemUIManager::SetColor(GRAY);
     if (printed_text == 0) {
-        gotoxy(35, 7);
+        SystemUIManager::gotoxy(35, 7);
         cout << "STAGE";
 
-        gotoxy(35, 9);
+        SystemUIManager::gotoxy(35, 9);
         cout << "SCORE";
 
-        gotoxy(35, 12);
+        SystemUIManager::gotoxy(35, 12);
         cout << "LINES";
     }
-    gotoxy(41, 7);
+    SystemUIManager::gotoxy(41, 7);
     cout << level + 1;
-    gotoxy(35, 10);
+    SystemUIManager::gotoxy(35, 10);
     cout << score;
-    gotoxy(35, 13);
+    SystemUIManager::gotoxy(35, 13);
     cout << stage_data[level].getClearLine() - lines;
     return 0;
 }
 
 int input_data() {
     int i = 0; // checking variable for input(level)
-    SetColor(GRAY);
-    gotoxy(10, 7);
+    SystemUIManager::SetColor(GRAY);
+    SystemUIManager::gotoxy(10, 7);
     cout << "┏━━━━<GAME KEY>━━━━━┓";
     Sleep(10);
-    gotoxy(10, 8);
+    SystemUIManager::gotoxy(10, 8);
     cout << "┃ UP   : Rotate Block        ┃";
     Sleep(10);
-    gotoxy(10, 9);
+    SystemUIManager::gotoxy(10, 9);
     cout << "┃ DOWN : Move One-Step Down  ┃";
     Sleep(10);
-    gotoxy(10, 10);
+    SystemUIManager::gotoxy(10, 10);
     cout << "┃ SPACE: Move Bottom Down    ┃";
     Sleep(10);
-    gotoxy(10, 11);
+    SystemUIManager::gotoxy(10, 11);
     cout << "┃ LEFT : Move Left           ┃";
     Sleep(10);
-    gotoxy(10, 12);
+    SystemUIManager::gotoxy(10, 12);
     cout << "┃ RIGHT: Move Right          ┃";
     Sleep(10);
-    gotoxy(10, 13);
+    SystemUIManager::gotoxy(10, 13);
     cout << "┗━━━━━━━━━━━━━━┛";
 
     // i is checking variable for input(level)
     while (i < 1 || i>8) {
-        gotoxy(10, 3);
+        SystemUIManager::gotoxy(10, 3);
         cout << "Select Start level[1-8]:       \b\b\b\b\b\b\b";
         scanf("%d", &i);
         while (getchar() != '\n');
@@ -616,35 +613,35 @@ int input_data() {
 
 int show_logo() {
     int i, j;
-    gotoxy(13, 3);
+    SystemUIManager::gotoxy(13, 3);
     cout << "┏━━━━━━━━━━━━━━━━━━━━━━━┓";
     Sleep(100);
-    gotoxy(13, 4);
+    SystemUIManager::gotoxy(13, 4);
     cout << "┃◆◆◆  ◆◆◆  ◆◆◆   ◆◆     ◆   ◆  ◆ ┃";
     Sleep(100);
-    gotoxy(13, 5);
+    SystemUIManager::gotoxy(13, 5);
     cout << "┃  ◆    ◆        ◆     ◆ ◆    ◆    ◆◆  ┃";
     Sleep(100);
-    gotoxy(13, 6);
+    SystemUIManager::gotoxy(13, 6);
     cout << "┃  ◆    ◆◆◆    ◆     ◆◆     ◆     ◆   ┃";
     Sleep(100);
-    gotoxy(13, 7);
+    SystemUIManager::gotoxy(13, 7);
     cout << "┃  ◆    ◆        ◆     ◆ ◆    ◆    ◆◆  ┃";
     Sleep(100);
-    gotoxy(13, 8);
+    SystemUIManager::gotoxy(13, 8);
     cout << "┃  ◆    ◆◆◆    ◆     ◆  ◆   ◆   ◆  ◆ ┃";
     Sleep(100);
-    gotoxy(13, 9);
+    SystemUIManager::gotoxy(13, 9);
     cout << "┗━━━━━━━━━━━━━━━━━━━━━━━┛";
 
-    gotoxy(28, 20);
+    SystemUIManager::gotoxy(28, 20);
     cout << "Please Press Any Key~!";
 
     for (i = 0; 1; i++) {
         if (i % 40 == 0) { // So this is the change-rate(Refresh rate) of Logo
 
             for (j = 0; j < 5; j++) {
-                gotoxy(6, 14 + j);
+                SystemUIManager::gotoxy(6, 14 + j);
                 cout << "                                                          ";
             }
 
