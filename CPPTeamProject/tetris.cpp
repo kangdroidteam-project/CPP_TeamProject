@@ -607,38 +607,41 @@ int input_data() {
 
 int show_logo() {
     int i, j;
+    SetColor(WHITE);
     gotoxy(13, 3);
     printf("旨收收收收收收收收收收收收收收收收收收收收收收收旬");
     Sleep(100);
     gotoxy(13, 4);
-    printf("早﹣﹣﹣  ﹣﹣﹣  ﹣﹣﹣   ﹣﹣     ﹣   ﹣  ﹣ 早");
+    printf("早﹣﹣﹣  ﹣﹣﹣  ﹣﹣﹣   ﹣﹣     ﹣    ﹣﹣  早");
     Sleep(100);
     gotoxy(13, 5);
-    printf("早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣    ﹣﹣  早");
+    printf("早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣    ﹣    早");
     Sleep(100);
     gotoxy(13, 6);
     printf("早  ﹣    ﹣﹣﹣    ﹣     ﹣﹣     ﹣     ﹣   早");
     Sleep(100);
     gotoxy(13, 7);
-    printf("早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣    ﹣﹣  早");
+    printf("早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣      ﹣  早");
     Sleep(100);
     gotoxy(13, 8);
-    printf("早  ﹣    ﹣﹣﹣    ﹣     ﹣  ﹣   ﹣   ﹣  ﹣ 早");
+    printf("早  ﹣    ﹣﹣﹣    ﹣     ﹣  ﹣   ﹣    ﹣﹣  早");
     Sleep(100);
     gotoxy(13, 9);
     printf("曲收收收收收收收收收收收收收收收收收收收收收收收旭");
-
     gotoxy(28, 20);
+
     printf("Please Press Any Key~!");
 
-    for (i = 0; 1; i++) {
+    for (i = 0; 1; i++) { // that i >= 1 could changed to 1(true) BUG
         if (i % 40 == 0) { // So this is the change-rate(Refresh rate) of Logo
 
-            for (j = 0; j < 5; j++) {
-                gotoxy(6, 14 + j);
-                printf("                                                          "); // erase it
-            }
 
+            for (j = 0; j < 5; j++) { // This is manually erasing blocks on Logo. Bug 11 Related.(Patch required)
+                gotoxy(6, 14 + j); // The x Value should be from 6;(BUG)
+                printf("                                                          "); // erase it
+
+
+            }
             show_cur_block(rand() % 7, rand() % 4, 6, 14);
             show_cur_block(rand() % 7, rand() % 4, 12, 14);
             show_cur_block(rand() % 7, rand() % 4, 19, 14);
@@ -646,7 +649,7 @@ int show_logo() {
         }
         if (kbhit()) // maybe able to change kbhit to getche?
             break;
-        
+
         /**
          * The fresh-rate
          * 30ms + (The time in Counter which exceeds 40 * something)
