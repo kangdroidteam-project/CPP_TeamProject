@@ -36,7 +36,7 @@ int GameUIManager::show_cur_block(int shape, int angle, int x, int y) {
                 continue;
 
             // Somewhat print damn thing
-            if (block[shape][angle][j][i] == 1) {
+            if (getBlock()[shape][angle][j][i] == 1) {
                 SystemUIManager::gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
                 cout << "бс";
 
@@ -53,7 +53,7 @@ int GameUIManager::erase_cur_block(int shape, int angle, int x, int y) {
     int i, j;
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
-            if (block[shape][angle][j][i] == 1) {
+            if (getBlock()[shape][angle][j][i] == 1) {
                 SystemUIManager::gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
                 cout << "  ";
                 //break;

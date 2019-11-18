@@ -52,7 +52,7 @@ int TetrisCore::strike_check(int shape, int angle, int* x, int y, int isRot) {
                 if ((y + i) < 0) continue;
                 block_dat = gv.total_block[y + i][*x + j];
             }
-            if ((block_dat == 1) && (gui.block[shape][angle][i][j] == 1)) {
+            if ((block_dat == 1) && (gui.getBlock()[shape][angle][i][j] == 1)) {
                 if (isRot) {
                     if ((*x + j) == 13) {
                         (*x)--;
@@ -112,7 +112,7 @@ int TetrisCore::merge_block(int shape, int angle, int x, int y) {
     int i, j;
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
-            gv.total_block[y + i][x + j] |= gui.block[shape][angle][i][j];
+            gv.total_block[y + i][x + j] |= gui.getBlock()[shape][angle][i][j];
         }
     }
     check_full_line();

@@ -1,6 +1,6 @@
 #pragma once
 class BlockManager {
-public:
+private:
     /**
      * 7-shape, 4 rotation(by 90 deg), 4 * 4 matrix of data.
      */
@@ -26,4 +26,8 @@ public:
         //'S' ¸ð¾ç
         0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,	1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,	0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,	1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0
     };
+public:
+    char(*getBlock())[4][4][4]{
+        return this->block;
+    }
 };
