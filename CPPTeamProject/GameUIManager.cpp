@@ -188,7 +188,7 @@ int GameUIManager::show_gamestat() {
     SystemUIManager::gotoxy(35, 10);
     cout << gv.getScore();
     SystemUIManager::gotoxy(35, 13);
-    cout << gv.stage_data[gv.getLevel()].getClearLine() - gv.getLine();
+    cout << gv.getStageInformation()[gv.getLevel()].getClearLine() - gv.getLine();
     return 0;
 }
 

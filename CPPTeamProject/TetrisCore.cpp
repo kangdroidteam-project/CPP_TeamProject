@@ -13,16 +13,16 @@ int TetrisCore::init() {
     gv.setGameOver(0);
 
     // Initiate stage level data.
-    gv.stage_data[0].init(40, 20, 20);
-    gv.stage_data[1].init(38, 18, 20);
-    gv.stage_data[2].init(35, 18, 20);
-    gv.stage_data[3].init(30, 17, 20);
-    gv.stage_data[4].init(25, 16, 20);
-    gv.stage_data[5].init(20, 14, 20);
-    gv.stage_data[6].init(15, 14, 20);
-    gv.stage_data[7].init(10, 13, 20);
-    gv.stage_data[8].init(6, 12, 20);
-    gv.stage_data[9].init(4, 11, 99999);
+    gv.callInitStage(0, 40, 20, 20);
+    gv.callInitStage(1, 38, 18, 20);
+    gv.callInitStage(2, 35, 18, 20);
+    gv.callInitStage(3, 30, 17, 20);
+    gv.callInitStage(4, 25, 16, 20);
+    gv.callInitStage(5, 20, 14, 20);
+    gv.callInitStage(6, 15, 14, 20);
+    gv.callInitStage(7, 10, 13, 20);
+    gv.callInitStage(8, 6, 12, 20);
+    gv.callInitStage(9, 4, 11, 99999);
     return 0;
 }
 
@@ -30,7 +30,7 @@ int TetrisCore::make_new_block() {
     int shape;
     int i;
     i = rand() % 100;
-    if (i <= gv.stage_data[gv.getLevel()].getStickRate())		//막대기 나올확률 계산
+    if (i <= gv.getStageInformation()[gv.getLevel()].getStickRate())		//막대기 나올확률 계산
         return 0;							//막대기 모양으로 리턴
 
     shape = (rand() % 6) + 1;		//shape에는 1~6의 값이 들어감
@@ -97,7 +97,7 @@ int TetrisCore::check_full_line() {
             for (j = 1; j < 13; j++)
                 gv.setTotalBlock(j, 0, 0);
             gv.setScore(gv.getScore() + 100 + (gv.getLevel() * 10) + (rand() % 10));
-            if (gv.stage_data[gv.getLevel()].getClearLine() <= gv.getLine()) { //클리어 스테이지
+            if (gv.getStageInformation()[gv.getLevel()].getClearLine() <= gv.getLine()) { //클리어 스테이지
                 gv.setLevel(gv.getLevel() + 1);
                 gv.setLine(0);
             }

@@ -67,7 +67,7 @@ void GameManager::play() {
                     gui.show_cur_block(gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY());
                 }
             }
-            if (i % gv.stage_data[gv.getLevel()].getSpeed() == 0) {
+            if (i % gv.getStageInformation()[gv.getLevel()].getSpeed() == 0) {
                 gv.setGameOver(tc.move_block(gv.getPtrBlockShape(), gv.getPtrBlockAngle(), gv.getPtrBlockX(), gv.getPtrBlockY(), gv.getPtrNextBlockShape()));
 
                 gui.show_cur_block(gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY());

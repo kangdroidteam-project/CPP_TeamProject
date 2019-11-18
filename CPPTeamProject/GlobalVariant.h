@@ -19,10 +19,10 @@ private:
     int is_gameover; // The Boolean type check variable.
     void initTotalBlock();
     char total_block[21][14];		//화면에 표시되는 블럭들
+    StageInformation stage_data[10];
 
 public:
     GlobalVariant();
-    StageInformation stage_data[10];
     void init(int level, int lines, int ab_x, int ab_y);
     int getLevel();
     int getAbsoluteX();
@@ -49,6 +49,11 @@ public:
         return this->total_block;
     }
 
+    // Special return - type
+    StageInformation (*getStageInformation()) {
+        return this->stage_data;
+    }
+
     // Something to set.
     void setBlockShape(int blockShape);
     void setNextBlockShape(int nextBlock);
@@ -64,6 +69,9 @@ public:
     }
     void setTotalBlock(int x, int y, int value, bool isBitOrOperator) {
         this->total_block[y][x] |= value;
+    }
+    void callInitStage(int index, int speed, int stick_rate, int clear_line) {
+        this->stage_data[index].init(speed, stick_rate, clear_line);
     }
 };
 
