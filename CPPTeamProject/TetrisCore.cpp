@@ -30,10 +30,10 @@ int TetrisCore::make_new_block() {
     int shape;
     int i;
     i = rand() % 100;
-    if (i <= gv.stage_data[gv.getLevel()].getStickRate())		//¸·´ë±â ³ª¿ÃÈ®·ü °è»ê
-        return 0;							//¸·´ë±â ¸ğ¾çÀ¸·Î ¸®ÅÏ
+    if (i <= gv.stage_data[gv.getLevel()].getStickRate())		//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½
+        return 0;							//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    shape = (rand() % 6) + 1;		//shape¿¡´Â 1~6ÀÇ °ªÀÌ µé¾î°¨
+    shape = (rand() % 6) + 1;		//shapeï¿½ï¿½ï¿½ï¿½ 1~6ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¨
     return shape;
 }
 
@@ -75,13 +75,13 @@ int TetrisCore::check_full_line() {
             if (gv.total_block[i][j] == 0)
                 break;
         }
-        if (j == 13) { //ÇÑÁÙÀÌ ´Ù Ã¤¿öÁ³À½
+        if (j == 13) { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             gv.setLine((gv.getLine() + 1));
             gui.show_total_block();
             SystemUIManager::SetColor(BLUE);
             SystemUIManager::gotoxy(1 * 2 + gv.getAbsoluteX(), i + gv.getAbsoluteY());
             for (j = 1; j < 13; j++) {
-                cout << "¡à";
+                cout << "ï¿½ï¿½";
                 Sleep(10);
             }
             SystemUIManager::gotoxy(1 * 2 + gv.getAbsoluteX(), i + gv.getAbsoluteY());
@@ -97,7 +97,7 @@ int TetrisCore::check_full_line() {
             for (j = 1; j < 13; j++)
                 gv.total_block[0][j] = 0;
             gv.setScore(gv.getScore() + 100 + (gv.getLevel() * 10) + (rand() % 10));
-            if (gv.stage_data[gv.getLevel()].getClearLine() <= gv.getLine()) { //Å¬¸®¾î ½ºÅ×ÀÌÁö
+            if (gv.stage_data[gv.getLevel()].getClearLine() <= gv.getLine()) { //Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 gv.setLevel(gv.getLevel() + 1);
                 gv.setLine(0);
             }
@@ -132,10 +132,10 @@ int TetrisCore::block_start(int* angle, int* x, int* y) {
 int TetrisCore::move_block(int* shape, int* angle, int* x, int* y, int* next_shape) {
     gui.erase_cur_block(*shape, *angle, *x, *y);
 
-    (*y)++;	//ºí·°À» ÇÑÄ­ ¾Æ·¡·Î ³»¸²
+    (*y)++;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     if (strike_check(*shape, *angle, x, *y, 0) == 1) {
         (*y)--;
-        if (*y <= 0)	//°ÔÀÓ¿À¹ö
+        if (*y < 0)	//ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
         {
             return 1;
         }
@@ -143,7 +143,7 @@ int TetrisCore::move_block(int* shape, int* angle, int* x, int* y, int* next_sha
         *shape = *next_shape;
         *next_shape = make_new_block();
 
-        block_start(angle, x, y);	//angle,x,y´Â Æ÷ÀÎÅÍÀÓ
+        block_start(angle, x, y);	//angle,x,yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         gui.show_next_block(*next_shape);
         return 2;
     }
