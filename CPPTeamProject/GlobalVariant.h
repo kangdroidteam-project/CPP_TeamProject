@@ -45,14 +45,10 @@ public:
     int* getPtrNextBlockShape();
 
     // Array return - type
-    char(*getTotalBlock())[14]{
-        return this->total_block;
-    }
+    char(*getTotalBlock())[14];
 
     // Special return - type
-    StageInformation (*getStageInformation()) {
-        return this->stage_data;
-    }
+    StageInformation(*getStageInformation());
 
     // Something to set.
     void setBlockShape(int blockShape);
@@ -64,15 +60,9 @@ public:
     void setScore(int sc);
     void setLevel(int lvl);
     void setGameOver(int val);
-    void setTotalBlock(int x, int y, int value) {
-        this->total_block[y][x] = value;
-    }
-    void setTotalBlock(int x, int y, int value, bool isBitOrOperator) {
-        this->total_block[y][x] |= value;
-    }
-    void callInitStage(int index, int speed, int stick_rate, int clear_line) {
-        this->stage_data[index].init(speed, stick_rate, clear_line);
-    }
+    void setTotalBlock(int x, int y, int value);
+    void setTotalBlock(int x, int y, int value, bool isBitOrOperator);
+    void callInitStage(int index, int speed, int stick_rate, int clear_line);
 };
 
 enum {

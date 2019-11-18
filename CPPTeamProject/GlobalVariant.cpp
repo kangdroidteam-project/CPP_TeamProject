@@ -92,6 +92,14 @@ int* GlobalVariant::getPtrNextBlockShape() {
     return &(this->next_block_shape);
 }
 
+char(*GlobalVariant::getTotalBlock())[14] {
+    return this->total_block;
+}
+
+StageInformation(*GlobalVariant::getStageInformation()) {
+    return this->stage_data;
+}
+
 void GlobalVariant::setBlockShape(int blockShape) {
     this->block_shape = blockShape;
 }
@@ -126,6 +134,18 @@ void GlobalVariant::setLevel(int lvl) {
 
 void GlobalVariant::setGameOver(int val) {
     this->is_gameover = val;
+}
+
+void GlobalVariant::setTotalBlock(int x, int y, int value) {
+    this->total_block[y][x] = value;
+}
+
+void GlobalVariant::setTotalBlock(int x, int y, int value, bool isBitOrOperator) {
+    this->total_block[y][x] |= value;
+}
+
+void GlobalVariant::callInitStage(int index, int speed, int stick_rate, int clear_line) {
+    this->stage_data[index].init(speed, stick_rate, clear_line);
 }
 
 void GlobalVariant::init(int level, int lines, int ab_x, int ab_y) {
