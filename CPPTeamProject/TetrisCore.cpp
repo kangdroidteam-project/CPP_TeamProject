@@ -30,10 +30,10 @@ int TetrisCore::make_new_block() {
     int shape;
     int i;
     i = rand() % 100;
-    if (i <= gv.stage_data[gv.getLevel()].getStickRate())		//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½
-        return 0;							//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    if (i <= gv.stage_data[gv.getLevel()].getStickRate())		//¸·´ë±â ³ª¿ÃÈ®·ü °è»ê
+        return 0;							//¸·´ë±â ¸ð¾çÀ¸·Î ¸®ÅÏ
 
-    shape = (rand() % 6) + 1;		//shapeï¿½ï¿½ï¿½ï¿½ 1~6ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¨
+    shape = (rand() % 6) + 1;		//shape¿¡´Â 1~6ÀÇ °ªÀÌ µé¾î°¨
     return shape;
 }
 
@@ -50,7 +50,7 @@ int TetrisCore::strike_check(int shape, int angle, int* x, int y, int isRot) {
                 block_dat = 1;
             else {
                 if ((y + i) < 0) continue;
-                block_dat = gv.total_block[y + i][*x + j];
+                block_dat = gv.getTotalBlock()[y + i][*x + j];
             }
             if ((block_dat == 1) && (gui.getBlock()[shape][angle][i][j] == 1)) {
                 if (isRot) {
@@ -72,16 +72,16 @@ int TetrisCore::check_full_line() {
     int i, j, k;
     for (i = 0; i < 20; i++) {
         for (j = 1; j < 13; j++) {
-            if (gv.total_block[i][j] == 0)
+            if (gv.getTotalBlock()[i][j] == 0)
                 break;
         }
-        if (j == 13) { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (j == 13) { //ÇÑÁÙÀÌ ´Ù Ã¤¿öÁ³À½
             gv.setLine((gv.getLine() + 1));
             gui.show_total_block();
             SystemUIManager::SetColor(BLUE);
             SystemUIManager::gotoxy(1 * 2 + gv.getAbsoluteX(), i + gv.getAbsoluteY());
             for (j = 1; j < 13; j++) {
-                cout << "ï¿½ï¿½";
+                cout << "¡à";
                 Sleep(10);
             }
             SystemUIManager::gotoxy(1 * 2 + gv.getAbsoluteX(), i + gv.getAbsoluteY());
@@ -92,12 +92,12 @@ int TetrisCore::check_full_line() {
 
             for (k = i; k > 0; k--) {
                 for (j = 1; j < 13; j++)
-                    gv.total_block[k][j] = gv.total_block[k - 1][j];
+                    gv.setTotalBlock(j, k, gv.getTotalBlock()[k - 1][j]);
             }
             for (j = 1; j < 13; j++)
-                gv.total_block[0][j] = 0;
+                gv.setTotalBlock(j, 0, 0);
             gv.setScore(gv.getScore() + 100 + (gv.getLevel() * 10) + (rand() % 10));
-            if (gv.stage_data[gv.getLevel()].getClearLine() <= gv.getLine()) { //Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            if (gv.stage_data[gv.getLevel()].getClearLine() <= gv.getLine()) { //Å¬¸®¾î ½ºÅ×ÀÌÁö
                 gv.setLevel(gv.getLevel() + 1);
                 gv.setLine(0);
             }
@@ -112,7 +112,7 @@ int TetrisCore::merge_block(int shape, int angle, int x, int y) {
     int i, j;
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
-            gv.total_block[y + i][x + j] |= gui.getBlock()[shape][angle][i][j];
+            gv.setTotalBlock(x + j, y + i, gui.getBlock()[shape][angle][i][j], true);
         }
     }
     check_full_line();
@@ -132,10 +132,10 @@ int TetrisCore::block_start(int* angle, int* x, int* y) {
 int TetrisCore::move_block(int* shape, int* angle, int* x, int* y, int* next_shape) {
     gui.erase_cur_block(*shape, *angle, *x, *y);
 
-    (*y)++;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    (*y)++;	//ºí·°À» ÇÑÄ­ ¾Æ·¡·Î ³»¸²
     if (strike_check(*shape, *angle, x, *y, 0) == 1) {
         (*y)--;
-        if (*y < 0)	//ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
+        if (*y < 0)	//°ÔÀÓ¿À¹ö
         {
             return 1;
         }
@@ -143,7 +143,7 @@ int TetrisCore::move_block(int* shape, int* angle, int* x, int* y, int* next_sha
         *shape = *next_shape;
         *next_shape = make_new_block();
 
-        block_start(angle, x, y);	//angle,x,yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        block_start(angle, x, y);	//angle,x,y´Â Æ÷ÀÎÅÍÀÓ
         gui.show_next_block(*next_shape);
         return 2;
     }

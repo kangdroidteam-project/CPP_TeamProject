@@ -78,7 +78,7 @@ int GameUIManager::show_total_block() {
 
             // Not checked from now.
             SystemUIManager::gotoxy((j * 2) + gv.getAbsoluteX(), i + gv.getAbsoluteY());
-            if (gv.total_block[i][j] == 1) {
+            if (gv.getTotalBlock()[i][j] == 1) {
                 cout << "бс";
             } else {
                 cout << "  ";
