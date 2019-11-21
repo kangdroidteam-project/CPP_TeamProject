@@ -78,13 +78,13 @@ int TetrisCore::check_full_line() {
         if (j == 13) { //한줄이 다 채워졌음
             gv.setLine((gv.getLine() + 1));
             gui.show_total_block();
-            SystemUIManager::SetColor(BLUE);
-            SystemUIManager::gotoxy(1 * 2 + gv.getAbsoluteX(), i + gv.getAbsoluteY());
+            gui.SetColor(BLUE);
+            gui.gotoxy(1 * 2 + gv.getAbsoluteX(), i + gv.getAbsoluteY());
             for (j = 1; j < 13; j++) {
                 cout << "□";
                 Sleep(10);
             }
-            SystemUIManager::gotoxy(1 * 2 + gv.getAbsoluteX(), i + gv.getAbsoluteY());
+            gui.gotoxy(1 * 2 + gv.getAbsoluteX(), i + gv.getAbsoluteY());
             for (j = 1; j < 13; j++) {
                 cout << "  ";
                 Sleep(10);

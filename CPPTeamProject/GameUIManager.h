@@ -2,9 +2,10 @@
 #pragma warning(disable:4996)
 
 #include "BlockManager.h"
-#include "SystemUIManager.h"
 #include "GlobalVariant.h"
 #include <iostream>
+#include <Windows.h>
+#include <conio.h>
 
 using namespace std;
 
@@ -38,5 +39,7 @@ public:
     int show_gameover();
 
     int input_data();
+    void SetColor(int color);
+    int gotoxy(int x, int y);
 };
 

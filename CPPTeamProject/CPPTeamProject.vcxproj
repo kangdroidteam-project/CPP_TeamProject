@@ -128,7 +128,6 @@
     <ClCompile Include="GameUIManager.cpp" />
     <ClCompile Include="GlobalVariant.cpp" />
     <ClCompile Include="StageInformation.cpp" />
-    <ClCompile Include="SystemUIManager.cpp" />
     <ClCompile Include="tetris.cpp" />
     <ClCompile Include="TetrisCore.cpp" />
   </ItemGroup>
@@ -138,7 +137,6 @@
     <ClInclude Include="GameUIManager.h" />
     <ClInclude Include="GlobalVariant.h" />
     <ClInclude Include="StageInformation.h" />
-    <ClInclude Include="SystemUIManager.h" />
     <ClInclude Include="TetrisCore.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

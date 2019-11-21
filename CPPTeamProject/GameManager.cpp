@@ -75,13 +75,13 @@ void GameManager::play() {
 
             if (gv.getGameOver() == 1) {
                 gui.show_gameover();
-                SystemUIManager::SetColor(GRAY);
+                gui.SetColor(GRAY);
                 break;
             }
 
-            SystemUIManager::gotoxy(77, 23);
+            gui.gotoxy(77, 23);
             Sleep(15);
-            SystemUIManager::gotoxy(77, 23);
+            gui.gotoxy(77, 23);
         }
         tc.init();
     }
