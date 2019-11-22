@@ -40,22 +40,22 @@ int TetrisCore::make_new_block() {
 //Check wheter block is touching elswhere.
 //Returns 1 if they are touching anything, 0 when not.
 // INNER FUNCTION
-int TetrisCore::strike_check(int shape, int angle, int* x, int y, int isRot) {
+int TetrisCore::strike_check(const int& shape, const int& angle, int& x, const int& y, const int& isRot) {
     int i, j;
     int block_dat;
 
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
-            if (((*x + j) == 0) || ((*x + j) == 13))
+            if (((x + j) == 0) || ((x + j) == 13))
                 block_dat = 1;
             else {
                 if ((y + i) < 0) continue;
-                block_dat = gv.getTotalBlock()[y + i][*x + j];
+                block_dat = gv.getTotalBlock()[y + i][x + j];
             }
             if ((block_dat == 1) && (gui.getBlock()[shape][angle][i][j] == 1)) {
                 if (isRot) {
-                    if ((*x + j) == 13) {
-                        (*x)--;
+                    if ((x + j) == 13) {
+                        (x)--;
                         gv.setCtr((gv.getCtr() + 1));
                         continue;
                     }
@@ -108,7 +108,7 @@ int TetrisCore::check_full_line() {
 }
 
 // INNER FUNCTION
-int TetrisCore::merge_block(int shape, int angle, int x, int y) {
+int TetrisCore::merge_block(const int& shape, const int& angle, const int& x, const int& y) {
     int i, j;
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
@@ -122,29 +122,29 @@ int TetrisCore::merge_block(int shape, int angle, int x, int y) {
 }
 
 // Set initial state for first-block start.
-int TetrisCore::block_start(int* angle, int* x, int* y) {
-    *x = 5;
-    *y = -3;
-    *angle = 0;
+int TetrisCore::block_start(int& angle, int& x, int& y) {
+    x = 5;
+    y = -3;
+    angle = 0;
     return 0;
 }
 
-int TetrisCore::move_block(int* shape, int* angle, int* x, int* y, int* next_shape) {
-    gui.erase_cur_block(*shape, *angle, *x, *y);
+int TetrisCore::move_block(int& shape, int& angle, int& x, int& y, int& next_shape) {
+    gui.erase_cur_block(shape, angle, x, y);
 
-    (*y)++;	//블럭을 한칸 아래로 내림
-    if (strike_check(*shape, *angle, x, *y, 0) == 1) {
-        (*y)--;
-        if (*y < 0)	//게임오버
+    (y)++;	//블럭을 한칸 아래로 내림
+    if (strike_check(shape, angle, x, y, 0) == 1) {
+        (y)--;
+        if (y < 0)	//게임오버
         {
             return 1;
         }
-        merge_block(*shape, *angle, *x, *y);
-        *shape = *next_shape;
-        *next_shape = make_new_block();
+        merge_block(shape, angle, x, y);
+        shape = next_shape;
+        next_shape = make_new_block();
 
         block_start(angle, x, y);	//angle,x,y는 포인터임
-        gui.show_next_block(*next_shape);
+        gui.show_next_block(next_shape);
         return 2;
     }
     return 0;

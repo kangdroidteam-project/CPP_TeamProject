@@ -2,7 +2,7 @@
 #include "GlobalVariant.h"
 GameUIManager::GameUIManager(GlobalVariant& input) : gv(input) {
 }
-int GameUIManager::show_cur_block(int shape, int angle, int x, int y) {
+int GameUIManager::show_cur_block(const int& shape, const int& angle, const int& x, const int& y) {
     int i, j; // The iteration variable. - Could be localized.
 
     // Set Color based on block shape.
@@ -49,7 +49,7 @@ int GameUIManager::show_cur_block(int shape, int angle, int x, int y) {
 }
 
 //Erase current block information(More likely, override with spaces)
-int GameUIManager::erase_cur_block(int shape, int angle, int x, int y) {
+int GameUIManager::erase_cur_block(const int& shape, const int& angle, const int& x, const int& y) {
     int i, j;
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 4; j++) {
@@ -96,7 +96,7 @@ int GameUIManager::show_total_block() {
  * It basically make box and IN THAT BOX, they show next block.
  * Shape is previously created by make_new_block();
  */
-int GameUIManager::show_next_block(int shape) {
+int GameUIManager::show_next_block(const int& shape) {
     int i, j;
     this->SetColor((gv.getLevel() + 1) % 6 + 1);
     for (i = 1; i < 7; i++) {
@@ -118,25 +118,25 @@ int GameUIManager::show_next_block(int shape) {
 int GameUIManager::show_logo() {
     int i, j;
     this->gotoxy(13, 3);
-    printf("旨收收收收收收收收收收收收收收收收收收收收收收收旬");
+    cout << "旨收收收收收收收收收收收收收收收收收收收收收收收旬";
     Sleep(100);
     this->gotoxy(13, 4);
-    printf("早﹣﹣﹣  ﹣﹣﹣  ﹣﹣﹣   ﹣﹣     ﹣    ﹣﹣  早");
+    cout << "早﹣﹣﹣  ﹣﹣﹣  ﹣﹣﹣   ﹣﹣     ﹣    ﹣﹣  早";
     Sleep(100);
     this->gotoxy(13, 5);
-    printf("早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣    ﹣    早");
+    cout << "早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣    ﹣    早";
     Sleep(100);
     this->gotoxy(13, 6);
-    printf("早  ﹣    ﹣﹣﹣    ﹣     ﹣﹣     ﹣     ﹣   早");
+    cout << "早  ﹣    ﹣﹣﹣    ﹣     ﹣﹣     ﹣     ﹣   早";
     Sleep(100);
     this->gotoxy(13, 7);
-    printf("早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣      ﹣  早");
+    cout << "早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣      ﹣  早";
     Sleep(100);
     this->gotoxy(13, 8);
-    printf("早  ﹣    ﹣﹣﹣    ﹣     ﹣  ﹣   ﹣    ﹣﹣  早");
+    cout << "早  ﹣    ﹣﹣﹣    ﹣     ﹣  ﹣   ﹣    ﹣﹣  早";
     Sleep(100);
     this->gotoxy(13, 9);
-    printf("曲收收收收收收收收收收收收收收收收收收收收收收收旭");
+    cout << "曲收收收收收收收收收收收收收收收收收收收收收收收旭";
     this->gotoxy(28, 20);
     cout << "Please Press Any Key~!";
 
@@ -238,11 +238,14 @@ int GameUIManager::input_data() {
     cout << "曲收收收收收收收收收收收收收收旭";
 
     // i is checking variable for input(level)
-    while (i < 1 || i>8) {
+    while (i < 1 || i>10) {
         this->gotoxy(10, 3);
         cout << "Select Start level[1-8]:       \b\b\b\b\b\b\b";
-        scanf("%d", &i);
-        while (getchar() != '\n');
+        cin >> i;
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        this->gotoxy(24, 3);
+        cout << "                                                                                                ";
     }
 
     gv.setLevel(i - 1); // For index.
@@ -250,12 +253,12 @@ int GameUIManager::input_data() {
     return 0;
 }
 
-void GameUIManager::SetColor(int color) {
+void GameUIManager::SetColor(const int& color) {
     static HANDLE std_output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(std_output_handle, color);
 }
 
-int GameUIManager::gotoxy(int x, int y) {
+int GameUIManager::gotoxy(const int& x, const int& y) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD pos;
     pos.Y = y;

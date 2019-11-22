@@ -40,23 +40,23 @@ int GlobalVariant::getCtr() const {
     return this->ctr;
 }
 
-int GlobalVariant::getNextBlockShape() const {
+int& GlobalVariant::getNextBlockShape() {
     return this->next_block_shape;
 }
 
-int GlobalVariant::getBlockAngle() const {
+int& GlobalVariant::getBlockAngle() {
     return this->block_angle;
 }
 
-int GlobalVariant::getBlockX() const {
+int& GlobalVariant::getBlockX() {
     return this->block_x;
 }
 
-int GlobalVariant::getBlockY() const {
+int& GlobalVariant::getBlockY() {
     return this->block_y;
 }
 
-int GlobalVariant::getBlockShape() const {
+int& GlobalVariant::getBlockShape() {
     return this->block_shape;
 }
 
@@ -100,55 +100,55 @@ StageInformation(*GlobalVariant::getStageInformation()) {
     return this->stage_data;
 }
 
-void GlobalVariant::setBlockShape(int blockShape) {
+void GlobalVariant::setBlockShape(const int& blockShape) {
     this->block_shape = blockShape;
 }
 
-void GlobalVariant::setNextBlockShape(int nextBlock) {
+void GlobalVariant::setNextBlockShape(const int& nextBlock) {
     this->next_block_shape = nextBlock;
 }
 
-void GlobalVariant::setBlockAngle(int blockangle) {
+void GlobalVariant::setBlockAngle(const int& blockangle) {
     this->block_angle = blockangle;
 }
 
-void GlobalVariant::setBlockX(int blox) {
+void GlobalVariant::setBlockX(const int& blox) {
     this->block_x = blox;
 }
 
-void GlobalVariant::setCtr(int ct) {
+void GlobalVariant::setCtr(const int& ct) {
     this->ctr = ct;
 }
 
-void GlobalVariant::setLine(int ln) {
+void GlobalVariant::setLine(const int& ln) {
     this->lines = ln;
 }
 
-void GlobalVariant::setScore(int sc) {
+void GlobalVariant::setScore(const int& sc) {
     this->score = sc;
 }
 
-void GlobalVariant::setLevel(int lvl) {
+void GlobalVariant::setLevel(const int& lvl) {
     this->level = lvl;
 }
 
-void GlobalVariant::setGameOver(int val) {
+void GlobalVariant::setGameOver(const int& val) {
     this->is_gameover = val;
 }
 
-void GlobalVariant::setTotalBlock(int x, int y, int value) {
+void GlobalVariant::setTotalBlock(const int& x, const int& y, const int& value) {
     this->total_block[y][x] = value;
 }
 
-void GlobalVariant::setTotalBlock(int x, int y, int value, bool isBitOrOperator) {
+void GlobalVariant::setTotalBlock(const int& x, const int& y, const int& value, const bool& isBitOrOperator) {
     this->total_block[y][x] |= value;
 }
 
-void GlobalVariant::callInitStage(int index, int speed, int stick_rate, int clear_line) {
+void GlobalVariant::callInitStage(const int& index, const int& speed, const int& stick_rate, const int& clear_line) {
     this->stage_data[index].init(speed, stick_rate, clear_line);
 }
 
-void GlobalVariant::init(int level, int lines, int ab_x, int ab_y) {
+void GlobalVariant::init(const int& level, const int& lines, const int& ab_x, const int& ab_y) {
     this->level = level;
     this->lines = lines;
     this->ab_x = ab_x;

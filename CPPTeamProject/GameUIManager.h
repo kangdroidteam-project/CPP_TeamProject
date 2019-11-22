@@ -15,15 +15,15 @@ private:
 public:
     GameUIManager(GlobalVariant& input);
     /**
-     * Shows shape-angle from point.
+     * Shows shape-angle from poconst int&.
      * shape: Could be random, but anyway, its shape of block.
      * angle: Could be random, but also, its rotation of block.
-     * x/y: Could be random, absolute starting point.
+     * x/y: Could be random, absolute starting poconst int&.
      */
-    int show_cur_block(int shape, int angle, int x, int y);
+    int show_cur_block(const int& shape, const int& angle, const int& x, const int& y);
 
     //Erase current block information(More likely, override with spaces)
-    int erase_cur_block(int shape, int angle, int x, int y);
+    int erase_cur_block(const int& shape, const int& angle, const int& x, const int& y);
     int show_total_block();
 
     /**
@@ -31,7 +31,7 @@ public:
      * It basically make box and IN THAT BOX, they show next block.
      * Shape is previously created by make_new_block();
      */
-    int show_next_block(int shape);
+    int show_next_block(const int& shape);
 
     int show_logo();
     int show_gamestat();
@@ -39,7 +39,7 @@ public:
     int show_gameover();
 
     int input_data();
-    void SetColor(int color);
-    int gotoxy(int x, int y);
+    void SetColor(const int& color);
+    int gotoxy(const int& x, const int& y);
 };
 

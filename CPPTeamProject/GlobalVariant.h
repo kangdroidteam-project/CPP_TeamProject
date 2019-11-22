@@ -23,16 +23,16 @@ private:
 
 public:
     GlobalVariant();
-    void init(int level, int lines, int ab_x, int ab_y);
+    void init(const int& level, const int& lines, const int& ab_x, const int& ab_y);
     int getLevel() const;
     int getAbsoluteX() const;
     int getAbsoluteY() const;
     int getCtr() const;
-    int getNextBlockShape() const;
-    int getBlockAngle() const;
-    int getBlockX() const;
-    int getBlockY() const;
-    int getBlockShape() const;
+    int& getNextBlockShape();
+    int& getBlockAngle();
+    int& getBlockX();
+    int& getBlockY();
+    int& getBlockShape();
     int getLine() const;
     int getScore() const;
     int getGameOver() const;
@@ -51,18 +51,18 @@ public:
     StageInformation(*getStageInformation());
 
     // Something to set.
-    void setBlockShape(int blockShape);
-    void setNextBlockShape(int nextBlock);
-    void setBlockAngle(int blockangle);
-    void setBlockX(int blox);
-    void setCtr(int ct);
-    void setLine(int ln);
-    void setScore(int sc);
-    void setLevel(int lvl);
-    void setGameOver(int val);
-    void setTotalBlock(int x, int y, int value);
-    void setTotalBlock(int x, int y, int value, bool isBitOrOperator);
-    void callInitStage(int index, int speed, int stick_rate, int clear_line);
+    void setBlockShape(const int& blockShape);
+    void setNextBlockShape(const int& nextBlock);
+    void setBlockAngle(const int& blockangle);
+    void setBlockX(const int& blox);
+    void setCtr(const int& ct);
+    void setLine(const int& ln);
+    void setScore(const int& sc);
+    void setLevel(const int& lvl);
+    void setGameOver(const int& val);
+    void setTotalBlock(const int& x, const int& y, const int& value);
+    void setTotalBlock(const int& x, const int& y, const int& value, const bool& isBitOrOperator);
+    void callInitStage(const int& index, const int& speed, const int& stick_rate, const int& clear_line);
 };
 
 enum {
