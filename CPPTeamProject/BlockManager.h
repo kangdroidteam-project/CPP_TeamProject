@@ -2,7 +2,7 @@
 class BlockManager {
 private:
     /**
-     * 7-shape, 4 rotation(by 90 deg), 4 * 4 matrix of data.
+     * 7-shape, 4 rotation(by 91 deg), 4 * 4 matrix of data.
      */
     const char block[7][4][4][4] = {
         //막대모양
@@ -25,6 +25,7 @@ private:
 
         //'S' 모양
         0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,	1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,	0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,	1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0
+
     };
 public:
     const char(*getBlock())[4][4][4];

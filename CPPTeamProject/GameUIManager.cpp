@@ -186,9 +186,9 @@ int GameUIManager::show_gamestat() {
     this->gotoxy(41, 7);
     cout << gv.getLevel() + 1;
     this->gotoxy(35, 10);
-    cout << gv.getScore();
+    cout << setw(10) << gv.getScore();
     this->gotoxy(35, 13);
-    cout << gv.getStageInformation()[gv.getLevel()].getClearLine() - gv.getLine();
+    cout << setw(10) << gv.getStageInformation()[gv.getLevel()].getClearLine() - gv.getLine();
     return 0;
 }
 
@@ -240,7 +240,7 @@ int GameUIManager::input_data() {
     // i is checking variable for input(level)
     while (i < 1 || i>10) {
         this->gotoxy(10, 3);
-        cout << "Select Start level[1-8]:       \b\b\b\b\b\b\b";
+        cout << "Select Start level[1-10]:       \b\b\b\b\b\b\b";
         cin >> i;
         cin.clear();
         cin.ignore(INT_MAX, '\n');
