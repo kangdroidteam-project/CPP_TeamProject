@@ -24,18 +24,18 @@ private:
 public:
     GlobalVariant();
     void init(int level, int lines, int ab_x, int ab_y);
-    int getLevel();
-    int getAbsoluteX();
-    int getAbsoluteY();
-    int getCtr();
-    int getNextBlockShape();
-    int getBlockAngle();
-    int getBlockX();
-    int getBlockY();
-    int getBlockShape();
-    int getLine();
-    int getScore();
-    int getGameOver();
+    int getLevel() const;
+    int getAbsoluteX() const;
+    int getAbsoluteY() const;
+    int getCtr() const;
+    int getNextBlockShape() const;
+    int getBlockAngle() const;
+    int getBlockX() const;
+    int getBlockY() const;
+    int getBlockShape() const;
+    int getLine() const;
+    int getScore() const;
+    int getGameOver() const;
 
     // Ptr return - type.
     int* getPtrBlockAngle();

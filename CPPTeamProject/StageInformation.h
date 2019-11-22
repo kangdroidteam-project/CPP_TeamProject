@@ -6,9 +6,9 @@ private:
     int clear_line;
 public:
     void init(int speed, int stick_rate, int clear_line);
-    int getSpeed();
-    int getStickRate();
-    int getClearLine();
+    int getSpeed() const;
+    int getStickRate() const;
+    int getClearLine() const;
     void setSpeed(int speed);
     void setStickRate(int stick_rate);
     void setClearLine(int clear_line);

@@ -24,51 +24,51 @@ void GlobalVariant::initTotalBlock() {
 GlobalVariant::GlobalVariant() {
 }
 
-int GlobalVariant::getLevel() {
+int GlobalVariant::getLevel() const {
     return this->level;
 }
 
-int GlobalVariant::getAbsoluteX() {
+int GlobalVariant::getAbsoluteX() const {
     return this->ab_x;
 }
 
-int GlobalVariant::getAbsoluteY() {
+int GlobalVariant::getAbsoluteY() const {
     return this->ab_y;
 }
 
-int GlobalVariant::getCtr() {
+int GlobalVariant::getCtr() const {
     return this->ctr;
 }
 
-int GlobalVariant::getNextBlockShape() {
+int GlobalVariant::getNextBlockShape() const {
     return this->next_block_shape;
 }
 
-int GlobalVariant::getBlockAngle() {
+int GlobalVariant::getBlockAngle() const {
     return this->block_angle;
 }
 
-int GlobalVariant::getBlockX() {
+int GlobalVariant::getBlockX() const {
     return this->block_x;
 }
 
-int GlobalVariant::getBlockY() {
+int GlobalVariant::getBlockY() const {
     return this->block_y;
 }
 
-int GlobalVariant::getBlockShape() {
+int GlobalVariant::getBlockShape() const {
     return this->block_shape;
 }
 
-int GlobalVariant::getLine() {
+int GlobalVariant::getLine() const {
     return this->lines;
 }
 
-int GlobalVariant::getScore() {
+int GlobalVariant::getScore() const {
     return this->score;
 }
 
-int GlobalVariant::getGameOver() {
+int GlobalVariant::getGameOver() const {
     return this->is_gameover;
 }
 
