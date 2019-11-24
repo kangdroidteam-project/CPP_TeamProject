@@ -44,8 +44,8 @@ int TetrisCore::strike_check(const int& shape, const int& angle, int& x, const i
     int i, j;
     int block_dat;
 
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
+    for (i = 0; i < SECOND_MAT; i++) {
+        for (j = 0; j < FIRST_MAT; j++) {
             if (((x + j) == 0) || ((x + j) == 13))
                 block_dat = 1;
             else {
@@ -110,8 +110,8 @@ int TetrisCore::check_full_line() {
 // INNER FUNCTION
 int TetrisCore::merge_block(const int& shape, const int& angle, const int& x, const int& y) {
     int i, j;
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
+    for (i = 0; i < SECOND_MAT; i++) {
+        for (j = 0; j < FIRST_MAT; j++) {
             gv.setTotalBlock(x + j, y + i, gui.getBlock()[shape][angle][i][j], true);
         }
     }

@@ -8,6 +8,11 @@
 #include <conio.h>
 #include <iomanip>
 
+#define FOURTH_MAT 7
+#define THIRD_MAT 4
+#define SECOND_MAT 10
+#define FIRST_MAT 6
+
 using namespace std;
 
 class GameUIManager : public BlockManager {

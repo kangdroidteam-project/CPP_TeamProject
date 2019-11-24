@@ -30,8 +30,8 @@ int GameUIManager::show_cur_block(const int& shape, const int& angle, const int&
         break;
     }
 
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
+    for (i = 0; i < FIRST_MAT; i++) {
+        for (j = 0; j < SECOND_MAT; j++) {
             if ((j + y) < 0) // Absolute starting point of y + j < 0
                 continue;
 
@@ -51,8 +51,8 @@ int GameUIManager::show_cur_block(const int& shape, const int& angle, const int&
 //Erase current block information(More likely, override with spaces)
 int GameUIManager::erase_cur_block(const int& shape, const int& angle, const int& x, const int& y) {
     int i, j;
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
+    for (i = 0; i < FIRST_MAT; i++) {
+        for (j = 0; j < SECOND_MAT; j++) {
             if (getBlock()[shape][angle][j][i] == 1) {
                 this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
                 cout << "  ";
