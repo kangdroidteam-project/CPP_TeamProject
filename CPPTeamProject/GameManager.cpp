@@ -73,10 +73,29 @@ void GameManager::play() {
                 gui.show_cur_block(gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY());
             }
 
+            // 12 is the one.
+            if (tc.test_val == 1) {
+                if (tc.check_tw_floor()) {
+                    // check empty spaces.
+                    if (tc.check_empty_space() == false) {
+                        gui.show_gameover();
+                        gui.SetColor(GRAY);
+                    } else {
+                        // Game passed.
+                        cout << "Game Passed!" << endl;
+                        system("cls");
+                    }
+                    break;
+                }
+
+            }
+            
             if (gv.getGameOver() == 1) {
+                // 12 is the one.
                 gui.show_gameover();
                 gui.SetColor(GRAY);
                 break;
+
             }
 
             gui.gotoxy(77, 23);

@@ -9,6 +9,7 @@ private:
     GlobalVariant &gv;
 public:
     TetrisCore(GameUIManager& gameUI, GlobalVariant& glovalVar);
+    int test_val;
     int make_new_block();
 
     //Check wheter block is touching elswhere.
@@ -28,5 +29,8 @@ public:
     int init();
 
     int move_block(int& shape, int& angle, int& x, int& y, int& next_shape);
+
+    bool check_empty_space();
+    bool check_tw_floor();
 };
 

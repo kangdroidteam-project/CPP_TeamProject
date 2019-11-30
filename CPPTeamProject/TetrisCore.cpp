@@ -115,7 +115,7 @@ int TetrisCore::merge_block(const int& shape, const int& angle, const int& x, co
             gv.setTotalBlock(x + j, y + i, gui.getBlock()[shape][angle][i][j], true);
         }
     }
-    check_full_line();
+    //check_full_line();
     gui.show_total_block();
 
     return 0;
@@ -135,7 +135,8 @@ int TetrisCore::move_block(int& shape, int& angle, int& x, int& y, int& next_sha
     (y)++;	//블럭을 한칸 아래로 내림
     if (strike_check(shape, angle, x, y, 0) == 1) {
         (y)--;
-        if (y < 0)	//게임오버
+        if (y < 12) test_val = 1;
+        if (y < 8)	//게임오버
         {
             return 1;
         }
@@ -148,4 +149,24 @@ int TetrisCore::move_block(int& shape, int& angle, int& x, int& y, int& next_sha
         return 2;
     }
     return 0;
+}
+
+bool TetrisCore::check_empty_space() {
+    for (int i = 20; i >= 12; i--) {
+        for (int a = 0; a < 14; a++) {
+            if (gv.getTotalBlock()[i][a] == 0) {
+                return false; // Game OVER.
+            }
+        }
+    }
+    return true; // Game passed.
+}
+
+bool TetrisCore::check_tw_floor() {
+    for (int i = 1; i < 13; i++) {
+        if (gv.getTotalBlock()[12][i] == 0) {
+            return false; // 12th floor is NOT fully putted on.
+        }
+    }
+    return true; // 12th floor is fully occupied
 }
