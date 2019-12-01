@@ -7,8 +7,10 @@ class TetrisCore {
 private:
     GameUIManager &gui;
     GlobalVariant &gv;
+    bool is_centrum_tc;
+    bool isSameThingOn(int *arr, int value);
 public:
-    TetrisCore(GameUIManager& gameUI, GlobalVariant& glovalVar);
+    TetrisCore(GameUIManager& gameUI, GlobalVariant& glovalVar, bool is_centrum_tc);
     int test_val;
     int make_new_block();
 
@@ -32,5 +34,7 @@ public:
 
     bool check_empty_space();
     bool check_tw_floor();
+
+    int choose_block_centrum();
 };
 

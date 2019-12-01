@@ -1,15 +1,18 @@
 #include "GameManager.h"
 
-void GameManager::play() {
+void GameManager::play(bool is_centrum) {
     char keytemp;
     GlobalVariant gv;
     GameUIManager gui(gv);
-    TetrisCore tc(gui, gv);
+    TetrisCore tc(gui, gv, is_centrum);
     tc.init(); // Initiate.
     gui.show_logo();
     while (true) {
-
-        gui.input_data();
+        if (!is_centrum) {
+            gui.input_data();
+        } else {
+            gv.setLevel(5);
+        }
         gui.show_total_block();
         gv.setBlockShape(tc.make_new_block());
         gv.setNextBlockShape(tc.make_new_block());
@@ -74,20 +77,22 @@ void GameManager::play() {
             }
 
             // 12 is the one.
-            if (tc.test_val == 1) {
-                if (tc.check_tw_floor()) {
-                    // check empty spaces.
-                    if (tc.check_empty_space() == false) {
-                        gui.show_gameover();
-                        gui.SetColor(GRAY);
-                    } else {
-                        // Game passed.
-                        cout << "Game Passed!" << endl;
-                        system("cls");
+            if (is_centrum) {
+                if (tc.test_val == 1) {
+                    if (tc.check_tw_floor()) {
+                        // check empty spaces.
+                        if (tc.check_empty_space() == false) {
+                            gui.show_gameover();
+                            gui.SetColor(GRAY);
+                        } else {
+                            // Game passed.
+                            cout << "Game Passed!" << endl;
+                            system("cls");
+                        }
+                        break;
                     }
-                    break;
-                }
 
+                }
             }
             
             if (gv.getGameOver() == 1) {
