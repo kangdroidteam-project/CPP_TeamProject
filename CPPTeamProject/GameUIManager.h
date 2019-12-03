@@ -21,10 +21,10 @@ public:
      * angle: Could be random, but also, its rotation of block.
      * x/y: Could be random, absolute starting poconst int&.
      */
-    int show_cur_block(const int& shape, const int& angle, const int& x, const int& y);
+    int show_cur_block(const int& shape, const int& angle, const int& x, const int& y, const bool& isFake);
 
     //Erase current block information(More likely, override with spaces)
-    int erase_cur_block(const int& shape, const int& angle, const int& x, const int& y);
+    int erase_cur_block(const int& shape, const int& angle, const int& x, const int& y, const bool& isFake);
     int show_total_block();
 
     /**
@@ -42,5 +42,6 @@ public:
     int input_data();
     void SetColor(const int& color);
     int gotoxy(const int& x, const int& y);
+    void setCursorView(bool visible);
 };
 

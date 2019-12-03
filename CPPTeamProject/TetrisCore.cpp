@@ -129,8 +129,8 @@ int TetrisCore::block_start(int& angle, int& x, int& y) {
     return 0;
 }
 
-int TetrisCore::move_block(int& shape, int& angle, int& x, int& y, int& next_shape) {
-    gui.erase_cur_block(shape, angle, x, y);
+int TetrisCore::move_block(int& shape, int& angle, int& x, int& y, int& next_shape, const bool& isFake) {
+    gui.erase_cur_block(shape, angle, x, y, isFake);
 
     (y)++;	//블럭을 한칸 아래로 내림
     if (strike_check(shape, angle, x, y, 0) == 1) {
@@ -139,12 +139,15 @@ int TetrisCore::move_block(int& shape, int& angle, int& x, int& y, int& next_sha
         {
             return 1;
         }
-        merge_block(shape, angle, x, y);
-        shape = next_shape;
-        next_shape = make_new_block();
 
-        block_start(angle, x, y);	//angle,x,y는 포인터임
-        gui.show_next_block(next_shape);
+        if (!isFake) {
+            merge_block(shape, angle, x, y);
+            shape = next_shape;
+            next_shape = make_new_block();
+
+            block_start(angle, x, y);	//angle,x,y는 포인터임
+            gui.show_next_block(next_shape);
+        }
         return 2;
     }
     return 0;

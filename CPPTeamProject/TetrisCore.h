@@ -27,6 +27,6 @@ public:
 
     int init();
 
-    int move_block(int& shape, int& angle, int& x, int& y, int& next_shape);
+    int move_block(int& shape, int& angle, int& x, int& y, int& next_shape, const bool& isFake);
 };
 
