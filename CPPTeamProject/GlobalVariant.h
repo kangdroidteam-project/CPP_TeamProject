@@ -72,8 +72,8 @@ public:
             break;
         case 2:
         case 4:
-            x = 8; 
-            y = 8;
+            x = 5; 
+            y = 5;
             break;
 
         }
