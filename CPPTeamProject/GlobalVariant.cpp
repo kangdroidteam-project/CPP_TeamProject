@@ -81,6 +81,33 @@ int GlobalVariant::getGameOver() const {
     return this->is_gameover;
 }
 
+void GlobalVariant::itemOneTwo(const int& val) {
+    // 4*4 Bomb
+    int x = (rand() % 12) + 2; // 1~12;
+    int y = (rand() % 20); //0~19
+
+    for (int i = y; i < y + 4; i++) {
+        for (int j = x; j < x + 4; j++) {
+            if (j < 13 && i < 20) {
+                total_block[i][j] = val;
+            }
+        }
+    }
+
+    // TODO: Call GUI Refresh, Call Recursive
+
+}
+
+void GlobalVariant::itemThree() {
+    // Thanos
+
+    for (int y = 19; y >= 10; y--) {
+        for (int x = 1; x < 13; x++) {
+            total_block[y][x] = 0;
+        }
+    }
+}
+
 int* GlobalVariant::getPtrBlockAngle() {
     return &(this->block_angle);
 }

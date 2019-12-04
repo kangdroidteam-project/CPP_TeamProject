@@ -127,6 +127,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameUIManager.cpp" />
     <ClCompile Include="GlobalVariant.cpp" />
+    <ClCompile Include="ItemClass.cpp" />
     <ClCompile Include="StageInformation.cpp" />
     <ClCompile Include="tetris.cpp" />
     <ClCompile Include="TetrisCore.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameUIManager.h" />
     <ClInclude Include="GlobalVariant.h" />
+    <ClInclude Include="ItemClass.h" />
     <ClInclude Include="StageInformation.h" />
     <ClInclude Include="TetrisCore.h" />
   </ItemGroup>

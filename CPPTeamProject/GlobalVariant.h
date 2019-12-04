@@ -1,5 +1,9 @@
 #pragma once
 #include "StageInformation.h"
+#include <cstdlib>
+#include <iostream>
+
+using namespace std;
 
 #define EXT_KEY			0xffffffe0	//확장키 인식값 
 #define KEY_LEFT		0x4b
@@ -39,6 +43,10 @@ public:
     int getLine() const;
     int getScore() const;
     int getGameOver() const;
+
+    // Item One
+    void itemOneTwo(const int& val);
+    void itemThree();
 
     // Ptr return - type.
     int* getPtrBlockAngle();

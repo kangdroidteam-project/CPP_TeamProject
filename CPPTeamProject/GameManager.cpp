@@ -1,7 +1,7 @@
 #include "GameManager.h"
 
 void GameManager::test() {
-    fake_y = -3;
+    fake_y = gv.getBlockY();
     int p_val = 0;
 
     while (p_val == 0) {
@@ -11,7 +11,7 @@ void GameManager::test() {
 }
 
 void GameManager::printThis() {
-    fake_y = -3;
+    fake_y = gv.getBlockY();
     //gui.erase_cur_block(gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), fake_y, true);
     int p_val = 0;
 
@@ -40,6 +40,7 @@ void GameManager::play() {
         gv.setNextBlockShape(tc.make_new_block(level));
         gui.show_next_block(level,gv.getNextBlockShape()); // Show next block
         tc.block_start(level,gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY());
+        gui.show_gamestat();
 
         for (int i = 0; true; i++) {
             if (kbhit()) {
@@ -90,14 +91,75 @@ void GameManager::play() {
                         gui.show_cur_block(level,gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), false);
                         break;
                     }
-                }
-                else if (keytemp == 32) { //스페이스바를 눌렀을때
+                } else if (keytemp == 32) { //스페이스바를 눌렀을때
                     while (gv.getGameOver() == 0) {
                         gv.setGameOver(tc.move_block(level,gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), gv.getNextBlockShape(), false));
                     }
                     gui.show_cur_block(level,gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), false);
-                }
-                else {
+                } else if (keytemp == 'u') {
+                    if (level == 5) {
+                        if (gv.getScore() >= 200) {
+                            gv.itemOneTwo(0);
+                            gui.show_total_block(level);
+                            int l;
+
+                            // KMS SUG
+                            for (int k = 0; k < 21; k++) {
+                                for (int p = 1; p < 14; p++) {
+                                    if (gv.getTotalBlock()[k][p] == 0 && gv.getTotalBlock()[k - 1][p] != 0) {
+                                        for (l = k; l > 0; l--) {
+                                            gv.setTotalBlock(p, l, gv.getTotalBlock()[l - 1][p]);
+                                        }
+                                        gv.setTotalBlock(p, 0, 0);
+                                    }
+                                }
+                            } // END
+                            gui.show_total_block(level);
+                            tc.check_full_line();
+                            gv.setScore(gv.getScore() - 200);
+                            gui.show_gamestat();
+                        } else {
+                            // NO MONEY
+                        }
+                    }
+                } else if (keytemp == 'i') {
+                    if (level == 5) {
+                        if (gv.getScore() >= 100) {
+                            gv.itemOneTwo(1);
+                            gui.show_total_block(level);
+                            tc.check_full_line();
+                            gv.setScore(gv.getScore() - 100);
+                            gui.show_gamestat();
+                        } else {
+                            // NO MONEY
+                        }
+                    }
+                } else if (keytemp == 'o') {
+                    if (level == 5) {
+                        if (gv.getScore() >= 300) {
+                            gv.itemThree();
+                            gui.show_total_block(level);
+                            int l;
+                            // KMS SUG
+                            for (int k = 0; k < 21; k++) {
+                                for (int p = 1; p < 14; p++) {
+                                    if (gv.getTotalBlock()[k][p] == 0 && gv.getTotalBlock()[k - 1][p] != 0) {
+                                        for (l = k; l > 0; l--) {
+                                            gv.setTotalBlock(p, l, gv.getTotalBlock()[l - 1][p]);
+                                        }
+                                        gv.setTotalBlock(p, 0, 0);
+                                    }
+                                }
+                            } // END
+                            gui.show_total_block(level);
+                            tc.check_full_line();
+                            gv.setScore(gv.getScore() - 300);
+                            gui.show_gamestat();
+                        } else {
+                            // NO MONEY
+                        }
+                    }
+                } else {
                     // Clear out 
                     test();
                     gui.erase_cur_block(level, gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), false);
