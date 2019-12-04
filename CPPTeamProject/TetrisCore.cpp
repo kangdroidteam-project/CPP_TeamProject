@@ -281,8 +281,11 @@ int TetrisCore::block_start(const int& level, int& angle, int& x, int& y) {
     return 0;
 }
 
-int TetrisCore::move_block(const int& level,int& shape, int& angle, int& x, int& y, int& next_shape) {
-    gui.erase_cur_block(level,shape, angle, x, y);
+int TetrisCore::move_block(const int& level,int& shape, int& angle, int& x, int& y, int& next_shape, const bool& isFake) {
+    if (!isFake) {
+        gui.erase_cur_block(level, shape, angle, x, y, false);
+    }
+    
 
     (y)++;	//블럭을 한칸 아래로 내림
     if (strike_check(level,shape, angle, x, y, 0) == 1) {
@@ -292,21 +295,25 @@ int TetrisCore::move_block(const int& level,int& shape, int& angle, int& x, int&
             return 1;
         }
 
-        merge_block(level,shape, angle, x, y);
-        shape = next_shape;
-        next_shape = make_new_block(level);
+        if (!isFake) {
+            merge_block(level, shape, angle, x, y);
+            shape = next_shape;
+            next_shape = make_new_block(level);
+        }
         
-        
-        if (level == 1) {
-            gui.SetColor(WHITE);
-            for (int i = 0; i < 5; i++) {
-                cout << gv.getjew()[i] << " ";
+        if (!isFake) {
+            if (level == 1) {
+                gui.SetColor(WHITE);
+                for (int i = 0; i < 5; i++) {
+                    cout << gv.getjew()[i] << " ";
+                }
             }
         }
         
-
-        block_start(level,angle, x, y);	//angle,x,y는 포인터임
-        gui.show_next_block(level,next_shape);
+        if (!isFake) {
+            block_start(level, angle, x, y);	//angle,x,y는 포인터임
+            gui.show_next_block(level, next_shape);
+        }
 
         return 2;
     }

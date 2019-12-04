@@ -32,7 +32,7 @@ public:
 
     void colorpop();
 
-    int move_block(const int& level, int& shape, int& angle, int& x, int& y, int& next_shape);
+    int move_block(const int& level, int& shape, int& angle, int& x, int& y, int& next_shape, const bool& isFake);
 
 };
 

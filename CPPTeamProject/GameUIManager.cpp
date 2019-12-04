@@ -4,7 +4,7 @@
 
 GameUIManager::GameUIManager(GlobalVariant& input, BlockManager& block) : gv(input),bm(block){
 }
-int GameUIManager::show_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y) {
+int GameUIManager::show_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y, const bool& isFake) {
     int i, j; // The iteration variable. - Could be localized.
 
     int levelx;
@@ -37,6 +37,8 @@ int GameUIManager::show_cur_block(const int& level, const int& shape, const int&
         break;
     }
 
+    if (isFake) this->SetColor(DARK_GRAY);
+
     switch (level) {
     case 0:
         for (i = 0; i < levelx; i++) {
@@ -62,6 +64,7 @@ int GameUIManager::show_cur_block(const int& level, const int& shape, const int&
                 if (bm.getBlock()[shape][angle][j][i] != 0) {
                     this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
                     this->SetColor((int)(bm.getBlock()[shape][angle][j][i]));
+                    if (isFake) this->SetColor(DARK_GRAY);
                     cout << "бс";
                 }
             }
@@ -118,7 +121,7 @@ int GameUIManager::show_cur_block(const int& level, const int& shape, const int&
 }
 
 //Erase current block information(More likely, override with spaces)
-int GameUIManager::erase_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y) {
+int GameUIManager::erase_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y, const bool& isFake) {
     int i, j;
     int lx, ly;
     gv.getlevelXY(level, lx, ly);
@@ -145,7 +148,6 @@ int GameUIManager::erase_cur_block(const int& level, const int& shape, const int
                     this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
                     cout << "  ";
                     //break;
-
                 }
             }
         }
@@ -177,6 +179,36 @@ int GameUIManager::erase_cur_block(const int& level, const int& shape, const int
         break;
     }
 
+    if (isFake) {
+        int highest = 30;
+        for (int a = 1; a < 13; a++) {
+            for (i = 19; i >= 0; i--) {
+                if (gv.getTotalBlock()[i][a] == 1) {
+                    if (highest > i) {
+                        highest = i;
+                    }
+                }
+            }
+        }
+        this->SetColor(DARK_GRAY);
+        for (i = 19; i >= highest; i--) {
+            for (j = 0; j < 14; j++) {
+                if (j == 0 || j == 13 || i == 20) {
+                    this->SetColor((gv.getLevel() % 6) + 1);
+
+                } else {
+                    this->SetColor(DARK_GRAY);
+                }
+
+                this->gotoxy((j * 2) + gv.getAbsoluteX(), i + gv.getAbsoluteY());
+                if (gv.getTotalBlock()[i][j] == 1) {
+                    cout << "бс";
+                }
+            }
+        }
+        this->SetColor(BLACK);
+        this->gotoxy(77, 23);
+    }
     return 0;
 }
 
@@ -232,7 +264,7 @@ int GameUIManager::show_next_block(const int& level, const int& shape) {
 
         }
     }
-    show_cur_block(level, shape, 0, 15, 1);
+    show_cur_block(level, shape, 0, 15, 1, false);
     return 0;
 }
 
@@ -270,10 +302,10 @@ int GameUIManager::show_logo() {
                 cout << "                                                          ";
             }
 
-            show_cur_block(3,rand() % 7, rand() % 4, 6, 14);
-            show_cur_block(3,rand() % 7, rand() % 4, 12, 14);
-            show_cur_block(3,rand() % 7, rand() % 4, 19, 14);
-            show_cur_block(3,rand() % 7, rand() % 4, 24, 14);
+            show_cur_block(3,rand() % 7, rand() % 4, 6, 14, false);
+            show_cur_block(3,rand() % 7, rand() % 4, 12, 14, false);
+            show_cur_block(3,rand() % 7, rand() % 4, 19, 14, false);
+            show_cur_block(3,rand() % 7, rand() % 4, 24, 14, false);
         }
         if (kbhit()) // maybe able to change kbhit to getche?
             break;
@@ -387,4 +419,9 @@ int GameUIManager::gotoxy(const int& x, const int& y) {
     pos.X = x;
     SetConsoleCursorPosition(hConsole, pos);
     return 0;
+}
+
+void GameUIManager::setCursorView(bool visible) {
+    CONSOLE_CURSOR_INFO cursor = { 1, visible };
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 }

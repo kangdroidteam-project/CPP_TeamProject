@@ -20,8 +20,8 @@ public:
     GameUIManager(GlobalVariant& input,BlockManager& bm);
 
 
-    int show_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y);
-    int erase_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y);
+    int show_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y, const bool& isFake);
+    int erase_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y, const bool& isFake);
     int show_total_block(const int& level);
 
     
@@ -35,5 +35,6 @@ public:
     int input_data();
     void SetColor(const int& color);
     int gotoxy(const int& x, const int& y);
+    void setCursorView(bool visible);
 };
 
