@@ -12,6 +12,7 @@ private:
     int level;
 public:
     GameManager() : gv(), bm(), gui(gv, bm), tc(gui, gv, bm) {
+        gui.setCursorView(false);
         //level (0~4)
         //0 : 모스부호 
         //1 : 애니팡
@@ -20,7 +21,7 @@ public:
         //4: 자음
         //5 : 보통게임
 
-        this->level = 3;
+        this->level = 5;
     }
     void test();
     void play();
