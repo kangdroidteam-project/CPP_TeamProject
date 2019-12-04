@@ -270,42 +270,91 @@ int GameUIManager::show_next_block(const int& level, const int& shape) {
 
 int GameUIManager::show_logo() {
     int i, j;
-    this->SetColor(WHITE);
+    SetColor(BLUE);
     this->gotoxy(13, 3);
-    cout << "旨收收收收收收收收收收收收收收收收收收收收收收收旬";
+    cout << "旨收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收旬";
     Sleep(100);
     this->gotoxy(13, 4);
-    cout << "早﹣﹣﹣  ﹣﹣﹣  ﹣﹣﹣   ﹣﹣     ﹣    ﹣﹣  早";
+    cout << "早                                                                            早";
     Sleep(100);
     this->gotoxy(13, 5);
-    cout << "早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣    ﹣    早";
+    cout << "早                                                                            早";
     Sleep(100);
     this->gotoxy(13, 6);
-    cout << "早  ﹣    ﹣﹣﹣    ﹣     ﹣﹣     ﹣     ﹣   早";
+    cout << "早                                                                            早";
     Sleep(100);
     this->gotoxy(13, 7);
-    cout << "早  ﹣    ﹣        ﹣     ﹣ ﹣    ﹣      ﹣  早";
+    cout << "早                                                                            早";
     Sleep(100);
     this->gotoxy(13, 8);
-    cout << "早  ﹣    ﹣﹣﹣    ﹣     ﹣  ﹣   ﹣    ﹣﹣  早";
+    cout << "早                                                                            早";
     Sleep(100);
     this->gotoxy(13, 9);
-    cout << "曲收收收收收收收收收收收收收收收收收收收收收收收旭";
-    this->gotoxy(28, 20);
+    cout << "早                                                                            早";
+    Sleep(100);
+    this->gotoxy(13, 10);
+    cout << "早                                                                            早";
+    Sleep(100);
+    this->gotoxy(13, 11);
+    cout << "早                                                                            早";
+    Sleep(100);
+    this->gotoxy(13, 12);
+    cout << "早                                                                            早";
+    Sleep(100);
+    this->gotoxy(13, 13);
+    cout << "早   ﹥﹥     ﹥﹥﹥     ﹥      ﹥  ﹥﹥﹥      ﹥      ﹥     ﹥   ﹥    ﹥ 早";
+    Sleep(100);
+    this->gotoxy(13, 14);
+    cout << "早 ﹥       ﹥      ﹥   ﹥﹥  ﹥﹥  ﹥  ﹥    ﹥  ﹥    ﹥﹥   ﹥     ﹥﹥   早";
+    Sleep(100);
+    this->gotoxy(13, 15);
+    cout << "早 ﹥       ﹥      ﹥   ﹥  ﹥  ﹥  ﹥﹥﹥   ﹥﹥﹥﹥   ﹥   ﹥﹥      ﹥    早";
+    Sleep(100);
+    this->gotoxy(13, 16);
+    cout << "早   ﹥﹥     ﹥﹥﹥     ﹥      ﹥  ﹥       ﹥     ﹥  ﹥     ﹥      ﹥    早";
+    this->gotoxy(13, 17);
+    Sleep(100);
+    cout << "曲收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收旭";
+
+
+    SetColor(GREEN);
+    this->gotoxy(20, 5);
+    cout << "     ﹥﹥﹥﹥﹥   ﹥﹥﹥﹥﹥  ﹥﹥﹥﹥  ﹥﹥﹥﹥  ﹥﹥  ﹥﹥ ";
+    Sleep(100);
+    this->gotoxy(20, 6);
+    cout << "   ﹥        ﹥   ﹥      ﹥  ﹥        ﹥         ﹥    ﹥  ";
+    Sleep(100);
+    this->gotoxy(20, 7);
+    cout << "   ﹥             ﹥      ﹥  ﹥        ﹥         ﹥﹥  ﹥  ";
+    Sleep(100);
+    this->gotoxy(20, 8);
+    cout << "   ﹥    ﹥﹥﹥   ﹥﹥﹥﹥﹥  ﹥﹥﹥﹥  ﹥﹥﹥﹥   ﹥ ﹥ ﹥  ";
+    Sleep(100);
+    this->gotoxy(20, 9);
+    cout << "   ﹥        ﹥   ﹥ ﹥       ﹥        ﹥         ﹥  ﹥﹥  ";
+    Sleep(100);
+    this->gotoxy(20, 10);
+    cout << "   ﹥        ﹥   ﹥   ﹥     ﹥        ﹥         ﹥    ﹥ ";
+    Sleep(100);
+    this->gotoxy(20, 11);
+    cout << "     ﹥﹥﹥﹥﹥ ﹥﹥﹥  ﹥﹥  ﹥﹥﹥﹥  ﹥﹥﹥﹥  ﹥﹥  ﹥﹥ ";
+    this->gotoxy(40, 25);
     cout << "Please Press Any Key~!";
+
+
 
     for (i = 0; 1; i++) {
         if (i % 40 == 0) { // So this is the change-rate(Refresh rate) of Logo
 
             for (j = 0; j < 5; j++) {
-                this->gotoxy(6, 14 + j);
-                cout << "                                                          ";
+                this->gotoxy(13, 20 + j);
+                cout << "                                                                           ";
             }
 
-            show_cur_block(3,rand() % 7, rand() % 4, 6, 14, false);
-            show_cur_block(3,rand() % 7, rand() % 4, 12, 14, false);
-            show_cur_block(3,rand() % 7, rand() % 4, 19, 14, false);
-            show_cur_block(3,rand() % 7, rand() % 4, 24, 14, false);
+            show_cur_block(3,rand() % 7, rand() % 4, 13, 20, false);
+            show_cur_block(3,rand() % 7, rand() % 4, 19, 20, false);
+            show_cur_block(3,rand() % 7, rand() % 4, 26, 20, false);
+            show_cur_block(3,rand() % 7, rand() % 4, 31, 20, false);
         }
         if (kbhit()) // maybe able to change kbhit to getche?
             break;
