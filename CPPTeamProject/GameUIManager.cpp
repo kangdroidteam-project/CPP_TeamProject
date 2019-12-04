@@ -1,9 +1,16 @@
 #include "GameUIManager.h"
 #include "GlobalVariant.h"
-GameUIManager::GameUIManager(GlobalVariant& input) : gv(input) {
+#include "BlockManager.h"
+
+GameUIManager::GameUIManager(GlobalVariant& input, BlockManager& block) : gv(input),bm(block){
 }
-int GameUIManager::show_cur_block(const int& shape, const int& angle, const int& x, const int& y) {
+int GameUIManager::show_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y) {
     int i, j; // The iteration variable. - Could be localized.
+
+    int levelx;
+    int levely; 
+
+    gv.getlevelXY(level, levelx, levely);
 
     // Set Color based on block shape.
     switch (shape) {
@@ -30,57 +37,176 @@ int GameUIManager::show_cur_block(const int& shape, const int& angle, const int&
         break;
     }
 
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
-            if ((j + y) < 0) // Absolute starting point of y + j < 0
-                continue;
+    switch (level) {
+    case 0:
+        for (i = 0; i < levelx; i++) {
+            for (j = 0; j < levely; j++) {
 
-            // Somewhat print damn thing
-            if (getBlock()[shape][angle][j][i] == 1) {
-                this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
-                cout << "■";
+                if ((j + y) < 0) // Absolute starting point of y + j < 0
+                    continue;
 
+                if (bm.getFirstBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    cout << "■";
+                }
             }
         }
+        break;
+    case 1:
+        for (i = 0; i < levelx; i++) {
+            for (j = 0; j < levely; j++) {
+
+                if ((j + y) < 0) // Absolute starting point of y + j < 0
+                    continue;
+
+                if (bm.getBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    this->SetColor((int)(bm.getBlock()[shape][angle][j][i]));
+                    cout << "■";
+                }
+            }
+        }
+        break;
+    case 3:
+    case 5:
+        for (i = 0; i < levelx; i++) {
+            for (j = 0; j < levely; j++) {
+
+                if ((j + y) < 0) // Absolute starting point of y + j < 0
+                    continue;
+
+                if (bm.getBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    cout << "■";
+                }
+            }
+        }
+        break;
+    case 2:
+        for (i = 0; i < levelx; i++) {
+            for (j = 0; j < levely; j++) {
+
+                if ((j + y) < 0) // Absolute starting point of y + j < 0
+                    continue;
+
+                if (bm.getSecondBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    cout << "■";
+                }
+            }
+        }
+        break;
+    case 4:
+        for (i = 0; i < levelx; i++) {
+            for (j = 0; j < levely; j++) {
+
+                if ((j + y) < 0) // Absolute starting point of y + j < 0
+                    continue;
+
+                if (bm.getThirdBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    cout << "■";
+                }
+            }
+        }
+        break;
     }
+
     this->SetColor(BLACK);
     this->gotoxy(77, 23);
     return 0;
 }
 
 //Erase current block information(More likely, override with spaces)
-int GameUIManager::erase_cur_block(const int& shape, const int& angle, const int& x, const int& y) {
+int GameUIManager::erase_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y) {
     int i, j;
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
-            if (getBlock()[shape][angle][j][i] == 1) {
-                this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
-                cout << "  ";
-                //break;
+    int lx, ly;
+    gv.getlevelXY(level, lx, ly);
 
+    switch (level) {
+    case 0:
+        for (i = 0; i < lx; i++) {
+            for (j = 0; j < ly; j++) {
+                if (bm.getFirstBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    cout << "  ";
+                    //break;
+
+                }
             }
         }
+        break;
+    case 1:
+    case 3:
+    case 5:
+        for (i = 0; i < lx; i++) {
+            for (j = 0; j < ly; j++) {
+                if (bm.getBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    cout << "  ";
+                    //break;
+
+                }
+            }
+        }
+        break;
+    case 2:
+        for (i = 0; i < lx; i++) {
+            for (j = 0; j < ly; j++) {
+                if (bm.getSecondBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    cout << "  ";
+                    //break;
+
+                }
+            }
+        }
+        break;
+    case 4:
+
+        for (i = 0; i < lx; i++) {
+            for (j = 0; j < ly; j++) {
+                if (bm.getThirdBlock()[shape][angle][j][i] != 0) {
+                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
+                    cout << "  ";
+                    //break;
+
+                }
+            }
+        }
+        break;
     }
+
     return 0;
 }
-int GameUIManager::show_total_block() {
+
+int GameUIManager::show_total_block(const int& level) {
     int i, j;
-    this->SetColor(DARK_GRAY);
+//	this->SetColor(DARK_GRAY);
     for (i = 0; i < 21; i++) {
         for (j = 0; j < 14; j++) {
             if (j == 0 || j == 13 || i == 20)		//레벨에 따라 외벽 색이 변함
             {
                 this->SetColor((gv.getLevel() % 6) + 1);
-
-            } else {
-                this->SetColor(DARK_GRAY);
+            }
+            else {
+                if(level==1)
+                    this->SetColor(gv.getTotalBlock()[i][j]);
+                else this->SetColor(DARK_GRAY);
             }
 
             // Not checked from now.
             this->gotoxy((j * 2) + gv.getAbsoluteX(), i + gv.getAbsoluteY());
-            if (gv.getTotalBlock()[i][j] == 1) {
-                cout << "■";
-            } else {
+            if (gv.getTotalBlock()[i][j] !=0) {
+//				if (getBlock()[gv.getBlockShape()][gv.getBlockAngle()][i][j] != -1) {
+//					this->SetColor(getBlock()[gv.getBlockShape()][gv.getBlockAngle()][2][3]);
+//					cout << "■";
+//				}
+//				else {
+                    cout << "■";
+                }
+            
+            else {
                 cout << "  ";
             }
 
@@ -91,12 +217,7 @@ int GameUIManager::show_total_block() {
     return 0;
 }
 
-/**
- * Show next block on Top-Right.
- * It basically make box and IN THAT BOX, they show next block.
- * Shape is previously created by make_new_block();
- */
-int GameUIManager::show_next_block(const int& shape) {
+int GameUIManager::show_next_block(const int& level, const int& shape) {
     int i, j;
     this->SetColor((gv.getLevel() + 1) % 6 + 1);
     for (i = 1; i < 7; i++) {
@@ -104,19 +225,20 @@ int GameUIManager::show_next_block(const int& shape) {
         for (j = 0; j < 6; j++) {
             if (i == 1 || i == 6 || j == 0 || j == 5) {
                 cout << "■";
-            } else {
+            }
+            else {
                 cout << "  ";
             }
 
         }
     }
-    // So it would show block created by make_new_block();
-    show_cur_block(shape, 0, 15, 1);
+    show_cur_block(level, shape, 0, 15, 1);
     return 0;
 }
 
 int GameUIManager::show_logo() {
     int i, j;
+    this->SetColor(WHITE);
     this->gotoxy(13, 3);
     cout << "┏━━━━━━━━━━━━━━━━━━━━━━━┓";
     Sleep(100);
@@ -148,10 +270,10 @@ int GameUIManager::show_logo() {
                 cout << "                                                          ";
             }
 
-            show_cur_block(rand() % 7, rand() % 4, 6, 14);
-            show_cur_block(rand() % 7, rand() % 4, 12, 14);
-            show_cur_block(rand() % 7, rand() % 4, 19, 14);
-            show_cur_block(rand() % 7, rand() % 4, 24, 14);
+            show_cur_block(3,rand() % 7, rand() % 4, 6, 14);
+            show_cur_block(3,rand() % 7, rand() % 4, 12, 14);
+            show_cur_block(3,rand() % 7, rand() % 4, 19, 14);
+            show_cur_block(3,rand() % 7, rand() % 4, 24, 14);
         }
         if (kbhit()) // maybe able to change kbhit to getche?
             break;
@@ -237,7 +359,7 @@ int GameUIManager::input_data() {
     this->gotoxy(10, 13);
     cout << "┗━━━━━━━━━━━━━━┛";
 
-    // i is checking variable for input(level)
+
     while (i < 1 || i>10) {
         this->gotoxy(10, 3);
         cout << "Select Start level[1-10]:       \b\b\b\b\b\b\b";

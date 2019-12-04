@@ -19,6 +19,8 @@ private:
     int is_gameover; // The Boolean type check variable.
     void initTotalBlock();
     char total_block[21][14];		//화면에 표시되는 블럭들
+    char color_block[21][14];
+    int jew[5];
     StageInformation stage_data[10];
 
 public:
@@ -43,9 +45,31 @@ public:
     int* getPtrBlockY();
     int* getPtrBlockShape();
     int* getPtrNextBlockShape();
+    int* getjew();
 
     // Array return - type
     char(*getTotalBlock())[14];
+    char(*getColorBlock())[14];
+
+    void getlevelXY(const int& level, int& x, int& y) {
+        switch (level) {
+
+        case 0:
+        case 1:
+        case 3:
+        case 5:
+            x = 4;
+            y = 4;
+            break;
+        case 2:
+        case 4:
+            x = 8; 
+            y = 8;
+            break;
+
+        }
+    }
+
 
     // Special return - type
     StageInformation(*getStageInformation());
@@ -62,7 +86,12 @@ public:
     void setGameOver(const int& val);
     void setTotalBlock(const int& x, const int& y, const int& value);
     void setTotalBlock(const int& x, const int& y, const int& value, const bool& isBitOrOperator);
+
     void callInitStage(const int& index, const int& speed, const int& stick_rate, const int& clear_line);
+
+    void setColorBlock(const int& x, const int& y, const int& value);
+    
+    void setjew(int index);
 };
 
 enum {

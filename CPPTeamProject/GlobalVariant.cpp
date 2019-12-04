@@ -1,22 +1,31 @@
 #include "GlobalVariant.h"
 
 void GlobalVariant::initTotalBlock() {
-/**
- * So, This iteration does:
- * 1. Every i, for j = 0, j = 13, set its var to 1.
- */
-    for (int i = 0; i < 20; i++) {
+    /**
+     * So, This iteration does:
+     * 1. Every i, for j = 0, j = 13, set its var to 1.
+     */
+    for (int i = 0; i < 21; i++) {
         for (int j = 0; j < 14; j++) {
             if ((j == 0) || (j == 13)) {
                 total_block[i][j] = 1;
-            } else {
+                color_block[i][j] = 1;
+            }
+            else {
                 total_block[i][j] = 0;
+                color_block[i][j] = 0;
             }
         }
     }
 
-    for (int j = 0; j < 14; j++)			//화면의 제일 밑의 줄은 1로 채운다.
+    for (int j = 0; j < 14; j++) {			//화면의 제일 밑의 줄은 1로 채운다.
         total_block[20][j] = 1;
+        color_block[20][j] = 1;
+    }
+
+    for (int i = 0; i < 5; i++) {
+        jew[i] = 0;
+    }
     // Afterall, those Iteration could minimize(or combine)
     // And those two for-operation does make some kind of beaker-shape array.
 }
@@ -92,8 +101,24 @@ int* GlobalVariant::getPtrNextBlockShape() {
     return &(this->next_block_shape);
 }
 
-char(*GlobalVariant::getTotalBlock())[14] {
+int * GlobalVariant::getjew()
+{
+    return jew;
+}
+
+void GlobalVariant::setjew(int index)
+{
+    this->jew[index-11]++;
+}
+
+char(*GlobalVariant::getTotalBlock())[14]{
+
     return this->total_block;
+}
+
+char(*GlobalVariant::getColorBlock())[14]
+{
+    return this->color_block;
 }
 
 StageInformation(*GlobalVariant::getStageInformation()) {
@@ -146,6 +171,11 @@ void GlobalVariant::setTotalBlock(const int& x, const int& y, const int& value, 
 
 void GlobalVariant::callInitStage(const int& index, const int& speed, const int& stick_rate, const int& clear_line) {
     this->stage_data[index].init(speed, stick_rate, clear_line);
+}
+
+void GlobalVariant::setColorBlock(const int & x, const  int & y, const int & value)
+{
+    this->color_block[x][y] = value;
 }
 
 void GlobalVariant::init(const int& level, const int& lines, const int& ab_x, const int& ab_y) {

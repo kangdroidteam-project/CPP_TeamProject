@@ -22,3 +22,4 @@ void StageInformation::setStickRate(const int& stick_rate) {
 void StageInformation::setClearLine(const int& clear_line) {
     this->clear_line = clear_line;
 }
+
