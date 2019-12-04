@@ -250,15 +250,30 @@ int GameUIManager::show_total_block(const int& level) {
 }
 
 int GameUIManager::show_next_block(const int& level, const int& shape) {
+
     int i, j;
+    int limit_x1, limit_x2, limit_y1, limit_y2;
     this->SetColor((gv.getLevel() + 1) % 6 + 1);
-    for (i = 1; i < 7; i++) {
+
+    ////수정한것
+    if (level == 2 || level == 4) {
+        limit_x1 = 1;
+        limit_x2 = 7;
+        limit_y1 = 0;
+        limit_y2 = 6;
+    } else {
+        limit_x1 = 1;
+        limit_x2 = 6;
+        limit_y1 = 0;
+        limit_y2 = 5;
+    }
+
+    for (i = 1; i < (limit_x2 + 1); i++) {
         this->gotoxy(33, i);
-        for (j = 0; j < 6; j++) {
-            if (i == 1 || i == 6 || j == 0 || j == 5) {
+        for (j = 0; j < (limit_y2 + 1); j++) {
+            if (i == limit_x1 || i == limit_x2 || j == limit_y1 || j == limit_y2) {
                 cout << "■";
-            }
-            else {
+            } else {
                 cout << "  ";
             }
 
