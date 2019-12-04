@@ -51,9 +51,11 @@ void GameManager::play() {
                     case KEY_UP:		//회전하기
                         if (level != 1) {
                             gv.setCtr(0);
+                            test();
                             if (tc.strike_check(level,gv.getBlockShape(), (gv.getBlockAngle() + 1) % 4, gv.getBlockX(), gv.getBlockY(), 1) == 0) {
+                                
                                 gui.erase_cur_block(level,gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX() + gv.getCtr(), gv.getBlockY(), false);
-                                test();
+                                
                                 int origin_angle;
                                 gv.setBlockAngle((gv.getBlockAngle() + 1) % 4);
                                 printThis();
