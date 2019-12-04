@@ -2,6 +2,15 @@
 
 static int dir[4][2] = { {-1,0},{0,1},{1,0},{0,-1} };
 
+bool TetrisCore::isSameThingOn(int* arr, int value) {
+    for (int i = 0; i < 3; i++) {
+        if (arr[i] == value) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 TetrisCore::TetrisCore(GameUIManager& gameUI, GlobalVariant& glovalVar, BlockManager& blockman) : gui(gameUI), gv(glovalVar), bm(blockman) {
 
@@ -215,8 +224,9 @@ int TetrisCore::merge_block(const int& level, int& shape,  int& angle,   int& x,
     }
 
 
-
-    check_full_line();
+    if (level != 3) {
+        check_full_line();
+    }
 
     if(level==1)
         colorpop();
@@ -290,15 +300,27 @@ int TetrisCore::move_block(const int& level,int& shape, int& angle, int& x, int&
     (y)++;	//블럭을 한칸 아래로 내림
     if (strike_check(level,shape, angle, x, y, 0) == 1) {
         (y)--;
-        if (y < 0)	//게임오버
-        {
-            return 1;
+        if (level == 3) {
+            if (y < MAX_LIMIT) test_val = 1;
+            if (y < (MAX_LIMIT - 4))	//게임오버
+            {
+                return 1;
+            }
+        } else {
+            if (y < 0)	//게임오버
+            {
+                return 1;
+            }
         }
 
         if (!isFake) {
             merge_block(level, shape, angle, x, y);
             shape = next_shape;
-            next_shape = make_new_block(level);
+            if (level == 3) {
+                next_shape = choose_block_centrum();
+            } else {
+                next_shape = make_new_block(level);
+            }
         }
         
         if (!isFake) {
@@ -318,4 +340,73 @@ int TetrisCore::move_block(const int& level,int& shape, int& angle, int& x, int&
         return 2;
     }
     return 0;
+}
+
+bool TetrisCore::check_empty_space() {
+    for (int i = 20; i >= MAX_LIMIT; i--) {
+        for (int a = 0; a < 14; a++) {
+            if (gv.getTotalBlock()[i][a] == 0) {
+                return false; // Game OVER.
+            }
+        }
+    }
+    return true; // Game passed.
+}
+
+bool TetrisCore::check_tw_floor() {
+    for (int i = 1; i < 13; i++) {
+        if (gv.getTotalBlock()[MAX_LIMIT][i] == 0) {
+            return false; // 12th floor is NOT fully putted on.
+        }
+    }
+    return true; // 12th floor is fully occupied
+}
+
+int TetrisCore::choose_block_centrum() {
+    int value;
+    int st = 60;
+    int st_y = 12;
+    int tmp_arr[3];
+    this->gui.SetColor(GRAY);
+    gui.gotoxy(60, 10);
+    cout << "Choose Block: ";
+    gui.gotoxy(60, 12);
+    for (int i = 0; i < 3; i++) {
+        while (true) {
+            int val = rand() % 7;
+            if (isSameThingOn(tmp_arr, val) == false) {
+                tmp_arr[i] = val;
+                break;
+            }
+        }
+        for (int a = 0; a < 4; a++) {
+            for (int b = 0; b < 4; b++) {
+                if (bm.getBlock()[tmp_arr[i]][0][b][a] == 1) {
+                    cout << "■";
+                }
+                st_y++;
+                gui.gotoxy(st, st_y);
+            }
+
+            st += 2;
+            st_y = 12;
+            gui.gotoxy(st, st_y);
+
+        }
+        st += 2;
+        st_y = 12;
+        gui.gotoxy(st, st_y);
+    }
+
+    gui.gotoxy(60, 20);
+    cout << "Input(1~3): ";
+    cin >> value;
+    gui.gotoxy(60, 20);
+    cout << "                   ";
+    gui.gotoxy(60, 10);
+    for (int i = 0; i < 11; i++) {
+        gui.gotoxy(60, 10 + i);
+        cout << "                                                         ";
+    }
+    return tmp_arr[value - 1];
 }

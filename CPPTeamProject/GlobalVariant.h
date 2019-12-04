@@ -6,6 +6,7 @@
 #define KEY_RIGHT		0x4d
 #define KEY_UP			0x48
 #define KEY_DOWN		0x50
+#define MAX_LIMIT 12
 
 class GlobalVariant {
 private:

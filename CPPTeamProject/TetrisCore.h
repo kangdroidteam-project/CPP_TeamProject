@@ -9,8 +9,10 @@ private:
     GameUIManager &gui;
     GlobalVariant &gv;
     BlockManager &bm;
+    bool isSameThingOn(int* arr, int value);
 public:
     TetrisCore(GameUIManager& gameUI, GlobalVariant& glovalVar, BlockManager& blockMan);
+    int test_val;
     int make_new_block(const int& level);
 
     //Check wheter block is touching elswhere.
@@ -34,5 +36,8 @@ public:
 
     int move_block(const int& level, int& shape, int& angle, int& x, int& y, int& next_shape, const bool& isFake);
 
+    bool check_empty_space();
+    bool check_tw_floor();
+    int choose_block_centrum();
 };
 

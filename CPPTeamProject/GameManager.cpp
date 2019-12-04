@@ -111,6 +111,24 @@ void GameManager::play() {
                 gui.show_cur_block(level,gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), false);
             }
 
+            // 12 is the one.
+            if (level == 3) {
+                if (tc.test_val == 1) {
+                    if (tc.check_tw_floor()) {
+                        // check empty spaces.
+                        if (tc.check_empty_space() == false) {
+                            gui.show_gameover();
+                            gui.SetColor(GRAY);
+                        } else {
+                            // Game passed.
+                            cout << "Game Passed!" << endl;
+                            system("cls");
+                        }
+                        break;
+                    }
+                }
+            }
+
             if (gv.getGameOver() == 1) {
                 gui.show_gameover();
                 gui.SetColor(GRAY);
