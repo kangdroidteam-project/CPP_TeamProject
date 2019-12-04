@@ -270,51 +270,31 @@ int GameUIManager::show_next_block(const int& level, const int& shape) {
 
 int GameUIManager::show_logo() {
     int i, j;
-    SetColor(BLUE);
-    this->gotoxy(13, 3);
-    cout << "旨收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收旬";
+
+
+
+    SetColor(SKY_BLUE);
+
+    this->gotoxy(20, 3);
+    cout << "旨收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收旬";
+    Sleep(10);
+    this->gotoxy(28, 18);
+    cout << "曲收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收旭";
+
+
+    SetColor(VOILET);
     Sleep(100);
-    this->gotoxy(13, 4);
-    cout << "早                                                                            早";
+    this->gotoxy(25, 13);
+    cout << "     ﹥﹥﹥ ﹥﹥﹥﹥ ﹥﹥﹥﹥﹥ ﹥﹥﹥ ﹥﹥﹥ ﹥﹥﹥﹥ ﹥  ﹥ ";
     Sleep(100);
-    this->gotoxy(13, 5);
-    cout << "早                                                                            早";
+    this->gotoxy(25, 14);
+    cout << "     ﹥     ﹥    ﹥ ﹥  ﹥  ﹥ ﹥  ﹥ ﹥  ﹥ ﹥    ﹥  ﹥﹥  ";
     Sleep(100);
-    this->gotoxy(13, 6);
-    cout << "早                                                                            早";
+    this->gotoxy(25, 15);
+    cout << "     ﹥     ﹥    ﹥ ﹥  ﹥  ﹥ ﹥﹥﹥ ﹥﹥﹥ ﹥    ﹥   ﹥   ";
     Sleep(100);
-    this->gotoxy(13, 7);
-    cout << "早                                                                            早";
-    Sleep(100);
-    this->gotoxy(13, 8);
-    cout << "早                                                                            早";
-    Sleep(100);
-    this->gotoxy(13, 9);
-    cout << "早                                                                            早";
-    Sleep(100);
-    this->gotoxy(13, 10);
-    cout << "早                                                                            早";
-    Sleep(100);
-    this->gotoxy(13, 11);
-    cout << "早                                                                            早";
-    Sleep(100);
-    this->gotoxy(13, 12);
-    cout << "早                                                                            早";
-    Sleep(100);
-    this->gotoxy(13, 13);
-    cout << "早   ﹥﹥     ﹥﹥﹥     ﹥      ﹥  ﹥﹥﹥      ﹥      ﹥     ﹥   ﹥    ﹥ 早";
-    Sleep(100);
-    this->gotoxy(13, 14);
-    cout << "早 ﹥       ﹥      ﹥   ﹥﹥  ﹥﹥  ﹥  ﹥    ﹥  ﹥    ﹥﹥   ﹥     ﹥﹥   早";
-    Sleep(100);
-    this->gotoxy(13, 15);
-    cout << "早 ﹥       ﹥      ﹥   ﹥  ﹥  ﹥  ﹥﹥﹥   ﹥﹥﹥﹥   ﹥   ﹥﹥      ﹥    早";
-    Sleep(100);
-    this->gotoxy(13, 16);
-    cout << "早   ﹥﹥     ﹥﹥﹥     ﹥      ﹥  ﹥       ﹥     ﹥  ﹥     ﹥      ﹥    早";
-    this->gotoxy(13, 17);
-    Sleep(100);
-    cout << "曲收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收旭";
+    this->gotoxy(25, 16);
+    cout << "     ﹥﹥﹥ ﹥﹥﹥﹥ ﹥  ﹥  ﹥ ﹥     ﹥  ﹥ ﹥    ﹥   ﹥   ﹥";
 
 
     SetColor(GREEN);
@@ -338,6 +318,8 @@ int GameUIManager::show_logo() {
     Sleep(100);
     this->gotoxy(20, 11);
     cout << "     ﹥﹥﹥﹥﹥ ﹥﹥﹥  ﹥﹥  ﹥﹥﹥﹥  ﹥﹥﹥﹥  ﹥﹥  ﹥﹥ ";
+
+
     this->gotoxy(40, 25);
     cout << "Please Press Any Key~!";
 
@@ -351,10 +333,10 @@ int GameUIManager::show_logo() {
                 cout << "                                                                           ";
             }
 
-            show_cur_block(3,rand() % 7, rand() % 4, 13, 20, false);
-            show_cur_block(3,rand() % 7, rand() % 4, 19, 20, false);
-            show_cur_block(3,rand() % 7, rand() % 4, 26, 20, false);
-            show_cur_block(3,rand() % 7, rand() % 4, 31, 20, false);
+            show_cur_block(3, rand() % 7, rand() % 4, 13, 20, false);
+            show_cur_block(3, rand() % 7, rand() % 4, 19, 20, false);
+            show_cur_block(3, rand() % 7, rand() % 4, 26, 20, false);
+            show_cur_block(3, rand() % 7, rand() % 4, 31, 20, false);
         }
         if (kbhit()) // maybe able to change kbhit to getche?
             break;
