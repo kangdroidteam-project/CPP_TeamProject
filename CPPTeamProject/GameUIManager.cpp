@@ -413,46 +413,6 @@ int GameUIManager::show_gameover() {
     return 0;
 }
 
-int GameUIManager::input_data() {
-    int i = 0; // checking variable for input(level)
-    this->SetColor(GRAY);
-    this->gotoxy(10, 7);
-    cout << "旨收收收收<GAME KEY>收收收收收旬";
-    Sleep(10);
-    this->gotoxy(10, 8);
-    cout << "早 UP   : Rotate Block        早";
-    Sleep(10);
-    this->gotoxy(10, 9);
-    cout << "早 DOWN : Move One-Step Down  早";
-    Sleep(10);
-    this->gotoxy(10, 10);
-    cout << "早 SPACE: Move Bottom Down    早";
-    Sleep(10);
-    this->gotoxy(10, 11);
-    cout << "早 LEFT : Move Left           早";
-    Sleep(10);
-    this->gotoxy(10, 12);
-    cout << "早 RIGHT: Move Right          早";
-    Sleep(10);
-    this->gotoxy(10, 13);
-    cout << "曲收收收收收收收收收收收收收收旭";
-
-
-    while (i < 1 || i>10) {
-        this->gotoxy(10, 3);
-        cout << "Select Start level[1-10]:       \b\b\b\b\b\b\b";
-        cin >> i;
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-        this->gotoxy(24, 3);
-        cout << "                                                                                                ";
-    }
-
-    gv.setLevel(i - 1); // For index.
-    system("cls");
-    return 0;
-}
-
 void GameUIManager::SetColor(const int& color) {
     static HANDLE std_output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(std_output_handle, color);

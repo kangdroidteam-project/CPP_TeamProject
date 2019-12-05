@@ -26,15 +26,6 @@ void GameManager::play() {
     tc.init(); // Initiate.
     gui.show_logo();
     while (true) {
-        //level (0~4)
-        //0 : 모스부호 
-        //1 : 애니팡
-        //2 : 모음
-        //3 : 센트롬
-        //4: 자음
-        //5 : 보통게임
-
-        //gui.input_data();
         gv.setLevel(5);
         gui.show_total_block(0);
         gv.setBlockShape(tc.make_new_block(level));
