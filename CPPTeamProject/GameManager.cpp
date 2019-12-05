@@ -34,7 +34,8 @@ void GameManager::play() {
         //4: 자음
         //5 : 보통게임
 
-        gui.input_data();
+        //gui.input_data();
+        gv.setLevel(5);
         gui.show_total_block(0);
         gv.setBlockShape(tc.make_new_block(level));
         gv.setNextBlockShape(tc.make_new_block(level));

@@ -374,20 +374,20 @@ int GameUIManager::show_gamestat() {
     static int printed_text = 0;
     this->SetColor(GRAY);
     if (printed_text == 0) {
-        this->gotoxy(35, 7);
+        this->gotoxy(35, 10);
         cout << "STAGE";
 
-        this->gotoxy(35, 9);
+        this->gotoxy(35, 12);
         cout << "SCORE";
 
-        this->gotoxy(35, 12);
+        this->gotoxy(35, 15);
         cout << "LINES";
     }
-    this->gotoxy(41, 7);
+    this->gotoxy(41, 10);
     cout << gv.getLevel() + 1;
-    this->gotoxy(35, 10);
-    cout << setw(10) << gv.getScore();
     this->gotoxy(35, 13);
+    cout << setw(10) << gv.getScore();
+    this->gotoxy(35, 16);
     cout << setw(10) << gv.getStageInformation()[gv.getLevel()].getClearLine() - gv.getLine();
     return 0;
 }
