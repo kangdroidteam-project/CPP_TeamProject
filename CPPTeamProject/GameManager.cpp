@@ -27,7 +27,7 @@ void GameManager::play() {
     gui.show_logo();
     while (true) {
         gv.setLevel(5);
-        gui.show_total_block(0);
+        gui.show_total_block(level);
         gv.setBlockShape(tc.make_new_block(level));
         gv.setNextBlockShape(tc.make_new_block(level));
         gui.show_next_block(level,gv.getNextBlockShape()); // Show next block

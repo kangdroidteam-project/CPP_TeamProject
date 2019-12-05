@@ -302,7 +302,7 @@ int TetrisCore::move_block(const int& level,int& shape, int& angle, int& x, int&
         (y)--;
         if (level == 3) {
             if (y < MAX_LIMIT) test_val = 1;
-            if (y < (MAX_LIMIT - 4))	//게임오버
+            if (y < (MAX_LIMIT - 6))	//게임오버
             {
                 return 1;
             }

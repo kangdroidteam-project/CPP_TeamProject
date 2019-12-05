@@ -195,8 +195,10 @@ int GameUIManager::erase_cur_block(const int& level, const int& shape, const int
             for (j = 0; j < 14; j++) {
                 if (j == 0 || j == 13 || i == 20)		//레벨에 따라 외벽 색이 변함
                 {
-                    if (i == 12 && level == 3) {
+                    if (i == MAX_LIMIT && level == 3) {
                         this->SetColor(RED);
+                    } else if (i == MAX_LIMIT - 6 && level == 3) {
+                        this->SetColor(DARK_RED);
                     } else {
                         this->SetColor((gv.getLevel() % 6) + 1);
                     }
@@ -225,8 +227,10 @@ int GameUIManager::show_total_block(const int& level) {
         for (j = 0; j < 14; j++) {
             if (j == 0 || j == 13 || i == 20)		//레벨에 따라 외벽 색이 변함
             {
-                if (i == 12 && level == 3) {
+                if (i == MAX_LIMIT && level == 3) {
                     this->SetColor(RED);
+                } else if (i == MAX_LIMIT - 6 && level == 3) {
+                    this->SetColor(DARK_RED);
                 } else {
                     this->SetColor((gv.getLevel() % 6) + 1);
                 }
