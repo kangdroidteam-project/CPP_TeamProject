@@ -193,11 +193,17 @@ int GameUIManager::erase_cur_block(const int& level, const int& shape, const int
         this->SetColor(DARK_GRAY);
         for (i = 19; i >= highest; i--) {
             for (j = 0; j < 14; j++) {
-                if (j == 0 || j == 13 || i == 20) {
-                    this->SetColor((gv.getLevel() % 6) + 1);
-
+                if (j == 0 || j == 13 || i == 20)		//레벨에 따라 외벽 색이 변함
+                {
+                    if (i == 12 && level == 3) {
+                        this->SetColor(RED);
+                    } else {
+                        this->SetColor((gv.getLevel() % 6) + 1);
+                    }
                 } else {
-                    this->SetColor(DARK_GRAY);
+                    if (level == 1)
+                        this->SetColor(gv.getTotalBlock()[i][j]);
+                    else this->SetColor(DARK_GRAY);
                 }
 
                 this->gotoxy((j * 2) + gv.getAbsoluteX(), i + gv.getAbsoluteY());
@@ -219,9 +225,12 @@ int GameUIManager::show_total_block(const int& level) {
         for (j = 0; j < 14; j++) {
             if (j == 0 || j == 13 || i == 20)		//레벨에 따라 외벽 색이 변함
             {
-                this->SetColor((gv.getLevel() % 6) + 1);
-            }
-            else {
+                if (i == 12 && level == 3) {
+                    this->SetColor(RED);
+                } else {
+                    this->SetColor((gv.getLevel() % 6) + 1);
+                }
+            } else {
                 if(level==1)
                     this->SetColor(gv.getTotalBlock()[i][j]);
                 else this->SetColor(DARK_GRAY);
@@ -229,16 +238,10 @@ int GameUIManager::show_total_block(const int& level) {
 
             // Not checked from now.
             this->gotoxy((j * 2) + gv.getAbsoluteX(), i + gv.getAbsoluteY());
+
             if (gv.getTotalBlock()[i][j] !=0) {
-//				if (getBlock()[gv.getBlockShape()][gv.getBlockAngle()][i][j] != -1) {
-//					this->SetColor(getBlock()[gv.getBlockShape()][gv.getBlockAngle()][2][3]);
-//					cout << "■";
-//				}
-//				else {
-                    cout << "■";
-                }
-            
-            else {
+                cout << "■";
+            } else {
                 cout << "  ";
             }
 
