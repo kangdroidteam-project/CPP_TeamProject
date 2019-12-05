@@ -32,7 +32,10 @@ void GameManager::play() {
         gv.setNextBlockShape(tc.make_new_block(level));
         gui.show_next_block(level,gv.getNextBlockShape()); // Show next block
         tc.block_start(level,gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY());
-        gui.show_gamestat();
+
+        if (level != 1) {
+            gui.show_gamestat();
+        }
 
         for (int i = 0; true; i++) {
             if (kbhit()) {
@@ -111,7 +114,9 @@ void GameManager::play() {
                             gui.show_total_block(level);
                             tc.check_full_line();
                             gv.setScore(gv.getScore() - 200);
-                            gui.show_gamestat();
+                            if (level != 1) {
+                                gui.show_gamestat();
+                            }
                         } else {
                             // NO MONEY
                         }
@@ -123,7 +128,9 @@ void GameManager::play() {
                             gui.show_total_block(level);
                             tc.check_full_line();
                             gv.setScore(gv.getScore() - 100);
-                            gui.show_gamestat();
+                            if (level != 1) {
+                                gui.show_gamestat();
+                            }
                         } else {
                             // NO MONEY
                         }
@@ -148,7 +155,9 @@ void GameManager::play() {
                             gui.show_total_block(level);
                             tc.check_full_line();
                             gv.setScore(gv.getScore() - 300);
-                            gui.show_gamestat();
+                            if (level != 1) {
+                                gui.show_gamestat();
+                            }
                         } else {
                             // NO MONEY
                         }
