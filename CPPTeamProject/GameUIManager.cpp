@@ -35,6 +35,26 @@ int GameUIManager::show_cur_block(const int& level, const int& shape, const int&
     case 6:
         this->SetColor(GREEN);
         break;
+    case 7:
+        this->SetColor(RED);
+        break;
+    case 8:
+        this->SetColor(BLUE);
+        break;
+    case 9:
+        this->SetColor(SKY_BLUE);
+        break;
+    case 10:
+        this->SetColor(WHITE);
+        break;
+    case 11:
+        this->SetColor(YELLOW);
+        break;
+    case 12:
+        this->SetColor(VOILET);
+        break;
+    case 13:
+        this->SetColor(GREEN);
     }
 
     if (isFake) this->SetColor(DARK_GRAY);
@@ -85,7 +105,7 @@ int GameUIManager::show_cur_block(const int& level, const int& shape, const int&
             }
         }
         break;
-    case 2:
+    case 2: case 4:
         for (i = 0; i < levelx; i++) {
             for (j = 0; j < levely; j++) {
 
@@ -93,20 +113,6 @@ int GameUIManager::show_cur_block(const int& level, const int& shape, const int&
                     continue;
 
                 if (bm.getSecondBlock()[shape][angle][j][i] != 0) {
-                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
-                    cout << "бс";
-                }
-            }
-        }
-        break;
-    case 4:
-        for (i = 0; i < levelx; i++) {
-            for (j = 0; j < levely; j++) {
-
-                if ((j + y) < 0) // Absolute starting point of y + j < 0
-                    continue;
-
-                if (bm.getThirdBlock()[shape][angle][j][i] != 0) {
                     this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
                     cout << "бс";
                 }
@@ -152,23 +158,10 @@ int GameUIManager::erase_cur_block(const int& level, const int& shape, const int
             }
         }
         break;
-    case 2:
+    case 2:case 4:
         for (i = 0; i < lx; i++) {
             for (j = 0; j < ly; j++) {
                 if (bm.getSecondBlock()[shape][angle][j][i] != 0) {
-                    this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
-                    cout << "  ";
-                    //break;
-
-                }
-            }
-        }
-        break;
-    case 4:
-
-        for (i = 0; i < lx; i++) {
-            for (j = 0; j < ly; j++) {
-                if (bm.getThirdBlock()[shape][angle][j][i] != 0) {
                     this->gotoxy((i + x) * 2 + gv.getAbsoluteX(), j + y + gv.getAbsoluteY());
                     cout << "  ";
                     //break;

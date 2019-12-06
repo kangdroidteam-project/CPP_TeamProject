@@ -44,8 +44,14 @@ int TetrisCore::make_new_block(const int& level) {
     i = rand() % 100;
     if (i <= gv.getStageInformation()[gv.getLevel()].getStickRate()) {  //막대기 나올확률 계산
         shape = 0;						//막대기 모양으로 리턴
+    } else {
+        if (level == 2 || level == 4) {
+            shape = (rand() % 13) + 1; //shape에는 1~6의 값이 들어감
+        } else {
+            shape = (rand() % 6) + 1; //shape에는 1~6의 값이 들어감
+        }
+        
     }
-    else shape = (rand() % 6)+1;		//shape에는 1~6의 값이 들어감
     if(level==1)
         bm.setColor(shape, gv.getBlockAngle());
     return shape;
@@ -81,13 +87,8 @@ int TetrisCore::strike_check(const int& level, const int& shape, const int& angl
                     flag = false;
                 }
                 break;
-            case 2:
+            case 2:case 4:
                 if (bm.getSecondBlock()[shape][angle][i][j] == 0) {
-                    flag = false;
-                }
-                break;
-            case 4:
-                if (bm.getThirdBlock()[shape][angle][i][j] == 0) {
                     flag = false;
                 }
                 break;
@@ -207,17 +208,10 @@ int TetrisCore::merge_block(const int& level, int& shape,  int& angle,   int& x,
             }
         }
         break;
-    case 2:
+    case 2:case 4:
         for (i = 0; i < lx; i++) {
             for (j = 0; j < ly; j++) {
                 gv.setTotalBlock(x + j, y + i, bm.getSecondBlock()[shape][angle][i][j], true);
-            }
-        }
-        break;
-    case 4:
-        for (i = 0; i < lx; i++) {
-            for (j = 0; j < ly; j++) {
-                gv.setTotalBlock(x + j, y + i, bm.getThirdBlock()[shape][angle][i][j], true);
             }
         }
         break;

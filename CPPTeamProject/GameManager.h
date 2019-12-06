@@ -21,7 +21,7 @@ public:
         //4: 자음
         //5 : 보통게임
 
-        this->level = 3;
+        this->level = 2;
     }
     void test();
     void play();

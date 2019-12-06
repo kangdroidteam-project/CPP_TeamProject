@@ -63,7 +63,7 @@ private:
 
     };
 
-    char secondblock[7][4][5][5] = {
+    char secondblock[14][4][5][5] = {
         0, 0, 0, 1, 0,
         0, 0, 0, 1, 0,
         0, 0, 0, 1, 0,
@@ -231,9 +231,7 @@ private:
         0, 1, 0, 0, 0,
         0, 0, 1, 0, 0,
         1, 1, 1, 1, 1,
-    };
 
-    char thirdblock[7][4][5][5] = {
         1, 1, 1, 1, 1,
         0, 0, 0, 0, 1,
         0, 0, 0, 0, 1,
@@ -401,12 +399,8 @@ private:
         1, 0, 1, 0, 0,
         1, 0, 1, 0, 0,
         1, 1, 1, 1, 1,
-
     };
 
-
-
-    
 public:
 
     void setColor(const int& shape, const int& angle) {
@@ -427,8 +421,5 @@ public:
     const char(*getFirstBlock())[4][4][4]; // 0 
 
     const char(*getSecondBlock())[4][5][5]; // 2 
-
-    const char(*getThirdBlock())[4][5][5]; // 4
-
 
 };

@@ -156,7 +156,7 @@ void GlobalVariant::setBlockShape(const int& blockShape) {
     this->block_shape = blockShape;
 }
 
-void GlobalVariant::setNextBlockShape(const int& nextBlock) {
+void GlobalVariant::setNextBlockShape(const int& nextBlock, const int& level) {
     this->next_block_shape = nextBlock;
 }
 

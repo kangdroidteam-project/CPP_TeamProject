@@ -14,9 +14,3 @@ const char(*BlockManager::getSecondBlock())[4][5][5]
 {
     return this->secondblock;
 }
-
-const char(*BlockManager::getThirdBlock())[4][5][5]
-{
-    return this->thirdblock;
-}
-

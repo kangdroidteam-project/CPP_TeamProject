@@ -85,7 +85,7 @@ public:
 
     // Something to set.
     void setBlockShape(const int& blockShape);
-    void setNextBlockShape(const int& nextBlock);
+    void setNextBlockShape(const int& nextBlock, const int& level);
     void setBlockAngle(const int& blockangle);
     void setBlockX(const int& blox);
     void setCtr(const int& ct);
