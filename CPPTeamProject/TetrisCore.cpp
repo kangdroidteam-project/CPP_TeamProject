@@ -26,7 +26,7 @@ int TetrisCore::init() {
     gv.setGameOver(1);
 
     // Initiate stage level data.
-    gv.callInitStage(0, 40, 20, 10);
+    gv.callInitStage(0, 40, 20, 6);
     gv.callInitStage(1, 38, 18, 20);
     gv.callInitStage(2, 35, 60, 1);
     gv.callInitStage(3, 30, 17, 20);

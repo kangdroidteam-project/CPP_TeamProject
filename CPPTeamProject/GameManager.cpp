@@ -134,11 +134,11 @@ bool GameManager::play(int level) {
                 flag = 3;
                 break;
             } else if (keytemp == 'k') {
-                gv.setScore(10000);
+                gv.setScore(100000);
             }
             else if (keytemp == 'u') {
                 if (level == 5) {
-                    if (gv.getScore() >= 200) {
+                    if (gv.getScore() >= 2000) {
                         gv.itemOneTwo(0);
                         gui.show_total_block(level);
                         int l;
@@ -156,7 +156,7 @@ bool GameManager::play(int level) {
                         } // END
                         gui.show_total_block(level);
                         tc.check_full_line();
-                        gv.setScore(gv.getScore() - 200);
+                        gv.setScore(gv.getScore() - 2000);
                         if (level != 1) {
                             gui.show_gamestat();
                         }
@@ -168,11 +168,11 @@ bool GameManager::play(int level) {
             }
             else if (keytemp == 'i') {
                 if (level == 5) {
-                    if (gv.getScore() >= 100) {
+                    if (gv.getScore() >= 1000) {
                         gv.itemOneTwo(1);
                         gui.show_total_block(level);
                         tc.check_full_line();
-                        gv.setScore(gv.getScore() - 100);
+                        gv.setScore(gv.getScore() - 1000);
                         if (level != 1) {
                             gui.show_gamestat();
                         }
@@ -184,7 +184,7 @@ bool GameManager::play(int level) {
             }
             else if (keytemp == 'o') {
                 if (level == 5) {
-                    if (gv.getScore() >= 300) {
+                    if (gv.getScore() >= 10000) {
                         gv.itemThree();
                         gui.show_total_block(level);
                         int l;
@@ -201,7 +201,7 @@ bool GameManager::play(int level) {
                         } // END
                         gui.show_total_block(level);
                         tc.check_full_line();
-                        gv.setScore(gv.getScore() - 300);
+                        gv.setScore(gv.getScore() - 10000);
                         if (level != 1) {
                             gui.show_gamestat();
                         }
