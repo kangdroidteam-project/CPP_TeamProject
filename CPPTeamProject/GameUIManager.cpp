@@ -370,16 +370,11 @@ int GameUIManager::show_gamestat() {
         cout << "STAGE";
 
         this->gotoxy(35, 12);
-        cout << "SCORE";
-
-        this->gotoxy(35, 15);
         cout << "LINES";
     }
     this->gotoxy(41, 10);
     cout << gv.getLevel() + 1;
     this->gotoxy(35, 13);
-    cout << setw(10) << gv.getScore();
-    this->gotoxy(35, 16);
     cout << setw(10) << gv.getStageInformation()[gv.getLevel()].getClearLine() - gv.getLine();
     return 0;
 }
