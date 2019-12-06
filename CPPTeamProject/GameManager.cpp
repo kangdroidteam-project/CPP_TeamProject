@@ -222,7 +222,9 @@ bool GameManager::play(int level) {
             printThis();
             gv.setGameOver(tc.move_block(level, gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), gv.getNextBlockShape(), false));
             gui.show_cur_block(level, gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), false);
-            gui.show_gamestat();
+            if (level != 1) {
+                gui.show_gamestat();
+            }
         }
 
         // 12 is the one.
