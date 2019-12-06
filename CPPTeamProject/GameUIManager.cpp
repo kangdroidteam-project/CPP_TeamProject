@@ -2,40 +2,42 @@
 #include "GlobalVariant.h"
 #include "BlockManager.h"
 
-GameUIManager::GameUIManager(GlobalVariant& input, BlockManager& block) : gv(input),bm(block){
+GameUIManager::GameUIManager(GlobalVariant& input, BlockManager& block) : gv(input), bm(block) {
 }
 int GameUIManager::show_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y, const bool& isFake) {
     int i, j; // The iteration variable. - Could be localized.
 
     int levelx;
-    int levely; 
+    int levely;
 
     gv.getlevelXY(level, levelx, levely);
 
-    // Set Color based on block shape.
-    switch (shape) {
-    case 0: case 7:
-        this->SetColor(RED);
-        break;
-    case 1: case 8:
-        this->SetColor(BLUE);
-        break;
-    case 2: case 9:
-        this->SetColor(SKY_BLUE);
-        break;
-    case 3: case 10:
-        this->SetColor(WHITE);
-        break;
-    case 4: case 11:
-        this->SetColor(YELLOW);
-        break;
-    case 5: case 12:
-        this->SetColor(VOILET);
-        break;
-    case 6: case 13:
-        this->SetColor(GREEN);
-        break;
+    if (level != 1) {
+        switch (shape) {
+        case 0: case 7:
+            this->SetColor(RED);
+            break;
+        case 1: case 8:
+            this->SetColor(BLUE);
+            break;
+        case 2: case 9:
+            this->SetColor(SKY_BLUE);
+            break;
+        case 3: case 10:
+            this->SetColor(WHITE);
+            break;
+        case 4: case 11:
+            this->SetColor(YELLOW);
+            break;
+        case 5: case 12:
+            this->SetColor(VOILET);
+            break;
+        case 6: case 13:
+            this->SetColor(GREEN);
+            break;
+        }
     }
+
 
     if (isFake) this->SetColor(DARK_GRAY);
 
@@ -170,12 +172,15 @@ int GameUIManager::erase_cur_block(const int& level, const int& shape, const int
                 {
                     if (i == MAX_LIMIT && level == 3) {
                         this->SetColor(RED);
-                    } else if (i == MAX_LIMIT - 6 && level == 3) {
+                    }
+                    else if (i == MAX_LIMIT - 6 && level == 3) {
                         this->SetColor(DARK_RED);
-                    } else {
+                    }
+                    else {
                         this->SetColor((gv.getLevel() % 6) + 1);
                     }
-                } else {
+                }
+                else {
                     if (level == 1)
                         this->SetColor(gv.getTotalBlock()[i][j]);
                     else this->SetColor(DARK_GRAY);
@@ -195,20 +200,23 @@ int GameUIManager::erase_cur_block(const int& level, const int& shape, const int
 
 int GameUIManager::show_total_block(const int& level) {
     int i, j;
-//	this->SetColor(DARK_GRAY);
+    //	this->SetColor(DARK_GRAY);
     for (i = 0; i < 21; i++) {
         for (j = 0; j < 14; j++) {
             if (j == 0 || j == 13 || i == 20)		//레벨에 따라 외벽 색이 변함
             {
                 if (i == MAX_LIMIT && level == 3) {
                     this->SetColor(RED);
-                } else if (i == MAX_LIMIT - 6 && level == 3) {
+                }
+                else if (i == MAX_LIMIT - 6 && level == 3) {
                     this->SetColor(DARK_RED);
-                } else {
+                }
+                else {
                     this->SetColor((gv.getLevel() % 6) + 1);
                 }
-            } else {
-                if(level==1)
+            }
+            else {
+                if (level == 1)
                     this->SetColor(gv.getTotalBlock()[i][j]);
                 else this->SetColor(DARK_GRAY);
             }
@@ -216,9 +224,10 @@ int GameUIManager::show_total_block(const int& level) {
             // Not checked from now.
             this->gotoxy((j * 2) + gv.getAbsoluteX(), i + gv.getAbsoluteY());
 
-            if (gv.getTotalBlock()[i][j] !=0) {
+            if (gv.getTotalBlock()[i][j] != 0) {
                 cout << "■";
-            } else {
+            }
+            else {
                 cout << "  ";
             }
 
@@ -241,7 +250,8 @@ int GameUIManager::show_next_block(const int& level, const int& shape) {
         limit_x2 = 7;
         limit_y1 = 0;
         limit_y2 = 6;
-    } else {
+    }
+    else {
         limit_x1 = 1;
         limit_x2 = 6;
         limit_y1 = 0;
@@ -253,7 +263,8 @@ int GameUIManager::show_next_block(const int& level, const int& shape) {
         for (j = 0; j < (limit_y2 + 1); j++) {
             if (i == limit_x1 || i == limit_x2 || j == limit_y1 || j == limit_y2) {
                 cout << "■";
-            } else {
+            }
+            else {
                 cout << "  ";
             }
 
@@ -315,8 +326,10 @@ int GameUIManager::show_logo() {
     cout << "     ■■■■■ ■■■  ■■  ■■■■  ■■■■  ■■  ■■ ";
 
 
+    SetColor(WHITE);
     this->gotoxy(40, 25);
     cout << "Please Press Any Key~!";
+
 
 
 
@@ -327,7 +340,6 @@ int GameUIManager::show_logo() {
                 this->gotoxy(13, 20 + j);
                 cout << "                                                                           ";
             }
-
             show_cur_block(3, rand() % 7, rand() % 4, 13, 20, false);
             show_cur_block(3, rand() % 7, rand() % 4, 19, 20, false);
             show_cur_block(3, rand() % 7, rand() % 4, 26, 20, false);

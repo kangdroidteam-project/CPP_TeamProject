@@ -406,11 +406,19 @@ public:
     void setColor(const int& shape, const int& angle) {
 
         int color;
+        int num[5] = { 0,0,0,0,0 };
         for (int k = 0; k < 4; k++) {
             for (int j = 0; j < 4; j++) {
-                if (block[shape][angle][k][j] == 1) {
+                if (block[shape][angle][k][j] !=0) {
                     color = rand() % 5 + 11;
-                    block[shape][angle][k][j] = color;
+                    if (num[color - 11] == 0) {
+                        num[color - 11]++;
+                        block[shape][angle][k][j] = color;
+                    }
+                    else {
+                        j--;
+                        continue;
+                    }
                 }
             }
         }

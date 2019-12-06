@@ -72,7 +72,7 @@ public:
             break;
         case 2:
         case 4:
-            x = 5; 
+            x = 5;
             y = 5;
             break;
 
@@ -99,7 +99,7 @@ public:
     void callInitStage(const int& index, const int& speed, const int& stick_rate, const int& clear_line);
 
     void setColorBlock(const int& x, const int& y, const int& value);
-    
+
     void setjew(int index);
 };
 

@@ -23,36 +23,34 @@ TetrisCore::TetrisCore(GameUIManager& gameUI, GlobalVariant& glovalVar, BlockMan
 int TetrisCore::init() {
 
     gv.init(0, 0, 5, 1);
-    gv.setGameOver(0);
+    gv.setGameOver(1);
 
     // Initiate stage level data.
-    gv.callInitStage(0, 40, 20, 20);
+    gv.callInitStage(0, 40, 20, 10);
     gv.callInitStage(1, 38, 18, 20);
-    gv.callInitStage(2, 35, 18, 20);
+    gv.callInitStage(2, 35, 60, 1);
     gv.callInitStage(3, 30, 17, 20);
-    gv.callInitStage(4, 25, 16, 20);
-    gv.callInitStage(5, 20, 14, 20);
-    gv.callInitStage(6, 15, 14, 20);
-    gv.callInitStage(7, 10, 13, 20);
-    gv.callInitStage(8, 6, 12, 20);
-    gv.callInitStage(9, 4, 11, 99999);
+    gv.callInitStage(4, 15, 16, 10);
     return 0;
 }
 
 int TetrisCore::make_new_block(const int& level) {
-    int shape,i;
+    int shape, i;
     i = rand() % 100;
     if (i <= gv.getStageInformation()[gv.getLevel()].getStickRate()) {  //막대기 나올확률 계산
-        shape = 0;						//막대기 모양으로 리턴
-    } else {
+        if (level == 2)	shape = 1;
+        else shape = 0;						//막대기 모양으로 리턴
+    }
+    else {
         if (level == 2 || level == 4) {
             shape = (rand() % 13) + 1; //shape에는 1~6의 값이 들어감
-        } else {
+        }
+        else {
             shape = (rand() % 6) + 1; //shape에는 1~6의 값이 들어감
         }
-        
+
     }
-    if(level==1)
+    if (level == 1)
         bm.setColor(shape, gv.getBlockAngle());
     return shape;
 }
@@ -76,7 +74,7 @@ int TetrisCore::strike_check(const int& level, const int& shape, const int& angl
 
             switch (level) {
             case 0:
-                if(bm.getFirstBlock()[shape][angle][i][j] == 0) {
+                if (bm.getFirstBlock()[shape][angle][i][j] == 0) {
                     flag = false;
                 }
                 break;
@@ -95,14 +93,14 @@ int TetrisCore::strike_check(const int& level, const int& shape, const int& angl
             }
             if (!flag)continue;
 
-            if ((block_dat !=0)) {
+            if ((block_dat != 0)) {
                 if (isRot) {
                     if ((x + j) == 13) {
                         (x)--;
                         gv.setCtr((gv.getCtr() + 1));
                         continue;
                     }
-                    else if((x+j)<0){
+                    else if ((x + j) < 0) {
                         while ((x + j) > 0) {
                             (x)++;
                         }
@@ -148,7 +146,8 @@ int TetrisCore::check_full_line() {
                 gv.setTotalBlock(j, 0, 0);
             gv.setScore(gv.getScore() + 100 + (gv.getLevel() * 10) + (rand() % 10));
             if (gv.getStageInformation()[gv.getLevel()].getClearLine() <= gv.getLine()) { //클리어 스테이지
-                gv.setLevel(gv.getLevel() + 1);
+                gv.setGameOver(1);
+//				gv.setLevel(gv.getLevel() + 1);
                 gv.setLine(0);
             }
             gui.show_gamestat();
@@ -173,11 +172,13 @@ int TetrisCore::check_color(int x, int y, int& count, int k) {
                 count++;
                 gv.setColorBlock(x1, y1, 10);
                 check_color(x1, y1, count, 0);
-                if (count > 3) {
+                if (count > 2) {
                     flag = gv.getTotalBlock()[x][y];
                 }
-            } else k++;
-        } else k++;
+            }
+            else k++;
+        }
+        else k++;
 
     }
     return flag;
@@ -239,7 +240,7 @@ void TetrisCore::colorpop() {
             if (gv.getTotalBlock()[i][j] != 0)
                 check = check_color(i, j, count, k);
             if (check != -1) {
-                if (count > 3)
+                if (count > 2)
                     gv.setjew(check, count);
                 for (int k = 0; k < 21; k++) {
                     for (int p = 1; p < 14; p++) {
@@ -261,7 +262,8 @@ void TetrisCore::colorpop() {
                     }
                 }
                 colorpop();
-            } else {
+            }
+            else {
                 int cnt = 0;
                 for (int i = 0; i < 21; i++) {
                     for (int j = 1; j < 14; j++) {
@@ -286,21 +288,24 @@ int TetrisCore::block_start(const int& level, int& angle, int& x, int& y) {
 }
 
 int TetrisCore::move_block(const int& level, int& shape, int& angle, int& x, int& y, int& next_shape, const bool& isFake) {
+    int jewel_check = 0;
+
     if (!isFake) {
         gui.erase_cur_block(level, shape, angle, x, y, false);
     }
-
 
     (y)++;   //블럭을 한칸 아래로 내림
     if (strike_check(level, shape, angle, x, y, 0) == 1) {
         (y)--;
         if (level == 3) {
+
             if (y < MAX_LIMIT) test_val = 1;
             if (y < (MAX_LIMIT - 6))   //게임오버
             {
                 return 1;
             }
-        } else {
+        }
+        else {
             if (y < 0)   //게임오버
             {
                 return 1;
@@ -312,7 +317,8 @@ int TetrisCore::move_block(const int& level, int& shape, int& angle, int& x, int
             shape = next_shape;
             if (level == 3) {
                 next_shape = choose_block_centrum();
-            } else {
+            }
+            else {
                 next_shape = make_new_block(level);
             }
         }
@@ -323,6 +329,9 @@ int TetrisCore::move_block(const int& level, int& shape, int& angle, int& x, int
             if (level == 1) {
                 gui.SetColor(WHITE);
                 for (int i = 0; i < 5; i++) {
+                    if (gv.getjew()[i] != 0) {
+                        jewel_check = 2;
+                    }
                     gui.gotoxy(35, 8 + 2 * i);
                     switch (i) {
                     case 0:
@@ -352,6 +361,7 @@ int TetrisCore::move_block(const int& level, int& shape, int& angle, int& x, int
                     }
 
                 }
+                if (jewel_check == 0)jewel_check = 3;
             }
         }
 
@@ -359,6 +369,8 @@ int TetrisCore::move_block(const int& level, int& shape, int& angle, int& x, int
             block_start(level, angle, x, y);   //angle,x,y는 포인터임
             gui.show_next_block(level, next_shape);
         }
+
+        if (gv.getGameOver() == 1 || jewel_check == 3)return 5;
 
         return 2;
     }
@@ -396,7 +408,7 @@ int TetrisCore::choose_block_centrum() {
     gui.gotoxy(60, 12);
     for (int i = 0; i < 3; i++) {
         while (true) {
-            int val = rand() % 7;
+            int val = (rand() % 6) + 1;
             if (isSameThingOn(tmp_arr, val) == false) {
                 tmp_arr[i] = val;
                 break;
@@ -404,7 +416,8 @@ int TetrisCore::choose_block_centrum() {
         }
         for (int a = 0; a < 4; a++) {
             for (int b = 0; b < 4; b++) {
-                if (bm.getBlock()[tmp_arr[i]][0][b][a] == 1) {
+                if (bm.getBlock()[tmp_arr[i]][0][b][a] != 0) {
+                    this->gui.SetColor(GRAY);
                     cout << "■";
                 }
                 st_y++;

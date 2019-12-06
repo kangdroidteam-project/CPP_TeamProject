@@ -21,14 +21,14 @@ public:
     int strike_check(const int& level, const int& shape, const int& angle, int& x, const int& y, const int& isRot);
 
     // INNER FUNCTION
-    int merge_block( const int& level, int& shape,   int& angle,   int& x,   int& y);
+    int merge_block(const int& level, int& shape, int& angle, int& x, int& y);
 
     // Set initial state for first-block start.
     int block_start(const int& level, int& angle, int& x, int& y);
 
     // INNER FUNCTION
     int check_full_line();
-    int check_color( int x, int y,int& count, int k);
+    int check_color(int x, int y, int& count, int k);
 
     int init();
 

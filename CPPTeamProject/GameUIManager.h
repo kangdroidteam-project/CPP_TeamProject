@@ -12,20 +12,20 @@
 using namespace std;
 
 //class GameUIManager : public BlockManager {
-class GameUIManager{
+class GameUIManager {
 private:
     GlobalVariant& gv;
     BlockManager& bm;
 public:
-    GameUIManager(GlobalVariant& input,BlockManager& bm);
+    GameUIManager(GlobalVariant& input, BlockManager& bm);
 
 
     int show_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y, const bool& isFake);
     int erase_cur_block(const int& level, const int& shape, const int& angle, const int& x, const int& y, const bool& isFake);
     int show_total_block(const int& level);
 
-    
-    int show_next_block(const int& level,const int& shape);
+
+    int show_next_block(const int& level, const int& shape);
 
     int show_logo();
     int show_gamestat();

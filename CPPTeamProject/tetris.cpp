@@ -6,6 +6,6 @@
 int main(int argc, char* argv[]) {
     srand((unsigned)time(NULL));
     GameManager gm;
-    gm.play();
+    gm.story();
     return 0;
 }
