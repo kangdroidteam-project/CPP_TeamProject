@@ -79,7 +79,7 @@ public:
         }
     }
 
-
+    void setjew(int index, const int& count);
     // Special return - type
     StageInformation(*getStageInformation());
 

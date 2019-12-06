@@ -10,21 +10,20 @@ void GlobalVariant::initTotalBlock() {
             if ((j == 0) || (j == 13)) {
                 total_block[i][j] = 1;
                 color_block[i][j] = 1;
-            }
-            else {
+            } else {
                 total_block[i][j] = 0;
                 color_block[i][j] = 0;
             }
         }
     }
 
-    for (int j = 0; j < 14; j++) {			//화면의 제일 밑의 줄은 1로 채운다.
+    for (int j = 0; j < 14; j++) {         //화면의 제일 밑의 줄은 1로 채운다.
         total_block[20][j] = 1;
         color_block[20][j] = 1;
     }
 
     for (int i = 0; i < 5; i++) {
-        jew[i] = 0;
+        jew[i] = 10;
     }
     // Afterall, those Iteration could minimize(or combine)
     // And those two for-operation does make some kind of beaker-shape array.
@@ -146,6 +145,11 @@ char(*GlobalVariant::getTotalBlock())[14]{
 char(*GlobalVariant::getColorBlock())[14]
 {
     return this->color_block;
+}
+
+void GlobalVariant::setjew(int index, const int& count) {
+    if (this->jew[index - 11] < count)this->jew[index - 11] = 0;
+    else this->jew[index - 11] -= count;
 }
 
 StageInformation(*GlobalVariant::getStageInformation()) {
