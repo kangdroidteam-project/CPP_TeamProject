@@ -14,47 +14,27 @@ int GameUIManager::show_cur_block(const int& level, const int& shape, const int&
 
     // Set Color based on block shape.
     switch (shape) {
-    case 0:
+    case 0: case 7:
         this->SetColor(RED);
         break;
-    case 1:
+    case 1: case 8:
         this->SetColor(BLUE);
         break;
-    case 2:
+    case 2: case 9:
         this->SetColor(SKY_BLUE);
         break;
-    case 3:
+    case 3: case 10:
         this->SetColor(WHITE);
         break;
-    case 4:
+    case 4: case 11:
         this->SetColor(YELLOW);
         break;
-    case 5:
+    case 5: case 12:
         this->SetColor(VOILET);
         break;
-    case 6:
+    case 6: case 13:
         this->SetColor(GREEN);
         break;
-    case 7:
-        this->SetColor(RED);
-        break;
-    case 8:
-        this->SetColor(BLUE);
-        break;
-    case 9:
-        this->SetColor(SKY_BLUE);
-        break;
-    case 10:
-        this->SetColor(WHITE);
-        break;
-    case 11:
-        this->SetColor(YELLOW);
-        break;
-    case 12:
-        this->SetColor(VOILET);
-        break;
-    case 13:
-        this->SetColor(GREEN);
     }
 
     if (isFake) this->SetColor(DARK_GRAY);
