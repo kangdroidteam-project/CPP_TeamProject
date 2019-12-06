@@ -166,8 +166,12 @@ bool GameManager::play(int level) {
                 }
             }
             else if (keytemp == 'i') {
+                // Trap Card
                 if (level == 5) {
                     if (gv.getScore() >= 1000) {
+                        PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                        PlaySound(TEXT("Trapcard.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                        Sleep(6500);
                         gv.itemOneTwo(1);
                         gui.show_total_block(level);
                         tc.check_full_line();
@@ -175,6 +179,8 @@ bool GameManager::play(int level) {
                         if (level != 1) {
                             gui.show_gamestat();
                         }
+                        PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                        PlaySound(TEXT("Game2_5_Bgm.wav"), NULL, SND_LOOP | SND_ASYNC);
                     }
                     else {
                         // NO MONEY
@@ -182,8 +188,12 @@ bool GameManager::play(int level) {
                 }
             }
             else if (keytemp == 'o') {
+            // One More to go
                 if (level == 5) {
                     if (gv.getScore() >= 10000) {
+                        PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                        PlaySound(TEXT("StillGotOneShot.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                        Sleep(7000);
                         gv.itemThree();
                         gui.show_total_block(level);
                         int l;
@@ -204,6 +214,8 @@ bool GameManager::play(int level) {
                         if (level != 1) {
                             gui.show_gamestat();
                         }
+                        PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                        PlaySound(TEXT("Game2_5_Bgm.wav"), NULL, SND_LOOP | SND_ASYNC);
                     }
                     else {
                         // NO MONEY
@@ -232,13 +244,10 @@ bool GameManager::play(int level) {
                 if (tc.check_tw_floor()) {
                     // check empty spaces.
                     if (tc.check_empty_space() == false) {
-                        gui.show_gameover();
-                        gui.SetColor(GRAY);
+                        flag = 2;
                     }
                     else {
-                        // Game passed.
-                        cout << "Game Passed!" << endl;
-                        system("cls");
+                        flag = 3;
                     }
                     break;
                 }

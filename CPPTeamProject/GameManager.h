@@ -67,23 +67,25 @@ public:
                 //게임 1 (모스부호)
                 //<게임 1 브금>
                 system("cls");
-                PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
+                PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
                 PlaySound(TEXT("Game1BGM.wav"), NULL, SND_LOOP | SND_ASYNC);
                 this->level = 0;
                 flag = play(0);
 
                 if (flag) {
                     //<리얼 oh 브금>
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("real oh.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("real oh.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    gui.show_gamesuccess();
                     system("cls");
                     gui.SetColor(WHITE);
                     gui.gotoxy(28, 12);
                     cout << "시작이 절반이야. 조금씩 버그를 고쳐나가보자." << endl;
                     save = 1;
                 } else {
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    gui.show_gameover();
                     system("cls");
                     gui.SetColor(WHITE);
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
@@ -141,7 +143,7 @@ public:
                 //게임2 (광산게임)
                 //<게임 2, 5 브금>
                 system("cls");
-                PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
+                PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
                 PlaySound(TEXT("Game2_5_Bgm.wav"), NULL, SND_LOOP | SND_ASYNC);
                 this->level = 1;
                 //flag = play(1);
@@ -149,10 +151,11 @@ public:
 
                 if (flag) {
                     //<리얼 oh 브금>
+                    gui.show_gamesuccess();
                     system("cls");
                     gui.SetColor(WHITE);
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("real oh.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("real oh.wav"), NULL, SND_FILENAME | SND_ASYNC);
                     x = 17;
                     y = 9;
                     gui.gotoxy(x, y);
@@ -169,8 +172,9 @@ public:
 
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    gui.show_gameover();
                     system("cls");
                     gui.SetColor(WHITE);
                     gui.gotoxy(28, 12);
@@ -212,7 +216,7 @@ public:
 
                 //게임3 (자음,모음)
                 //<게임 3,6 브금>
-                PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
+                PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
                 PlaySound(TEXT("Game3_6_Bgm.wav"), NULL, SND_LOOP | SND_ASYNC);
 
                 this->level = 2;
@@ -221,8 +225,9 @@ public:
 
                 if (flag) {
                     //<리얼 oh브금>
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("real oh.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("real oh.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    gui.show_gamesuccess();
                     system("cls");
                     gui.SetColor(WHITE);
                     x = 17;
@@ -234,8 +239,9 @@ public:
                     save = 3;
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    gui.show_gameover();
                     system("cls");
 
                     gui.SetColor(WHITE);
@@ -276,7 +282,9 @@ public:
                 y = 9;
                 gui.SetColor(RED);
                 gui.gotoxy(x, y);
-                cout << "테트리스를 차곡차곡 쌓는 형식으로, 외벽에 다른색으로 칠해진 상한선까지 모두 채워질때까지 게임이 진행된다." << endl;
+                cout << "테트리스를 차곡차곡 쌓는 형식으로" << endl;
+                gui.gotoxy(x, (y += 2));
+                cout << "외벽에 다른색으로 칠해진 상한선까지 모두 채워질때까지 게임이 진행된다." << endl;
                 gui.gotoxy(x, (y += 2));
                 cout << "전부 채운 후, 빈칸의 수가 일정 수 이하이면 게임을 클리어하게 된다." << endl;
 
@@ -287,7 +295,7 @@ public:
 
                 //게임4 (센트롬)
                 //<게임4 브금>
-                PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
+                PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
                 PlaySound(TEXT("Game4_Bgm.wav"), NULL, SND_LOOP | SND_ASYNC);
 
                 this->level = 3;
@@ -295,8 +303,9 @@ public:
 
                 if (flag) {
                     //<리얼 oh 브금>
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("real oh.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("real oh.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    gui.show_gamesuccess();
                     system("cls");
                     gui.SetColor(WHITE);
                     x = 17;
@@ -306,8 +315,9 @@ public:
                     save = 4;
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    gui.show_gameover();
                     system("cls");
                     gui.SetColor(WHITE);
                     gui.gotoxy(28, 12);
@@ -352,15 +362,18 @@ public:
             //타노스 아이템 쓸 경우 ===> 한발 브금, legend never die 브금
 
             //<기합 브금>
-            PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-            PlaySound(TEXT("GiHap.wav"), NULL, SND_LOOP | SND_ASYNC);
+            PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+            PlaySound(TEXT("GiHap.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
             x = 17;
             y = 5;
+            gui.SetColor(GREEN);
             gui.gotoxy(x, y);
             cout << "이제 완성된 코드를 실행하여 플레이만 하면 된다. 이때까지 모아온 아이템들을 잘 사용해야 한다.";
             gui.gotoxy(x, (y += 2));
-            cout << "아이템을 한번 사용할때마다 그마다의 사용료를 지불해야한다. 게임을 완료하기 위해선 이때까지 모아온 돈을 효율적으로 사용해야 한다.";
+            cout << "아이템을 한번 사용할때마다 그마다의 사용료를 지불해야한다. " << endl;
+            gui.gotoxy(x, (y += 2));
+            cout << "게임을 완료하기 위해선 이때까지 모아온 돈을 효율적으로 사용해야 한다." << endl;
             gui.gotoxy(x, (y += 2));
             cout << "게임 완성이 눈 앞에 다가왔다. ";
 
@@ -371,7 +384,7 @@ public:
             if (save <= 4) {
                 //게임 5
     //<게임 2,5 브금>
-                PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
+                PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
                 PlaySound(TEXT("Game2_5_Bgm.wav"), NULL, SND_LOOP | SND_ASYNC);
 
                 this->level = 5;
@@ -379,9 +392,11 @@ public:
 
 
                 if (flag) {
-                    PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
-                    PlaySound(TEXT("real oh.wav"), NULL, SND_LOOP | SND_ASYNC);
+                    PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("real oh.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    gui.show_gamesuccess();
                     system("cls");
+                    gui.gotoxy(20, 10);
                     gui.SetColor(WHITE);
                     x = 17;
                     y = 9;
@@ -403,6 +418,7 @@ public:
                     system("cls");
 
                 } else {
+                    gui.show_gameover();
                     system("cls");
                     x = 17;
                     y = 13;

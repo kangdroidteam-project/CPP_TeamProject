@@ -408,7 +408,7 @@ int TetrisCore::choose_block_centrum() {
     gui.gotoxy(60, 12);
     for (int i = 0; i < 3; i++) {
         while (true) {
-            int val = (rand() % 6) + 1;
+            int val = (rand() % 7);
             if (isSameThingOn(tmp_arr, val) == false) {
                 tmp_arr[i] = val;
                 break;

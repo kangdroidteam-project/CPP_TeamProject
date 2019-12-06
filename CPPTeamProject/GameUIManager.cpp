@@ -387,7 +387,7 @@ int GameUIManager::show_gamestat() {
 int GameUIManager::show_gameover() {
     this->SetColor(RED);
     this->gotoxy(15, 8);
-    cout << "旨收收收收收收收收收收收收收旬";
+    cout << "旨收收收收收收收收收收收收收收收收收收收收收收收收收收旬";
     this->gotoxy(15, 9);
     cout << "早**************************早";
     this->gotoxy(15, 10);
@@ -395,7 +395,35 @@ int GameUIManager::show_gameover() {
     this->gotoxy(15, 11);
     cout << "早**************************早";
     this->gotoxy(15, 12);
-    cout << "曲收收收收收收收收收收收收收旭";
+    cout << "曲收收收收收收收收收收收收收收收收收收收收收收收收收收旭";
+
+    this->gotoxy(15, 14);
+    cout << "Press any key to continue..";
+    SetColor(WHITE);
+    fflush(stdin);
+    Sleep(1000);
+
+    getche();
+    system("cls");
+
+    return 0;
+}
+
+int GameUIManager::show_gamesuccess() {
+    this->SetColor(RED);
+    this->gotoxy(15, 8);
+    cout << "旨收收收收收收收收收收收收收收收收收收收收收收收收收收旬";
+    this->gotoxy(15, 9);
+    cout << "早**************************早";
+    this->gotoxy(15, 10);
+    cout << "早*       GAME SUCCESS     *早";
+    this->gotoxy(15, 11);
+    cout << "早**************************早";
+    this->gotoxy(15, 12);
+    cout << "曲收收收收收收收收收收收收收收收收收收收收收收收收收收旭";
+    this->gotoxy(15, 14);
+    cout << "Press any key to continue..";
+    SetColor(WHITE);
     fflush(stdin);
     Sleep(1000);
 

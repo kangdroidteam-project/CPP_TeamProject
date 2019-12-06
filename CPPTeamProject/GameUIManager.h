@@ -31,6 +31,7 @@ public:
     int show_gamestat();
 
     int show_gameover();
+    int show_gamesuccess();
 
     int input_data();
     void SetColor(const int& color);
