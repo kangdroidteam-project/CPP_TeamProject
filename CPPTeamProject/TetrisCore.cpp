@@ -335,27 +335,27 @@ int TetrisCore::move_block(const int& level, int& shape, int& angle, int& x, int
                     gui.gotoxy(35, 8 + 2 * i);
                     switch (i) {
                     case 0:
-                        cout << "사파이어 :   ";
+                        cout << "사파이어(BLUE) :   ";
                         cout << "\b\b";
                         cout << gv.getjew()[i] << endl;
                         break;
                     case 1:
-                        cout << "루비 :   ";
+                        cout << "루비(RED) :   ";
                         cout << "\b\b";
                         cout << gv.getjew()[i] << endl;
                         break;
                     case 2:
-                        cout << "자수정 :    ";
+                        cout << "자수정(PURPLE) :    ";
                         cout << "\b\b";
                         cout << gv.getjew()[i] << endl;
                         break;
                     case 3:
-                        cout << "금 :   ";
+                        cout << "금(YELLOW) :   ";
                         cout << "\b\b";
                         cout << gv.getjew()[i] << endl;
                         break;
                     case 4:
-                        cout << "다이아몬드 :   ";
+                        cout << "다이아몬드(WHITE) :   ";
                         cout << "\b\b";
                         cout << gv.getjew()[i] << endl;
                     }
