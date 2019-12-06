@@ -23,7 +23,8 @@ void GameManager::printThis() {
 
 bool GameManager::play(int level) {
     char keytemp;
-    tc.init(); // Initiate.
+    //tc.init(); // Initiate.
+    gv.initTotalBlock();
 
     int flag;
 
@@ -129,6 +130,11 @@ bool GameManager::play(int level) {
                     gv.setGameOver(tc.move_block(level, gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), gv.getNextBlockShape(), false));
                 }
                 gui.show_cur_block(level, gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), false);
+            } else if (keytemp == 'c') {
+                flag = 3;
+                break;
+            } else if (keytemp == 'k') {
+                gv.setScore(10000);
             }
             else if (keytemp == 'u') {
                 if (level == 5) {
@@ -216,6 +222,7 @@ bool GameManager::play(int level) {
             printThis();
             gv.setGameOver(tc.move_block(level, gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), gv.getNextBlockShape(), false));
             gui.show_cur_block(level, gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), false);
+            gui.show_gamestat();
         }
 
         // 12 is the one.

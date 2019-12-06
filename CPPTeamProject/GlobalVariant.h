@@ -22,7 +22,6 @@ private:
     int lines;
     int ctr;
     int is_gameover; // The Boolean type check variable.
-    void initTotalBlock();
     char total_block[21][14];		//화면에 표시되는 블럭들
     char color_block[21][14];
     int jew[5];
@@ -31,6 +30,7 @@ private:
 public:
     GlobalVariant();
     void init(const int& level, const int& lines, const int& ab_x, const int& ab_y);
+    void initTotalBlock();
     int getLevel() const;
     int getAbsoluteX() const;
     int getAbsoluteY() const;
