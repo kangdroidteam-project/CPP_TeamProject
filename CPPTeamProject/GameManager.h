@@ -84,7 +84,6 @@ public:
                     save = 1;
                 } else {
                     PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
-                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_FILENAME | SND_ASYNC);
                     gui.show_gameover();
                     system("cls");
                     gui.SetColor(WHITE);
@@ -173,7 +172,6 @@ public:
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
                     PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
-                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_FILENAME | SND_ASYNC);
                     gui.show_gameover();
                     system("cls");
                     gui.SetColor(WHITE);
@@ -240,7 +238,6 @@ public:
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
                     PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
-                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_FILENAME | SND_ASYNC);
                     gui.show_gameover();
                     system("cls");
 
@@ -316,7 +313,7 @@ public:
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
                     PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
-                    PlaySound(TEXT("MonsterMouse.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    
                     gui.show_gameover();
                     system("cls");
                     gui.SetColor(WHITE);
@@ -363,7 +360,7 @@ public:
 
             //<기합 브금>
             PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
-            PlaySound(TEXT("GiHap.wav"), NULL, SND_FILENAME | SND_ASYNC);
+            PlaySound(TEXT("Joker.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
             x = 17;
             y = 5;
@@ -393,7 +390,7 @@ public:
 
                 if (flag) {
                     PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
-                    PlaySound(TEXT("real oh.wav"), NULL, SND_FILENAME | SND_ASYNC);
+                    PlaySound(TEXT("LGND.wav"), NULL, SND_FILENAME | SND_ASYNC);
                     gui.show_gamesuccess();
                     system("cls");
                     gui.gotoxy(20, 10);
