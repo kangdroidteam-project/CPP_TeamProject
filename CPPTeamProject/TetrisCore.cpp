@@ -398,7 +398,7 @@ bool TetrisCore::check_tw_floor() {
 }
 
 int TetrisCore::choose_block_centrum() {
-    int value;
+    int value = 0;
     int st = 60;
     int st_y = 12;
     int tmp_arr[3];
@@ -434,12 +434,15 @@ int TetrisCore::choose_block_centrum() {
         gui.gotoxy(st, st_y);
     }
 
-    gui.gotoxy(60, 20);
-    cout << "Input(1~3): ";
-    cin >> value;
-    gui.gotoxy(60, 20);
-    cout << "                   ";
-    gui.gotoxy(60, 10);
+
+    while (value < 1 || value>3) {
+        gui.gotoxy(60, 20);
+        cout << "Input(1~3): ";
+        cin >> value;
+        gui.gotoxy(60, 20);
+        cout << "                   ";
+        gui.gotoxy(60, 10);
+    }
     for (int i = 0; i < 11; i++) {
         gui.gotoxy(60, 10 + i);
         cout << "                                                         ";
