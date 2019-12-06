@@ -30,7 +30,7 @@ int TetrisCore::init() {
     gv.callInitStage(1, 38, 18, 20);
     gv.callInitStage(2, 35, 60, 1);
     gv.callInitStage(3, 30, 17, 20);
-    gv.callInitStage(4, 15, 16, 10);
+    gv.callInitStage(5, 15, 16, 10);
     return 0;
 }
 
