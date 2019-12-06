@@ -122,6 +122,18 @@ public:
                 cout << "광부가 가져와야할 보석들의 개수를 지정해주고, 그것을 충족시켜야 급여를 받을 수 있다.";
                 gui.gotoxy(x, (y += 2));
                 cout << "그렇게 사장은 회사를 살리겠다는 일념 하에 광산에 들어갔다.";
+                getInput();
+
+                system("cls");
+                x = 17;
+                y = 9;
+                gui.SetColor(RED);
+                gui.gotoxy(x, y);
+                cout << "테트리스 형식과 같지만, 광물들은 깨지기 쉬워 회전이 불가능하다. " << endl;
+                gui.gotoxy(x, (y += 2));
+                cout << "같은 색의 광물이 4개 이상 붙어있어야 채굴이 가능하다." << endl;
+                gui.gotoxy(x, (y += 2));
+                cout << "5개의 광물을 5개씩 전부 모아야 게임을 완료할 수 있다." << endl;
 
                 getInput();
 
@@ -182,7 +194,7 @@ public:
             }
 
             if (save <= 2) {
-                x = 17;
+                x = 14;
                 y = 9;
                 gui.gotoxy(x, y);
                 cout << "연수를 갔다온 직원은 코드 수정 작업에 큰 도움을 주었고, 행운의 아이템을 개발해내었다" << endl;
@@ -256,6 +268,17 @@ public:
                 cout << "회사의 흥망을 떠나 사장이 있어야 하기에 사장을 살려야한다";
                 gui.gotoxy(x, (y += 2));
                 cout << "게임을 통해 사장의 건강을 차곡차곡 빈틈없이 채워넣어야 한다.";
+
+                getInput();
+
+                system("cls");
+                x = 17;
+                y = 9;
+                gui.SetColor(RED);
+                gui.gotoxy(x, y);
+                cout << "테트리스를 차곡차곡 쌓는 형식으로, 외벽에 다른색으로 칠해진 상한선까지 모두 채워질때까지 게임이 진행된다." << endl;
+                gui.gotoxy(x, (y += 2));
+                cout << "전부 채운 후, 빈칸의 수가 일정 수 이하이면 게임을 클리어하게 된다." << endl;
 
                 getInput();
 
@@ -337,18 +360,17 @@ public:
             gui.gotoxy(x, y);
             cout << "이제 완성된 코드를 실행하여 플레이만 하면 된다. 이때까지 모아온 아이템들을 잘 사용해야 한다.";
             gui.gotoxy(x, (y += 2));
-            cout << "아이템을 한번 사용할때마다 그마다의 사용료를 지불해야한다";
-            gui.gotoxy(x, (y += 2));
-            cout << "게임을 완료하기 위해선 이때까지 모아온 돈을 효율적으로 사용해야 한다.";
+            cout << "아이템을 한번 사용할때마다 그마다의 사용료를 지불해야한다. 게임을 완료하기 위해선 이때까지 모아온 돈을 효율적으로 사용해야 한다.";
             gui.gotoxy(x, (y += 2));
             cout << "게임 완성이 눈 앞에 다가왔다. ";
 
             getInput();
+
             system("cls");
 
             if (save <= 4) {
                 //게임 5
-//<게임 2,5 브금>
+    //<게임 2,5 브금>
                 PlaySound(NULL, NULL, SND_LOOP | SND_ASYNC);
                 PlaySound(TEXT("Game2_5_Bgm.wav"), NULL, SND_LOOP | SND_ASYNC);
 
