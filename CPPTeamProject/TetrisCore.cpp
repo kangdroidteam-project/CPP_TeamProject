@@ -240,8 +240,11 @@ void TetrisCore::colorpop() {
             if (gv.getTotalBlock()[i][j] != 0)
                 check = check_color(i, j, count, k);
             if (check != -1) {
-                if (count > 2)
+                if (count > 2) {
                     gv.setjew(check, count);
+                    gv.setScore((gv.getScore()+100 * count));
+                }
+
                 for (int k = 0; k < 21; k++) {
                     for (int p = 1; p < 14; p++) {
                         if (gv.getColorBlock()[k][p] == 10) {

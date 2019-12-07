@@ -328,6 +328,7 @@ public:
                     y = 13;
                     gui.gotoxy(x, y);
                     cout << "사장은 끝내 살아났고, 이는 회사 내의 분위기를 올려 작업 속도를 더 빠르게 해주었다. ";
+                    gv.setScore(gv.getScore() + 3000);
                     save = 4;
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
