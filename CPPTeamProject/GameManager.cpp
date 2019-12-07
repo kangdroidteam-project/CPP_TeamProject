@@ -154,8 +154,8 @@ bool GameManager::play(int level) {
                                 }
                             }
                         } // END
-                        gui.show_total_block(level);
                         tc.check_full_line();
+                        gui.show_total_block(level);
                         gv.setScore(gv.getScore() - 2000);
                         if (level != 1) {
                             gui.show_gamestat();
