@@ -33,12 +33,51 @@ public:
         cout << "MONEY : " << gv.getScore();
     }
 
-    void story() {
+    void userUI() {
+        gui.gotoxy(0, 0);
+        int input;
+        int select = -1;
+
+        do {
+            cout << "Select Menu:" << endl;
+            cout << "1. See User: " << endl;
+            cout << "2. Select User: " << endl;
+            cout << "3. Create new User" << endl;
+            cout << "4. play!" << endl;
+
+            cin >> input;
+
+            switch (input) {
+            case 1:
+                //seeRank Info
+                gv.showUser();
+                break;
+            case 2:
+                // Select User
+                select = gv.selectUser();
+                break;
+            case 3:
+                // create New User
+                gv.createUser();
+                break;
+            case 4:
+                // play with user
+                if (select != -1) {
+                    this->story(select);
+                }
+                break;
+            }
+        } while (input != 5);
+    }
+
+    void story(int usr_ctr) {
 
         bool flag;
         tc.init();
 
         gui.show_logo();
+        gv.setScore(gv.getUserInformation()[usr_ctr].getMoneyValue());
+        this->save = gv.getUserInformation()[usr_ctr].getSavedValue();
         // <챔스 브금>
         PlaySound(TEXT("Champs_Bgm.wav"), NULL, SND_LOOP | SND_ASYNC);
 
@@ -90,6 +129,7 @@ public:
                     gui.gotoxy(28, 12);
                     cout << "시작이 절반이야. 조금씩 버그를 고쳐나가보자." << endl;
                     save = 1;
+                    gv.getUserInformation()[usr_ctr].setSave(save);
                 } else {
                     PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
                     gui.show_gameover();
@@ -178,6 +218,7 @@ public:
                     gui.gotoxy(x, (y += 2));
                     cout << "광산에서 번 돈으로 사장은 직원의 연수비를 대준다," << endl;
                     save = 2;
+                    gv.getUserInformation()[usr_ctr].setSave(save);
 
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
@@ -250,6 +291,7 @@ public:
                     gui.gotoxy(x, (y += 2));
                     cout << "하지만 계속하여 수정한 코드에서 자음 모음 블록이 나오자 직원들은 혼란에 빠진다.";
                     save = 3;
+                    gv.getUserInformation()[usr_ctr].setSave(save);
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
                     PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);
@@ -330,6 +372,7 @@ public:
                     cout << "사장은 끝내 살아났고, 이는 회사 내의 분위기를 올려 작업 속도를 더 빠르게 해주었다. ";
                     gv.setScore(gv.getScore() + 3000);
                     save = 4;
+                    gv.getUserInformation()[usr_ctr].setSave(save);
                 } else {
                     //<GG 효과음, 괴물쥐 효과음, 조커 브금>
                     PlaySound(NULL, NULL, SND_FILENAME | SND_ASYNC);

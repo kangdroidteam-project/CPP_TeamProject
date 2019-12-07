@@ -1,5 +1,4 @@
 #include "GlobalVariant.h"
-
 void GlobalVariant::initTotalBlock() {
     /**
      * So, This iteration does:
@@ -31,6 +30,7 @@ void GlobalVariant::initTotalBlock() {
 }
 
 GlobalVariant::GlobalVariant() {
+    this->usr_ctr = 0;
 }
 
 int GlobalVariant::getLevel() const {
@@ -155,6 +155,39 @@ void GlobalVariant::setjew(int index, const int& count) {
 
 StageInformation(*GlobalVariant::getStageInformation()) {
     return this->stage_data;
+}
+
+User(*GlobalVariant::getUserInformation()) {
+    return this->usr;
+}
+
+int GlobalVariant::getUsrCounter() {
+    return this->usr_ctr;
+}
+
+void GlobalVariant::setUsrCounter(int t) {
+    this->usr_ctr = t;
+}
+
+void GlobalVariant::createUser() {
+    this->usr[usr_ctr++].init();
+}
+
+void GlobalVariant::showUser() {
+    for (int i = 0; i < this->usr_ctr; i++) {
+        cout << "Name: " << usr[i].getName() << "  Money: " << usr[i].getMoneyValue() << "  Saved: " << usr[i].getSavedValue() << endl;
+    }
+}
+
+int GlobalVariant::selectUser() {
+    int usr_select;
+    for (int i = 0; i < usr_ctr; i++) {
+        cout << i + 1 << ": " << "Name: " << usr[i].getName() << "  Money: " << usr[i].getMoneyValue() << "  Saved: " << usr[i].getSavedValue() << endl;
+    }
+    cout << "Select User: ";
+    cin >> usr_select;
+
+    return usr_select;
 }
 
 void GlobalVariant::setBlockShape(const int& blockShape) {

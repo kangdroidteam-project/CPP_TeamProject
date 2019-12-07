@@ -1,5 +1,6 @@
 #pragma once
 #include "StageInformation.h"
+#include "User.h"
 #include <cstdlib>
 #include <iostream>
 
@@ -26,6 +27,10 @@ private:
     char color_block[21][14];
     int jew[5];
     StageInformation stage_data[10];
+
+    // User Addition
+    User usr[10];
+    int usr_ctr;
 
 public:
     GlobalVariant();
@@ -82,6 +87,14 @@ public:
     void setjew(int index, const int& count);
     // Special return - type
     StageInformation(*getStageInformation());
+
+    // Usr;
+    User(*getUserInformation());
+    int getUsrCounter();
+    void setUsrCounter(int t);
+    void createUser();
+    void showUser();
+    int selectUser();
 
     // Something to set.
     void setBlockShape(const int& blockShape);

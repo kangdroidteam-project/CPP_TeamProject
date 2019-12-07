@@ -33,7 +33,6 @@ public:
     int show_gameover();
     int show_gamesuccess();
 
-    int input_data();
     void SetColor(const int& color);
     int gotoxy(const int& x, const int& y);
     void setCursorView(bool visible);
