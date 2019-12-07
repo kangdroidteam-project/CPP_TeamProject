@@ -134,6 +134,7 @@ bool GameManager::play(int level) {
                 break;
             } else if (keytemp == 'k') {
                 gv.setScore(100000);
+                money();
             }
             else if (keytemp == 'u') {
                 if (level == 5) {
@@ -164,6 +165,7 @@ bool GameManager::play(int level) {
                         // NO MONEY
                     }
                 }
+                money();
             }
             else if (keytemp == 'i') {
                 // Trap Card
@@ -186,6 +188,7 @@ bool GameManager::play(int level) {
                         // NO MONEY
                     }
                 }
+                money();
             }
             else if (keytemp == 'o') {
             // One More to go
@@ -221,6 +224,7 @@ bool GameManager::play(int level) {
                         // NO MONEY
                     }
                 }
+                money();
             }
             else {
                 // Clear out 
@@ -235,6 +239,9 @@ bool GameManager::play(int level) {
             gui.show_cur_block(level, gv.getBlockShape(), gv.getBlockAngle(), gv.getBlockX(), gv.getBlockY(), false);
             if (level != 1) {
                 gui.show_gamestat();
+            }
+            if (level == 6) {
+                money();
             }
         }
 
