@@ -420,7 +420,7 @@ int GameUIManager::show_gamesuccess() {
     cout << "Press any key to continue..";
     SetColor(WHITE);
     fflush(stdin);
-    Sleep(1000);
+    Sleep(200);
 
     getche();
     system("cls");

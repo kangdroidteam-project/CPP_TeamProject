@@ -400,24 +400,29 @@ public:
             system("cls");
 
 
-            x = 17;
-            y = 10;
+            x = 10;
+            y = 8;
             money();
-            gui.SetColor(GREEN);
+            gui.SetColor(GREEN);  //수정된 것
             gui.gotoxy(x, y);
             cout << "폭탄 아이템 : 랜덤한 위치에서 4*4 크기의 블록을 소멸시킨다.";
+            gui.SetColor(WHITE);
             gui.gotoxy(x, (y += 2));
             cout << "U 키를 눌러 사용하고 사용할 시 2000원이 차감된다." << endl;
+            gui.SetColor(GREEN);
             gui.gotoxy(x, (y += 2));
             cout << "행운의 아이템 : 랜덤한 위치에 4*4 배열을 생성한다. 이 아이템이 당신에게 행운이 될 지는 아무도 모릅니다. " << endl;
+            gui.SetColor(WHITE);
             gui.gotoxy(x, (y += 2));
             cout << "I 키를 눌러 사용하고 사용할 시 1000원이 차감된다." << endl;
+            gui.SetColor(GREEN);
             gui.gotoxy(x, (y += 2));
             cout << "타노스 아이템 : 전체 블록 크기의 절반에 있는 블록들을 소멸시킨다" << endl;
+            gui.SetColor(WHITE);
             gui.gotoxy(x, (y += 2));
             cout << "O 키를 눌러 사용하고 사용할 시 10000원이 차감된다." << endl;
-            gui.gotoxy(x, (y += 2));
-            cout << "게임 시작 ";
+            getInput();
+            system("cls");
 
 
             if (save <= 4) {
